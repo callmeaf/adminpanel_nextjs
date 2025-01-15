@@ -1,0 +1,13 @@
+{
+  "LoginPage": {
+    "title": "Login to account"
+  },
+  "LoginForm": {
+    "mobile_label": "Mobile",
+    "password_label": "Password",
+    "submit_label": "Log in"
+  },
+  "NotFoundPage": {
+    "title": "Not found"
+  }
+}

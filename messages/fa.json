@@ -1,0 +1,13 @@
+{
+  "LoginPage": {
+    "title": "ورود به حساب کاربری"
+  },
+  "LoginForm": {
+    "mobile_label": "موبایل",
+    "password_label": "رمزعبور",
+    "submit_label": "ورود"
+  },
+  "NotFoundPage": {
+    "title": "صفحه پیدا نشد"
+  }
+}
