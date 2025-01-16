@@ -6,30 +6,15 @@ import {useTranslations} from 'next-intl';
 import BaseLayout from "@/components/Layout/BaseLayout";
 import LoginForm from "@/widgets/Auth/LoginForm";
 import useApi from "@/hooks/use-api";
+import {loginViaMobilePassword} from "@/thunks/auth";
 
 const LoginPage = () => {
     const t = useTranslations('LoginPage');
-    const api = useApi();
+    const {
+        handle,
+    } = useApi();
     const loginHandler = async (prevState,formData) => {
-        const mobile = formData.get('mobile')
-        const password = formData.get('password');
-
-        try {
-            const res = await api.post('/login_via_mobile',{
-                mobile,
-                password,
-            })
-            console.log({res})
-
-            return {
-                mobile
-            }
-        } catch (e) {
-
-            return {
-                mobile,
-            }
-        }
+        return await handle(loginViaMobilePassword, formData)
     }
     return (
         <BaseLayout>
