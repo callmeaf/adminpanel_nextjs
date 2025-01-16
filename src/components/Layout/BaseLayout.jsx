@@ -6,6 +6,9 @@ import {prefixer} from "stylis";
 import rtlPlugin from "stylis-plugin-rtl";
 import {createTheme, ThemeProvider} from "@mui/material";
 import {CacheProvider} from "@emotion/react";
+import UiProvider from "@/context/ui/ui-context";
+import AlertLayout from "@/components/Layout/Partials/AlertLayout";
+
 
 const BaseLayout = ({children}) => {
     const rtlCache = createCache({
@@ -24,7 +27,10 @@ const BaseLayout = ({children}) => {
     return (
         <CacheProvider value={rtlCache}>
             <ThemeProvider theme={rtlTheme}>
-                {children}
+                <UiProvider>
+                    {children}
+                    <AlertLayout/>
+                </UiProvider>
             </ThemeProvider>
         </CacheProvider>
     );
