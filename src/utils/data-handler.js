@@ -1,4 +1,4 @@
-const dataHandler = (data) => {
+const dataHandler = (data = {}) => {
     const isFormData = data instanceof FormData
 
     const get = (key, defaultValue) => {
@@ -32,7 +32,7 @@ const dataHandler = (data) => {
                 updatedData[key] = value
             }
         } else {
-            for (const [key, value] of data.entries()) {
+            for (const [key, value] of Object.entries(data)) {
                 if (keys.length !== 0 && !keys.includes(key)) {
                     continue
                 }

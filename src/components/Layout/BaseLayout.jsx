@@ -8,6 +8,7 @@ import {createTheme, ThemeProvider} from "@mui/material";
 import {CacheProvider} from "@emotion/react";
 import UiProvider from "@/context/ui/ui-context";
 import AlertLayout from "@/components/Layout/Partials/AlertLayout";
+import AuthProvider from "@/context/auth/auth-context";
 
 
 const BaseLayout = ({children}) => {
@@ -28,7 +29,9 @@ const BaseLayout = ({children}) => {
         <CacheProvider value={rtlCache}>
             <ThemeProvider theme={rtlTheme}>
                 <UiProvider>
-                    {children}
+                    <AuthProvider>
+                        {children}
+                    </AuthProvider>
                     <AlertLayout/>
                 </UiProvider>
             </ThemeProvider>

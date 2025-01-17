@@ -20,7 +20,7 @@ export default (state, action) => {
                 ...state,
                 message,
             }
+        default:
+            return state
     }
-
-    return state
 }
