@@ -12,7 +12,9 @@ const LoginWrapper = () => {
     } = useApi();
 
     const loginHandler = async (prevState, formData) => {
-        return await handle(loginViaMobilePassword, formData)
+        return await handle(loginViaMobilePassword, {
+            payload: formData
+        })
     }
     return (
         <Box sx={{minHeight: '100vh', display: 'flex', justifyContent: 'center'}}>

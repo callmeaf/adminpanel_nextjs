@@ -2,15 +2,13 @@
 
 import React from 'react';
 import DashboardLayout from "@/components/Layout/DashboardLayout";
-import DashboardCard from "@/widgets/Dashboard/DashboardCard";
 
-const DashboardPage = () => {
-
+const UsersPage = () => {
     return (
         <DashboardLayout>
-            <DashboardCard/>
+            <h1>Users Page</h1>
         </DashboardLayout>
     );
 };
 
-export default DashboardPage;
+export default UsersPage;

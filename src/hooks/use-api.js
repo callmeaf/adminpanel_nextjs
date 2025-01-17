@@ -24,7 +24,9 @@ export const useApi = () => {
     const router = useRouter()
     const pathname = usePathname()
     const {dispatch: uiDispatch} = useContext(UiContext)
-    const handle = async (thunk, payload) => {
+    const handle = async (thunk, {
+        payload, ctx
+    } = {}) => {
         const {getAllAsObject} = dataHandler(payload)
 
         const state = actionState(getAllAsObject())
@@ -38,7 +40,9 @@ export const useApi = () => {
         let continueSending = true
         try {
             if (onInit) {
-                continueSending = await onInit(router, pathname)
+                continueSending = await onInit({
+                    ctx, router, pathname
+                })
             }
             if (!continueSending) {
                 return
@@ -62,7 +66,9 @@ export const useApi = () => {
                 }
             })
             if (onSuccess) {
-                await onSuccess(result, router)
+                await onSuccess({
+                    ctx, result, router
+                })
             }
         } catch (exception) {
             const {
@@ -90,7 +96,9 @@ export const useApi = () => {
             }
 
             if (onError) {
-                await onError(exception, router)
+                await onError({
+                    exception, router
+                })
             }
         }
 

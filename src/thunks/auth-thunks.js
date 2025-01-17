@@ -1,9 +1,11 @@
 import dataHandler from "@/utils/data-handler";
+import {SET_USER} from "@/context/auth/action-types";
+import UserModel from "@/models/UserModel";
 
 
 export const checkAuthenticateUser = (api, payload) => {
     return {
-        onInit: (router, pathname) => {
+        onInit: ({router, pathname}) => {
             const {get} = dataHandler(payload)
             const authToken = get('authToken', localStorage.getItem('auth_token'))
 
@@ -21,12 +23,27 @@ export const checkAuthenticateUser = (api, payload) => {
         onSend: async () => {
             return await api.get('/check_user')
         },
-        onSuccess: async (result, router) => {
+        onSuccess: async ({result, router}) => {
             router.push('/dashboard')
         },
-        onError: async (exception, router) => {
+        onError: async ({exception, router}) => {
             localStorage.removeItem('auth_token')
             router.push('/login')
+        },
+    }
+}
+
+export const getAuthenticateUser = (api, payload) => {
+    return {
+        onSend: async () => {
+            return await api.get('/user')
+        },
+        onSuccess: async ({result, router, ctx}) => {
+            const {dispatch} = ctx
+            dispatch({
+                type: SET_USER,
+                payload: UserModel(result.user),
+            })
         },
     }
 }
@@ -41,7 +58,7 @@ export const loginViaMobilePassword = (api, payload) => {
 
             return await api.post('/login_via_mobile', formData)
         },
-        onSuccess: (result, router) => {
+        onSuccess: ({result, router}) => {
             localStorage.setItem('auth_token', result.token)
             router.push('/dashboard')
         },
