@@ -2,7 +2,7 @@ import axios from "axios";
 import {useLocale} from "next-intl";
 import dataHandler from "@/utils/data-handler";
 import {actionState} from "@/helpers";
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import {UiContext} from "@/context/ui/ui-context";
 import {SET_MESSAGE} from "@/context/ui/action-types";
 import {MESSAGE_TYPES} from "@/context/ui/init-state";
@@ -11,11 +11,7 @@ import {usePathname, useRouter} from "@/i18n/routing";
 
 const axiosInstance = axios.create()
 
-export const useApi = () => {
-    const locale = useLocale()
-    const router = useRouter()
-    const pathname = usePathname()
-
+const prepareAxiosInstance = (locale) => {
     axiosInstance.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL.replace('{locale}',locale)
     if (typeof window !== 'undefined') {
         const authToken = localStorage.getItem('auth_token')
@@ -23,9 +19,18 @@ export const useApi = () => {
             axiosInstance.defaults.headers['Authorization'] = `Bearer ${authToken}`
         }
     }
+}
 
+export const useApi = () => {
+    const locale = useLocale()
+    const router = useRouter()
+    const pathname = usePathname()
+
+    prepareAxiosInstance(locale)
 
     const {dispatch: uiDispatch} = useContext(UiContext)
+
+    const [loading, setLoading] = useState(false)
     const handle = async (thunk, {
         payload, ctx
     } = {}) => {
@@ -49,6 +54,7 @@ export const useApi = () => {
             if (!continueSending) {
                 return
             }
+            setLoading(true)
             const {
                 data: {
                     result,
@@ -103,12 +109,15 @@ export const useApi = () => {
                     exception, router, pathname, status
                 })
             }
+        } finally {
+            setLoading(false)
         }
         return finalData
     }
 
     return {
         handle,
+        loading,
     }
 
 }

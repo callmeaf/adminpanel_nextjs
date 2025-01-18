@@ -1,8 +1,12 @@
-import React from 'react';
+import {callIfFunction} from "@/helpers";
 
-const Show = ({when, children}) => {
-    const [whenChild, elseChild] = React.Children.toArray(children)
-    return when ? whenChild : elseChild;
+const Show = ({when, whenChild, elseChild, loading, loadingChild}) => {
+
+    if (loading) {
+        return callIfFunction(loadingChild)
+    }
+
+    return !!when ? callIfFunction(whenChild) : callIfFunction(elseChild);
 };
 
 export default Show;

@@ -18,6 +18,7 @@
     "id_label": "ID",
     "full_name_label": "نام و نام خانوادگی",
     "email_label": "ایمیل",
-    "mobile_label": "موبایل"
+    "mobile_label": "موبایل",
+    "created_at_label": "تاریخ ایجاد"
   }
 }

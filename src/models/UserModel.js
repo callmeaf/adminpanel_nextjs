@@ -5,4 +5,5 @@ export default (user) => ({
     fullName: user.full_name,
     email: user.email,
     mobile: user.mobile,
+    createdAtText: user.created_at_text
 })

@@ -9,6 +9,7 @@ const UsersItemTable = ({user}) => {
             <TableCell>{user.fullName}</TableCell>
             <TableCell>{user.email}</TableCell>
             <TableCell>{user.mobile}</TableCell>
+            <TableCell>{user.createdAtText}</TableCell>
         </TableRow>
     );
 };

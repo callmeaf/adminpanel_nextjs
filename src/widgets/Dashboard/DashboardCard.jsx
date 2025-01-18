@@ -9,14 +9,15 @@ const DashboardCard = () => {
     return (
         <div>
             <h1>Welcome:
-                <Show when={!!user}>
-                    <>
+                <Show
+                    when={user}
+                    whenChild={<>
                         {user?.fullName}
-                    </>
-                    <>
+                    </>}
+                    elseChild={<>
                         <CircularProgress size={20}/>
-                    </>
-                </Show>
+                    </>}
+                />
             </h1>
         </div>
     );

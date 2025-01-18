@@ -7,6 +7,7 @@ import rtlPlugin from "stylis-plugin-rtl";
 import {createTheme, ThemeProvider} from "@mui/material";
 import {CacheProvider} from "@emotion/react";
 import AlertLayout from "@/components/Layout/Partials/AlertLayout";
+import {createPortal} from "react-dom";
 
 const BaseLayout = ({children}) => {
     const rtlCache = React.useMemo(() => createCache({

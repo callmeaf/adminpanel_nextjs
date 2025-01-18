@@ -1,10 +1,10 @@
 import paginateModel from "@/models/PaginateModel";
 import UserModel from "@/models/UserModel";
 
-export const getUsers = (api, payload) => {
+export const getUsers = (api, payload = {}) => {
     return {
         onSend: async () => {
-            return await api.get('/users')
+            return await api.get('/users', payload)
         },
         onSuccess: ({result, finalData}) => {
             finalData.users = paginateModel(result.users, UserModel)
