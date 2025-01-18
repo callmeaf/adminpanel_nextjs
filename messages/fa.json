@@ -9,5 +9,15 @@
   },
   "NotFoundPage": {
     "title": "صفحه پیدا نشد"
+  },
+  "DashboardMenu": {
+    "dashboard_label": "داشبورد",
+    "users_label": "کاربران"
+  },
+  "UsersTable": {
+    "id_label": "ID",
+    "full_name_label": "نام و نام خانوادگی",
+    "email_label": "ایمیل",
+    "mobile_label": "موبایل"
   }
 }

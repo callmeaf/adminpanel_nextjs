@@ -40,7 +40,6 @@ export const getAuthenticateUser = (api, payload) => {
             const authToken = get('authToken', localStorage.getItem('auth_token'))
             const {state} = ctx
 
-            console.log({state})
             if (state?.user) {
                 return false
             }

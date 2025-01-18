@@ -31,7 +31,7 @@ export const useApi = () => {
     } = {}) => {
         const {getAllAsObject} = dataHandler(payload)
 
-        const state = actionState(getAllAsObject())
+        const finalData = actionState(getAllAsObject())
         const {
             onInit,
             onSend,
@@ -57,8 +57,8 @@ export const useApi = () => {
                 }
             } = await onSend()
 
-            state.message = message
-            state.status = status
+            finalData.message = message
+            finalData.status = status
 
             uiDispatch({
                 type: SET_MESSAGE,
@@ -69,7 +69,7 @@ export const useApi = () => {
             })
             if (onSuccess) {
                 await onSuccess({
-                    ctx, result, router, pathname
+                    ctx, result, router, pathname, finalData
                 })
             }
         } catch (exception) {
@@ -84,8 +84,8 @@ export const useApi = () => {
                 }
             } = exception
 
-            state.message = message
-            state.status = status
+            finalData.message = message
+            finalData.status = status
             uiDispatch({
                 type: SET_MESSAGE,
                 payload: {
@@ -95,7 +95,7 @@ export const useApi = () => {
             })
 
             if (errors) {
-                state.errors = errors;
+                finalData.errors = errors;
             }
 
             if (onError) {
@@ -104,8 +104,7 @@ export const useApi = () => {
                 })
             }
         }
-
-        return state
+        return finalData
     }
 
     return {

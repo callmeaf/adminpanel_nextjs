@@ -3,4 +3,6 @@ export default (user) => ({
     firstName: user.first_name,
     lastName: user.last_name,
     fullName: user.full_name,
+    email: user.email,
+    mobile: user.mobile,
 })

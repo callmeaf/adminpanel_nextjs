@@ -9,19 +9,20 @@ import {CacheProvider} from "@emotion/react";
 import AlertLayout from "@/components/Layout/Partials/AlertLayout";
 
 const BaseLayout = ({children}) => {
-    const rtlCache = createCache({
+    const rtlCache = React.useMemo(() => createCache({
         key: 'muirtl',
         stylisPlugins: [prefixer, rtlPlugin],
-    })
+    }), [])
 
-    const rtlTheme = createTheme({
+    const rtlTheme = React.useMemo(() => createTheme({
         direction: 'rtl',
         typography: {
             fontFamily: [
                 'IRANYekanFont',
             ].join(','),
         },
-    })
+    }), [])
+
     return (
         <CacheProvider value={rtlCache}>
             <ThemeProvider theme={rtlTheme}>

@@ -9,5 +9,15 @@
   },
   "NotFoundPage": {
     "title": "Not found"
+  },
+  "DashboardMenu": {
+    "dashboard_label": "Dashboard",
+    "users_label": "Users"
+  },
+  "UsersTable": {
+    "id_label": "ID",
+    "full_name_label": "Full Name",
+    "email_label": "Email",
+    "mobile_label": "Mobile"
   }
 }

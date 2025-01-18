@@ -5,6 +5,7 @@ import {Grid2} from "@mui/material";
 import DashboardDrawer from "@/widgets/Dashboard/DashboardDrawer";
 import DashboardNavbar from "@/widgets/Dashboard/DashboardNavbar";
 import BaseLayout from "@/components/Layout/BaseLayout";
+import Card from "@/components/Card/Card";
 
 const DashboardLayout = ({children}) => {
     return (
@@ -15,7 +16,9 @@ const DashboardLayout = ({children}) => {
                 </Grid2>
                 <Grid2 size={'grow'}>
                     <DashboardNavbar/>
-                    {children}
+                    <Card>
+                        {children}
+                    </Card>
                 </Grid2>
             </Grid2>
         </BaseLayout>
