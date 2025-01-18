@@ -1,12 +1,11 @@
 import {callIfFunction} from "@/helpers";
 
-const Show = ({when, whenChild, elseChild, loading, loadingChild}) => {
+const Show = ({when, whenChild, elseChild, loading, loadingChild, loadingChildWithWhenChild = false}) => {
 
-    if (loading) {
-        return callIfFunction(loadingChild)
-    }
-
-    return !!when ? callIfFunction(whenChild) : callIfFunction(elseChild);
+    return <>
+        {loading && callIfFunction(loadingChild)}
+        {!!when ? loading && loadingChildWithWhenChild ? callIfFunction(whenChild) : callIfFunction(whenChild) : callIfFunction(elseChild)}
+    </>;
 };
 
 export default Show;

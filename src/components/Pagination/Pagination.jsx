@@ -1,6 +1,6 @@
 import React from 'react';
 import Show from "@/components/Show";
-import {Pagination as MUIPagination} from '@mui/material'
+import {Pagination as MUIPagination, PaginationItem} from '@mui/material'
 
 const Pagination = ({pagination, onPageChange}) => {
     const pageChangeHandler = (page) => {
@@ -15,7 +15,17 @@ const Pagination = ({pagination, onPageChange}) => {
         <Show
             when={pagination}
             whenChild={() => <MUIPagination count={pagination.meta.lastPage}
-                                            onChange={(e, page) => pageChangeHandler(page)}/>}
+                                            showFirstButton
+                                            showLastButton
+                                            color={'primary'}
+                                            onChange={(e, page) => pageChangeHandler(page)}
+                                            renderItem={item => {
+
+                                                return <PaginationItem {...item}
+                                                                       sx={{pointerEvents: item.selected ? 'none' : 'initial'}}/>
+                                            }}
+
+            />}
         />
     );
 };

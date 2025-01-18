@@ -6,7 +6,7 @@ import UsersItemTable from "@/widgets/Users/UsersItemTable";
 import {useTranslations} from "next-intl";
 import Pagination from "@/components/Pagination/Pagination";
 import Show from "@/components/Show";
-import {CircularProgress} from "@mui/material";
+import {Backdrop, CircularProgress, LinearProgress, Skeleton} from "@mui/material";
 
 const UsersTable = () => {
     const t = useTranslations("UsersTable")
@@ -31,10 +31,11 @@ const UsersTable = () => {
     return (
         <Show
             loading={loading}
-            loadingChild={<CircularProgress/>}
+            loadingChild={<LinearProgress key={'loading'} hidden={!loading}/>}
+            loadingChildWithWhenChild
             when={users}
             whenChild={() => <>
-                <Table heads={[
+                <Table key={'table'} loading={loading} heads={[
                     {
                         id: 'id',
                         label: t('id_label'),
