@@ -9,16 +9,16 @@ export const checkAuthenticateUser = (api, payload) => {
             const {get} = dataHandler(payload)
             const authToken = get('authToken', localStorage.getItem('auth_token'))
 
-            if (!authToken) {
-                if (pathname === '/login') {
-                    return false
-                } else {
-                    router.push('/login')
-                    return false
-                }
+            if (authToken) {
+                return false
             }
 
-            return true
+            if (pathname === '/login') {
+                return false
+            } else {
+                router.push('/login')
+                return false
+            }
         },
         onSend: async () => {
             return await api.get('/check_user')
@@ -35,6 +35,18 @@ export const checkAuthenticateUser = (api, payload) => {
 
 export const getAuthenticateUser = (api, payload) => {
     return {
+        onInit: ({ctx}) => {
+            const {get} = dataHandler(payload)
+            const authToken = get('authToken', localStorage.getItem('auth_token'))
+            const {state} = ctx
+
+            console.log({state})
+            if (state?.user) {
+                return false
+            }
+
+            return !!authToken
+        },
         onSend: async () => {
             return await api.get('/user')
         },
@@ -45,6 +57,10 @@ export const getAuthenticateUser = (api, payload) => {
                 payload: UserModel(result.user),
             })
         },
+        onError: ({exception, router}) => {
+            localStorage.removeItem('auth_token')
+            router.push('/login')
+        }
     }
 }
 

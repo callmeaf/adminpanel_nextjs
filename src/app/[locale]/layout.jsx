@@ -5,6 +5,8 @@ import {NextIntlClientProvider} from 'next-intl';
 import {getMessages} from 'next-intl/server';
 import {notFound} from 'next/navigation';
 import {routing} from '@/i18n/routing';
+import UiProvider from "@/context/ui/ui-context";
+import AuthProvider from "@/context/auth/auth-context";
 
 const IRANYekanFont = localFont({
     variable: '--font-iranyekan',
@@ -86,7 +88,11 @@ export default async function RootLayout({ children,params }) {
               className={`${IRANYekanFont.variable} antialiased`}
           >
           <NextIntlClientProvider messages={messages}>
-              {children}
+              <UiProvider>
+                  <AuthProvider>
+                      {children}
+                  </AuthProvider>
+              </UiProvider>
           </NextIntlClientProvider>
           </body>
           </html>

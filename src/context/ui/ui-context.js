@@ -1,3 +1,5 @@
+'use client'
+
 import {createContext, useReducer} from "react";
 import initState from "@/context/ui/init-state";
 import reducer from "@/context/ui/reducer";

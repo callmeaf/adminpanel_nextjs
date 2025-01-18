@@ -13,6 +13,9 @@ const axiosInstance = axios.create()
 
 export const useApi = () => {
     const locale = useLocale()
+    const router = useRouter()
+    const pathname = usePathname()
+
     axiosInstance.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL.replace('{locale}',locale)
     if (typeof window !== 'undefined') {
         const authToken = localStorage.getItem('auth_token')
@@ -21,8 +24,7 @@ export const useApi = () => {
         }
     }
 
-    const router = useRouter()
-    const pathname = usePathname()
+
     const {dispatch: uiDispatch} = useContext(UiContext)
     const handle = async (thunk, {
         payload, ctx
@@ -67,10 +69,11 @@ export const useApi = () => {
             })
             if (onSuccess) {
                 await onSuccess({
-                    ctx, result, router
+                    ctx, result, router, pathname
                 })
             }
         } catch (exception) {
+            console.error({exception})
             const {
                 response: {
                     status,
@@ -97,7 +100,7 @@ export const useApi = () => {
 
             if (onError) {
                 await onError({
-                    exception, router
+                    exception, router, pathname, status
                 })
             }
         }

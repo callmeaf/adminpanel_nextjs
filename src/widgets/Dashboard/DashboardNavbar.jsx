@@ -15,10 +15,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import useApi from "@/hooks/use-api";
-import {useContext, useEffect} from "react";
-import {getAuthenticateUser} from "@/thunks/auth-thunks";
-import {AuthContext} from "@/context/auth/auth-context";
+
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
@@ -61,21 +58,6 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
 }));
 
 export default function DashboardNavbar() {
-    const {state: authState, dispatch: authDispatch} = useContext(AuthContext)
-    const {user} = authState
-
-    const {handle} = useApi()
-    useEffect(() => {
-        handle(getAuthenticateUser, {
-            ctx: {
-                dispatch: authDispatch
-            }
-        })
-    }, []);
-
-    console.log({user})
-
-
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 

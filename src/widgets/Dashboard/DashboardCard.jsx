@@ -14,7 +14,7 @@ const DashboardCard = () => {
                         {user?.fullName}
                     </>
                     <>
-                        <CircularProgress/>
+                        <CircularProgress size={20}/>
                     </>
                 </Show>
             </h1>
