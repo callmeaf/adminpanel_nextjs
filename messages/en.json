@@ -1,34 +1,45 @@
 {
-  "LoginPage": {
-    "title": "Login to account"
+  "Pages": {
+    "NotFound": {
+      "title": "Not found"
+    },
+    "Login": {
+      "title": "Login to account"
+    },
+    "Users": {
+      "title": "Users List"
+    }
   },
-  "LoginForm": {
-    "mobile_label": "Mobile",
-    "password_label": "Password",
-    "submit_label": "Log in"
+  "Forms": {
+    "Login": {
+      "mobile_label": "Mobile",
+      "password_label": "Password",
+      "submit_label": "Log in"
+    }
   },
-  "NotFoundPage": {
-    "title": "Not found"
+  "Tables": {
+    "Table": {
+      "search_label": "Search based on:",
+      "per_page_label": "Number",
+      "from": "From",
+      "to": "To",
+      "total": "Total",
+      "no_data": "No Data Found."
+    },
+    "Users": {
+      "id_label": "ID",
+      "full_name_label": "Full Name",
+      "first_name_label": "First Name",
+      "last_name_label": "Last Name",
+      "email_label": "Email",
+      "mobile_label": "Mobile",
+      "created_at_label": "Created At"
+    }
   },
-  "DashboardMenu": {
-    "dashboard_label": "Dashboard",
-    "users_label": "Users"
-  },
-  "Table": {
-    "search_label": "Search based on:",
-    "per_page_label": "Number",
-    "from": "From",
-    "to": "To",
-    "total": "Total",
-    "no_data": "No Data Found."
-  },
-  "UsersTable": {
-    "id_label": "ID",
-    "full_name_label": "Full Name",
-    "first_name_label": "First Name",
-    "last_name_label": "Last Name",
-    "email_label": "Email",
-    "mobile_label": "Mobile",
-    "created_at_label": "Created At"
+  "Common": {
+    "DashboardMenu": {
+      "dashboard_label": "Dashboard",
+      "users_label": "Users"
+    }
   }
 }

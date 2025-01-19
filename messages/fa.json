@@ -1,34 +1,45 @@
 {
-  "LoginPage": {
-    "title": "ورود به حساب کاربری"
+  "Pages": {
+    "NotFound": {
+      "title": "صفحه پیدا نشد"
+    },
+    "Login": {
+      "title": "ورود به حساب کاربری"
+    },
+    "Users": {
+      "title": "لیست کاربران"
+    }
   },
-  "LoginForm": {
-    "mobile_label": "موبایل",
-    "password_label": "رمزعبور",
-    "submit_label": "ورود"
+  "Forms": {
+    "Login": {
+      "mobile_label": "موبایل",
+      "password_label": "رمزعبور",
+      "submit_label": "ورود"
+    }
   },
-  "NotFoundPage": {
-    "title": "صفحه پیدا نشد"
+  "Tables": {
+    "Table": {
+      "search_label": "جستجو بر اساس:",
+      "per_page_label": "تعداد",
+      "from": "از",
+      "to": "تا",
+      "total": "داده",
+      "no_data": "هیچ داده ای وجود ندارد."
+    },
+    "Users": {
+      "id_label": "ID",
+      "full_name_label": "نام و نام خانوادگی",
+      "first_name_label": "نام",
+      "last_name_label": " نام خانوادگی",
+      "email_label": "ایمیل",
+      "mobile_label": "موبایل",
+      "created_at_label": "تاریخ ایجاد"
+    }
   },
-  "DashboardMenu": {
-    "dashboard_label": "داشبورد",
-    "users_label": "کاربران"
-  },
-  "Table": {
-    "search_label": "جستجو بر اساس:",
-    "per_page_label": "تعداد",
-    "from": "از",
-    "to": "تا",
-    "total": "داده",
-    "no_data": "هیچ داده ای وجود ندارد."
-  },
-  "UsersTable": {
-    "id_label": "ID",
-    "full_name_label": "نام و نام خانوادگی",
-    "first_name_label": "نام",
-    "last_name_label": " نام خانوادگی",
-    "email_label": "ایمیل",
-    "mobile_label": "موبایل",
-    "created_at_label": "تاریخ ایجاد"
+  "Common": {
+    "DashboardMenu": {
+      "dashboard_label": "داشبورد",
+      "users_label": "کاربران"
+    }
   }
 }

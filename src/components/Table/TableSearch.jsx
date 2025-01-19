@@ -11,7 +11,7 @@ const TableSearch = ({
   searchParams,
   queryParamsLocalStorageKey,
 }) => {
-  const translateTable = useTranslations("Table");
+  const translateTable = useTranslations("Tables.Table");
 
   const { get, replace } = localStorageArtisan();
   const tableParams = get(queryParamsLocalStorageKey, {});

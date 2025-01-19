@@ -11,7 +11,7 @@ import { localStorageArtisan } from "@/helpers";
 const tableId = "users_table";
 
 const UsersTable = () => {
-  const t = useTranslations("UsersTable");
+  const t = useTranslations("Tables.Users");
 
   const { get } = localStorageArtisan();
 

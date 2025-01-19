@@ -25,7 +25,7 @@ export default function Table({
   onSearch,
   searchParams,
 }) {
-  const translateTable = useTranslations("Table");
+  const translateTable = useTranslations("Tables.Table");
 
   return (
     <Grid2 container spacing={2}>
