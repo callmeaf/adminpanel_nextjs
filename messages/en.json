@@ -14,9 +14,17 @@
     "dashboard_label": "Dashboard",
     "users_label": "Users"
   },
+  "Table": {
+    "search_label": "Search based on:",
+    "from": "From",
+    "to": "To",
+    "total": "Total"
+  },
   "UsersTable": {
     "id_label": "ID",
     "full_name_label": "Full Name",
+    "first_name_label": "First Name",
+    "last_name_label": "Last Name",
     "email_label": "Email",
     "mobile_label": "Mobile",
     "created_at_label": "Created At"

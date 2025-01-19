@@ -2,7 +2,7 @@ import React from 'react';
 import Show from "@/components/Show";
 import {Pagination as MUIPagination, PaginationItem} from '@mui/material'
 
-const Pagination = ({pagination, onPageChange}) => {
+const Pagination = ({pagination, onPageChange, selectedPage}) => {
     const pageChangeHandler = (page) => {
         onPageChange({
             params: {

@@ -9,13 +9,12 @@ export const checkAuthenticateUser = (api, payload) => {
             const {get} = dataHandler(payload)
             const authToken = get('authToken', localStorage.getItem('auth_token'))
 
-            if (authToken) {
+            if (authToken && pathname === '/login') {
+                router.push('/dashboard')
                 return false
             }
 
-            if (pathname === '/login') {
-                return false
-            } else {
+            if (!authToken && pathname !== '/login') {
                 router.push('/login')
                 return false
             }

@@ -6,7 +6,8 @@ import UsersItemTable from "@/widgets/Users/UsersItemTable";
 import {useTranslations} from "next-intl";
 import Pagination from "@/components/Pagination/Pagination";
 import Show from "@/components/Show";
-import {Backdrop, CircularProgress, LinearProgress, Skeleton} from "@mui/material";
+import {Backdrop, CircularProgress, Grid2, InputAdornment, LinearProgress, Skeleton, TextField} from "@mui/material";
+import {Search as SearchIcon} from "@mui/icons-material";
 
 const UsersTable = () => {
     const t = useTranslations("UsersTable")
@@ -17,6 +18,7 @@ const UsersTable = () => {
 
     const getUsersHandler = async (payload) => {
         try {
+            console.log({payload})
             const res = await handle(getUsers, {payload})
             setUsers(res.users)
         } catch (e) {
@@ -35,7 +37,7 @@ const UsersTable = () => {
             loadingChildWithWhenChild
             when={users}
             whenChild={() => <>
-                <Table key={'table'} loading={loading} heads={[
+                <Table key={'table'} t={t} loading={loading} heads={[
                     {
                         id: 'id',
                         label: t('id_label'),
@@ -56,10 +58,15 @@ const UsersTable = () => {
                         id: 'created_at',
                         label: t('created_at_label')
                     },
+                ]} pagination={users.pagination} onPageChange={getUsersHandler} onSearch={getUsersHandler}
+                       searchParams={[
+                           'mobile',
+                           'email',
+                           'first_name',
+                           'last_name'
                 ]}>
                     {users.data.map(user => <UsersItemTable key={user.id} user={user}/>)}
                 </Table>
-                <Pagination pagination={users.pagination} onPageChange={getUsersHandler}/>
             </>}
         />
     );

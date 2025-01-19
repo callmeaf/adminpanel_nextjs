@@ -12,7 +12,7 @@ export default ({
             next: links.next,
         },
         meta: {
-            currenctPage: meta.current_page,
+            currentPage: meta.current_page,
             from: meta.from,
             lastPage: meta.last_page,
             path: meta.path,

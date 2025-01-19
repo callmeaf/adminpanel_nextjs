@@ -14,9 +14,17 @@
     "dashboard_label": "داشبورد",
     "users_label": "کاربران"
   },
+  "Table": {
+    "search_label": "جستجو بر اساس:",
+    "from": "از",
+    "to": "تا",
+    "total": "داده"
+  },
   "UsersTable": {
     "id_label": "ID",
     "full_name_label": "نام و نام خانوادگی",
+    "first_name_label": "نام",
+    "last_name_label": " نام خانوادگی",
     "email_label": "ایمیل",
     "mobile_label": "موبایل",
     "created_at_label": "تاریخ ایجاد"
