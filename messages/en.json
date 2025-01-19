@@ -16,9 +16,11 @@
   },
   "Table": {
     "search_label": "Search based on:",
+    "per_page_label": "Number",
     "from": "From",
     "to": "To",
-    "total": "Total"
+    "total": "Total",
+    "no_data": "No Data Found."
   },
   "UsersTable": {
     "id_label": "ID",

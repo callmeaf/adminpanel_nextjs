@@ -16,9 +16,11 @@
   },
   "Table": {
     "search_label": "جستجو بر اساس:",
+    "per_page_label": "تعداد",
     "from": "از",
     "to": "تا",
-    "total": "داده"
+    "total": "داده",
+    "no_data": "هیچ داده ای وجود ندارد."
   },
   "UsersTable": {
     "id_label": "ID",
