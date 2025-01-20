@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import { actionState } from "@/helpers";
 
 const LoginForm = ({ onSubmit }) => {
-  const t = useTranslations("Form.Login");
+  const t = useTranslations("Forms.Login");
 
   const [{ inputs, errors }, submitAction, isPending] = useActionState(
     onSubmit,

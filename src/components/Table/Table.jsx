@@ -12,6 +12,7 @@ import {
 import TablePagination from "@/components/Table/TablePagination";
 import TableSearch from "@/components/Table/TableSearch";
 import { useTranslations } from "next-intl";
+import DatePicker from "../DatePicker/DatePicker";
 
 export default function Table({
   id,
@@ -36,6 +37,9 @@ export default function Table({
           searchParams={searchParams}
           queryParamsLocalStorageKey={id}
         />
+      </Grid2>
+      <Grid2 size={{ xs: 12, md: 6, lg: 4 }}>
+        <DatePicker />
       </Grid2>
       <Grid2 size={12}>
         <TableContainer component={Paper}>
