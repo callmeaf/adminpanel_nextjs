@@ -33,7 +33,11 @@ export const useApi = () => {
   const { dispatch: uiDispatch } = useContext(UiContext);
 
   const [loading, setLoading] = useState(null);
-  const handle = async (thunk, { payload, ctx } = {}) => {
+  const handle = async (
+    thunk,
+    { payload, ctx } = {},
+    { showSuccessAlert = true, showErrorAlert = true } = {}
+  ) => {
     const { getAllAsObject } = dataHandler(payload);
 
     const finalData = actionState(getAllAsObject());
@@ -61,14 +65,16 @@ export const useApi = () => {
 
       finalData.message = message;
       finalData.status = status;
+      if (showSuccessAlert) {
+        uiDispatch({
+          type: SET_MESSAGE,
+          payload: {
+            type: MESSAGE_TYPES.SUCCESS,
+            body: message,
+          },
+        });
+      }
 
-      uiDispatch({
-        type: SET_MESSAGE,
-        payload: {
-          type: MESSAGE_TYPES.SUCCESS,
-          body: message,
-        },
-      });
       if (onSuccess) {
         await onSuccess({
           ctx,
@@ -89,13 +95,15 @@ export const useApi = () => {
 
       finalData.message = message;
       finalData.status = status;
-      uiDispatch({
-        type: SET_MESSAGE,
-        payload: {
-          type: MESSAGE_TYPES.ERROR,
-          body: message,
-        },
-      });
+      if (showErrorAlert) {
+        uiDispatch({
+          type: SET_MESSAGE,
+          payload: {
+            type: MESSAGE_TYPES.ERROR,
+            body: message,
+          },
+        });
+      }
 
       if (errors) {
         finalData.errors = errors;
@@ -109,6 +117,7 @@ export const useApi = () => {
           status,
         });
       }
+      throw exception;
     } finally {
       setLoading(false);
     }

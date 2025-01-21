@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useApi from "@/hooks/use-api";
-import { getUsers } from "@/thunks/user-thunks";
+import { deleteUser, getUsers } from "@/thunks/user-thunks";
 import Table from "@/components/Table/Table";
 import UsersItemTable from "@/widgets/Users/UsersItemTable";
 import { useTranslations } from "next-intl";
@@ -12,6 +12,7 @@ import TableRefresherData from "@/components/Table/TableRefresherData";
 const tableId = "users_table";
 
 const UsersTable = () => {
+  const tableTranslate = useTranslations("Tables.Table");
   const t = useTranslations("Tables.Users");
 
   const { get } = localStorageArtisan();
@@ -20,13 +21,26 @@ const UsersTable = () => {
 
   const { handle, loading } = useApi();
 
-  const getUsersHandler = async (payload) => {
+  const getUsersHandler = async (payload, options) => {
     try {
       payload = payload ?? {
         params: get(tableId),
       };
-      const res = await handle(getUsers, { payload });
-      setUsers(res.users);
+      const result = await handle(getUsers, { payload }, options);
+      setUsers(result.users);
+    } catch (e) {
+      throw e;
+    }
+  };
+
+  const deleteUserHandler = async (payload) => {
+    try {
+      await handle(deleteUser, {
+        payload,
+      });
+      getUsersHandler(undefined, {
+        showSuccessAlert: false,
+      });
     } catch (e) {
       throw e;
     }
@@ -69,6 +83,10 @@ const UsersTable = () => {
                 id: "created_at",
                 label: t("created_at_label"),
               },
+              {
+                id: "actions",
+                label: tableTranslate("actions_label"),
+              },
             ]}
             pagination={users.pagination}
             onPageChange={getUsersHandler}
@@ -83,6 +101,7 @@ const UsersTable = () => {
                 user={user}
                 index={index}
                 startFrom={users.pagination.meta.from}
+                onDelete={deleteUserHandler}
               />
             ))}
           </Table>

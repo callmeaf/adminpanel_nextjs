@@ -28,7 +28,8 @@
       "created_from_label": "Created From",
       "created_to_label": "Created To",
       "refresh_button_label": "Refresh Data",
-      "refresh_alert_label": "Oops. something went wrong"
+      "refresh_alert_label": "Oops. something went wrong",
+      "actions_label": "Actions"
     },
     "Users": {
       "id_label": "ID",
