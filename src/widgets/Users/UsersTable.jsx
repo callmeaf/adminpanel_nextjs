@@ -8,6 +8,8 @@ import Show from "@/components/Show";
 import { LinearProgress } from "@mui/material";
 import { localStorageArtisan } from "@/helpers";
 import TableRefresherData from "@/components/Table/TableRefresherData";
+import { useRouter } from "@/i18n/routing";
+import useDashboardMenus from "@/hooks/use-dashboard-menus";
 
 const tableId = "users_table";
 
@@ -31,6 +33,12 @@ const UsersTable = () => {
     } catch (e) {
       throw e;
     }
+  };
+
+  const { getMenu } = useDashboardMenus();
+  const router = useRouter();
+  const editUserHandler = (payload) => {
+    router.push(getMenu("users_edit", payload).href);
   };
 
   const deleteUserHandler = async (payload) => {
@@ -101,6 +109,7 @@ const UsersTable = () => {
                 user={user}
                 index={index}
                 startFrom={users.pagination.meta.from}
+                onEdit={editUserHandler}
                 onDelete={deleteUserHandler}
               />
             ))}

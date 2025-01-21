@@ -8,6 +8,12 @@
     },
     "Users": {
       "title": "لیست کاربران"
+    },
+    "UsersCreate": {
+      "title": "ایجاد کاربر"
+    },
+    "UsersEdit": {
+      "title": "ویرایش کاربر"
     }
   },
   "Forms": {
@@ -15,6 +21,12 @@
       "mobile_label": "موبایل",
       "password_label": "رمزعبور",
       "submit_label": "ورود"
+    },
+    "Users": {
+      "first_name_label": "نام",
+      "last_name_label": "نام خانوادگی",
+      "mobile_label": "موبایل",
+      "submit_label": "ایجاد کاربر"
     }
   },
   "Tables": {
@@ -44,7 +56,8 @@
   "Common": {
     "DashboardMenu": {
       "dashboard_label": "داشبورد",
-      "users_label": "کاربران"
+      "users_label": "کاربران",
+      "users_create_label": "ایجاد کاربر"
     }
   }
 }

@@ -13,7 +13,13 @@ const UsersItemTable = ({ user, index, startFrom, onEdit, onDelete }) => {
       <TableCell>{user.createdAtText}</TableCell>
       <TableCell>
         <TableActions
-          onEdit={onEdit}
+          onEdit={() => {
+            onEdit({
+              replaces: {
+                user_id: user.id,
+              },
+            });
+          }}
           onDelete={() =>
             onDelete({
               userId: user.id,

@@ -15,6 +15,7 @@ const prepareAxiosInstance = (locale) => {
     "{locale}",
     locale
   );
+
   if (typeof window !== "undefined") {
     const authToken = localStorage.getItem("auth_token");
     if (authToken) {
@@ -59,6 +60,7 @@ export const useApi = () => {
         return;
       }
       setLoading(true);
+
       const {
         data: { result, message, status },
       } = await onSend();
@@ -117,7 +119,6 @@ export const useApi = () => {
           status,
         });
       }
-      throw exception;
     } finally {
       setLoading(false);
     }

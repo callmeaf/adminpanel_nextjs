@@ -7,7 +7,7 @@ const TableActions = ({ onEdit, onDelete }) => {
     <Grid2 container spacing={0.5}>
       {onEdit && (
         <Grid2>
-          <IconButton color="primary" onEdit={onEdit}>
+          <IconButton color="primary" onClick={onEdit}>
             <EditIcon />
           </IconButton>
         </Grid2>

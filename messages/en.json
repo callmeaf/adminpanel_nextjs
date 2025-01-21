@@ -8,6 +8,12 @@
     },
     "Users": {
       "title": "Users List"
+    },
+    "UsersCreate": {
+      "title": "Create User"
+    },
+    "UsersEdit": {
+      "title": "Edit User"
     }
   },
   "Forms": {
@@ -15,6 +21,12 @@
       "mobile_label": "Mobile",
       "password_label": "Password",
       "submit_label": "Log in"
+    },
+    "Users": {
+      "first_name_label": "First Name",
+      "last_name_label": "Last Name",
+      "mobile_label": "Mobile",
+      "submit_label": "Add User"
     }
   },
   "Tables": {
@@ -44,7 +56,8 @@
   "Common": {
     "DashboardMenu": {
       "dashboard_label": "Dashboard",
-      "users_label": "Users"
+      "users_label": "Users",
+      "users_create_label": "Create User"
     }
   }
 }
