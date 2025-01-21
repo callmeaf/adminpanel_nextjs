@@ -102,10 +102,13 @@ export function localStorageArtisan() {
     set(key, toJson(value));
   };
 
+  const remove = (key) => localStorage.removeItem(key);
+
   return {
     get,
     has,
     set,
     replace,
+    remove,
   };
 }

@@ -24,7 +24,11 @@
       "from": "از",
       "to": "تا",
       "total": "داده",
-      "no_data": "هیچ داده ای وجود ندارد."
+      "no_data": "هیچ داده ای وجود ندارد.",
+      "created_from_label": "از تاریخ",
+      "created_to_label": "تا تاریخ",
+      "refresh_button_label": "تازه سازی داده ها",
+      "refresh_alert_label": "اوه! خطای غیر منتظره رخ داد."
     },
     "Users": {
       "id_label": "ID",

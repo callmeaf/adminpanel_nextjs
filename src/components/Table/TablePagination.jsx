@@ -86,7 +86,7 @@ const TablePagination = ({
                   labelId={"per_page_label"}
                   id={"per_page"}
                   label={translateTable("per_page_label")}
-                  value={tableParams.per_page}
+                  value={tableParams.per_page || perPages[0]}
                   onChange={perPageChangeHandler}
                 >
                   {perPages.map((perPage) => (

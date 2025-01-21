@@ -24,7 +24,11 @@
       "from": "From",
       "to": "To",
       "total": "Total",
-      "no_data": "No Data Found."
+      "no_data": "No Data Found.",
+      "created_from_label": "Created From",
+      "created_to_label": "Created To",
+      "refresh_button_label": "Refresh Data",
+      "refresh_alert_label": "Oops. something went wrong"
     },
     "Users": {
       "id_label": "ID",

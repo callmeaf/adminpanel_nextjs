@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import Show from "@/components/Show";
 import { LinearProgress } from "@mui/material";
 import { localStorageArtisan } from "@/helpers";
+import TableRefresherData from "@/components/Table/TableRefresherData";
 
 const tableId = "users_table";
 
@@ -74,6 +75,8 @@ const UsersTable = () => {
             onPerPageChange={getUsersHandler}
             onSearch={getUsersHandler}
             searchParams={["mobile", "email", "first_name", "last_name"]}
+            onFromDateChange={getUsersHandler}
+            onToDateChange={getUsersHandler}
           >
             {users.data.map((user, index) => (
               <UsersItemTable
@@ -85,6 +88,9 @@ const UsersTable = () => {
             ))}
           </Table>
         </>
+      )}
+      elseChild={() => (
+        <TableRefresherData tableId={tableId} onRefresh={getUsersHandler} />
       )}
     />
   );
