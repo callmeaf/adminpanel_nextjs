@@ -8,6 +8,7 @@ import { useLocale } from "next-intl";
 import moment from "moment-jalaali";
 import { AdapterMomentJalaali } from "@mui/x-date-pickers/AdapterMomentJalaali";
 import fa from "moment/src/locale/fa";
+import { Search as SearchIcon } from "@mui/icons-material";
 
 moment.locale("fa", fa);
 moment.loadPersian({
@@ -32,7 +33,13 @@ export default function DatePicker({
           label={label}
           defaultValue={defaultValue}
           onChange={onChange}
+          maxDate={moment()}
+          minDate={moment().subtract(10, "years")}
+          emptyLabel="ser"
           slotProps={{
+            field: {
+              clearable: true,
+            },
             textField: {
               size: "small",
               id,

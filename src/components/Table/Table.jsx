@@ -22,8 +22,7 @@ export default function Table({
   pagination,
   onPageChange,
   onPerPageChange,
-  onFromDateChange,
-  onToDateChange,
+  onDateChange,
   t,
   onSearch,
   searchParams,
@@ -42,8 +41,7 @@ export default function Table({
       </Grid2>
       <Grid2 size={{ xs: 12, md: 6, lg: 4 }} offset={4}>
         <TableDatePicker
-          onFromDateChange={onFromDateChange}
-          onToDateChange={onToDateChange}
+          onDateChange={onDateChange}
           queryParamsLocalStorageKey={id}
         />
       </Grid2>

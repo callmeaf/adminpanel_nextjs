@@ -75,8 +75,7 @@ const UsersTable = () => {
             onPerPageChange={getUsersHandler}
             onSearch={getUsersHandler}
             searchParams={["mobile", "email", "first_name", "last_name"]}
-            onFromDateChange={getUsersHandler}
-            onToDateChange={getUsersHandler}
+            onDateChange={getUsersHandler}
           >
             {users.data.map((user, index) => (
               <UsersItemTable

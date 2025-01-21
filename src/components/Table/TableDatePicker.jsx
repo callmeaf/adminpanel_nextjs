@@ -6,11 +6,7 @@ import moment from "moment-jalaali";
 import { localStorageArtisan } from "@/helpers";
 import DateTimeFormat from "@/constants/DateTimeFormat";
 
-const TableDatePicker = ({
-  onFromDateChange,
-  onToDateChange,
-  queryParamsLocalStorageKey,
-}) => {
+const TableDatePicker = ({ onDateChange, queryParamsLocalStorageKey }) => {
   const t = useTranslations("Tables.Table");
   const { get, replace } = localStorageArtisan();
   const tableParams = get(queryParamsLocalStorageKey, {
@@ -21,24 +17,35 @@ const TableDatePicker = ({
   });
 
   const fromDateChangeHandler = (newDate) => {
-    tableParams.created_from = moment(newDate).format(
-      DateTimeFormat.DATE_TIME_WITH_DASH
-    );
-    onFromDateChange({
+    newDate = moment(newDate);
+    tableParams.created_from = newDate.isValid()
+      ? moment(newDate).format(DateTimeFormat.DATE_TIME_WITH_DASH)
+      : null;
+
+    onDateChange({
       params: tableParams,
     });
     replace(queryParamsLocalStorageKey, tableParams);
   };
 
   const toDateChangeHandler = (newDate) => {
-    tableParams.created_to = moment(newDate).format(
-      DateTimeFormat.DATE_TIME_WITH_DASH
-    );
-    onToDateChange({
+    newDate = moment(newDate);
+    tableParams.created_to = newDate.isValid()
+      ? newDate.format(DateTimeFormat.DATE_TIME_WITH_DASH)
+      : null;
+
+    onDateChange({
       params: tableParams,
     });
     replace(queryParamsLocalStorageKey, tableParams);
   };
+
+  const removeDateHandler = () => {
+    onDateChange({
+      params: tableParams,
+    });
+  };
+
   return (
     <Grid2 container spacing={1}>
       <Grid2 size={{ xs: 12, md: 6, lg: 6 }}>
