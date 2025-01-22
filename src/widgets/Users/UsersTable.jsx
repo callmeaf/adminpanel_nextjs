@@ -24,15 +24,11 @@ const UsersTable = () => {
   const { handle, loading } = useApi();
 
   const getUsersHandler = async (payload, options) => {
-    try {
-      payload = payload ?? {
-        params: get(tableId),
-      };
-      const result = await handle(getUsers, { payload }, options);
-      setUsers(result.users);
-    } catch (e) {
-      throw e;
-    }
+    payload = payload ?? {
+      params: get(tableId),
+    };
+    const result = await handle(getUsers, { payload }, options);
+    setUsers(result.users);
   };
 
   const { getMenu } = useDashboardMenus();
@@ -42,16 +38,12 @@ const UsersTable = () => {
   };
 
   const deleteUserHandler = async (payload) => {
-    try {
-      await handle(deleteUser, {
-        payload,
-      });
-      getUsersHandler(undefined, {
-        showSuccessAlert: false,
-      });
-    } catch (e) {
-      throw e;
-    }
+    await handle(deleteUser, {
+      payload,
+    });
+    getUsersHandler(undefined, {
+      showSuccessAlert: false,
+    });
   };
 
   useEffect(() => {

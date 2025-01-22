@@ -23,9 +23,13 @@
       "submit_label": "ورود"
     },
     "Users": {
+      "status_label": "وضعیت کاربر",
+      "type_label": "نوع کاربر",
       "first_name_label": "نام",
       "last_name_label": "نام خانوادگی",
       "mobile_label": "موبایل",
+      "email_label": "ایمیل",
+      "national_code_label": "کد ملی",
       "submit_label": "ایجاد کاربر"
     }
   },
@@ -58,6 +62,9 @@
       "dashboard_label": "داشبورد",
       "users_label": "کاربران",
       "users_create_label": "ایجاد کاربر"
+    },
+    "Components": {
+      "loading_label": "در حال بارگذاری ..."
     }
   }
 }

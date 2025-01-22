@@ -1,6 +1,7 @@
 import paginateModel from "@/models/PaginateModel";
 import UserModel from "@/models/UserModel";
 import dataHandler from "@/utils/data-handler";
+import { getEnums } from "./base-thunks";
 
 export const getUsers = (api, payload = {}) => {
   return {
@@ -18,9 +19,13 @@ export const createUser = (api, payload = {}) => {
     onSend: async () => {
       const { get } = dataHandler(payload);
       const formData = new FormData();
+      formData.append("status", get("status"));
+      formData.append("type", get("type"));
       formData.append("first_name", get("first_name"));
       formData.append("last_name", get("last_name"));
       formData.append("mobile", get("mobile"));
+      formData.append("email", get("email"));
+      formData.append("national_code", get("national_code"));
 
       return await api.post("/users", formData);
     },
@@ -37,3 +42,10 @@ export const deleteUser = (api, payload = {}) => {
     },
   };
 };
+
+export const getUserEnums = (
+  api,
+  payload = {
+    keys: ["user", "cart"],
+  }
+) => getEnums(api, payload);

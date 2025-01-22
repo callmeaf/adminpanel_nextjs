@@ -122,6 +122,8 @@ export const useApi = () => {
     } finally {
       setLoading(false);
     }
+    console.log({ finalData });
+
     return finalData;
   };
 

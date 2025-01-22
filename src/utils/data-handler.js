@@ -26,6 +26,7 @@ const dataHandler = (data = {}) => {
 
     if (isFormData) {
       for (const [key, value] of data) {
+        console.log({ key, value });
         if (keys.length !== 0 && !keys.includes(key)) {
           continue;
         }

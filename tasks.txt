@@ -1,0 +1,1 @@
+check delete user if error occured, use not found id

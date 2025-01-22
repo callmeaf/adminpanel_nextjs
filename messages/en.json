@@ -23,9 +23,13 @@
       "submit_label": "Log in"
     },
     "Users": {
+      "status_label": "User Status",
+      "type_label": "User Type",
       "first_name_label": "First Name",
       "last_name_label": "Last Name",
       "mobile_label": "Mobile",
+      "email_label": "Email",
+      "national_code_label": "National Code",
       "submit_label": "Add User"
     }
   },
@@ -58,6 +62,9 @@
       "dashboard_label": "Dashboard",
       "users_label": "Users",
       "users_create_label": "Create User"
+    },
+    "Components": {
+      "loading_label": "Loading ... "
     }
   }
 }
