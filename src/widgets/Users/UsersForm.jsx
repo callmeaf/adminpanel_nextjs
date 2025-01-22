@@ -4,6 +4,7 @@ import { getUserEnums } from "@/thunks/user-thunks";
 import { ArrowDropDown } from "@mui/icons-material";
 import {
   Autocomplete,
+  Box,
   Button,
   CircularProgress,
   FormControl,
@@ -24,7 +25,7 @@ const UsersForm = ({ onSubmit, user }) => {
   const [{ inputs, errors }, submitAction, isPending] = useActionState(
     onSubmit,
     actionState({
-      status: undefined,
+      status: "",
       type: "",
       first_name: "",
       last_name: "",
@@ -50,7 +51,7 @@ const UsersForm = ({ onSubmit, user }) => {
   // useEffect(() => {
   //   getUserEnumsHandler();
   // }, []);
-  console.log({ inputs });
+  console.log({ inputs, statuses });
   return (
     <form action={submitAction}>
       <Grid2 container spacing={2}>
@@ -62,34 +63,44 @@ const UsersForm = ({ onSubmit, user }) => {
             isOptionEqualToValue={(option, value) =>
               option.value.toString() === value.value.toString()
             }
-            inputValue={inputs.status}
+            defaultValue={inputs.state}
             loading={loading}
             loadingText={commonTranslate("loading_label")}
             renderInput={(params) => {
-              console.log({ params });
               return (
-                <TextField
-                  {...params}
-                  label={t("status_label")}
-                  id="status"
-                  name="status"
-                  variant="standard"
-                  error={!!errors?.status}
-                  helperText={errors?.status}
-                  slotProps={{
-                    input: {
-                      ...params.InputProps,
-                      endAdornment: (
-                        <>
-                          {loading ? (
-                            <CircularProgress color="inherit" size={20} />
-                          ) : null}
-                          {params.InputProps.endAdornment}
-                        </>
-                      ),
-                    },
-                  }}
-                />
+                <>
+                  <TextField
+                    {...params}
+                    label={t("status_label")}
+                    variant="standard"
+                    error={!!errors?.status}
+                    helperText={errors?.status}
+                    slotProps={{
+                      input: {
+                        ...params.InputProps,
+                        endAdornment: (
+                          <>
+                            {loading ? (
+                              <CircularProgress color="inherit" size={20} />
+                            ) : null}
+                            {params.InputProps.endAdornment}
+                          </>
+                        ),
+                      },
+                    }}
+                  />
+                  <input
+                    type="hidden"
+                    name="status"
+                    defaultValue={
+                      statuses.find(
+                        (status) =>
+                          status.label.toString() ===
+                          params.inputProps.value?.toString()
+                      )?.value
+                    }
+                  />
+                </>
               );
             }}
           />
