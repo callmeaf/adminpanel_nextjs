@@ -17,7 +17,7 @@
     }
   },
   "Forms": {
-    "Components": {
+    "Form": {
       "loading_label": "در حال بارگذاری ...",
       "submit_label": "ثبت"
     },
@@ -54,7 +54,10 @@
       "cancel_delete_action_label": "انصراف",
       "created_at_label": "تاریخ ایجاد",
       "deleted_at_label": "تاریخ حذف",
-      "status_label": "وضعیت"
+      "status_label": "وضعیت",
+      "status_success_label": "فعال",
+      "status_warning_label": "در انتظار تعیین وضعیت",
+      "status_error_label": "غیر فعال"
     },
     "Users": {
       "id_label": "ID",

@@ -16,7 +16,7 @@ const UsersWrapper = ({ userId }) => {
     return await handle(updateUserById, {
       payload: formData,
       extra: {
-        userId,
+        user_id: userId,
       },
     });
   };

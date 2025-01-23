@@ -15,7 +15,7 @@ const FormAutoComplete = ({
     value: "",
   },
 }) => {
-  const t = useTranslations("Forms.Components");
+  const t = useTranslations("Forms.Form");
   return (
     <Autocomplete
       onOpen={onOpen}

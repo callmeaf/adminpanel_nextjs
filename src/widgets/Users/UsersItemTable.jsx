@@ -4,7 +4,14 @@ import TableCell from "@mui/material/TableCell";
 import TableActions from "@/components/Table/TableItemActions";
 import TableItemStatus from "@/components/Table/Partials/TableItemStatus";
 
-const UsersItemTable = ({ user, index, startFrom, onEdit, onDelete }) => {
+const UsersItemTable = ({
+  user,
+  index,
+  startFrom,
+  onEdit,
+  onStatusUpdate,
+  onDelete,
+}) => {
   return (
     <TableRow>
       <TableCell>{startFrom + index}</TableCell>
@@ -12,7 +19,11 @@ const UsersItemTable = ({ user, index, startFrom, onEdit, onDelete }) => {
       <TableCell>{user.email}</TableCell>
       <TableCell>{user.mobile}</TableCell>
       <TableCell>
-        <TableItemStatus status={user.status} />
+        <TableItemStatus
+          userId={user.id}
+          status={user.status}
+          onStatusUpdate={onStatusUpdate}
+        />
       </TableCell>
       <TableCell>{user.createdAtText}</TableCell>
       <TableCell>

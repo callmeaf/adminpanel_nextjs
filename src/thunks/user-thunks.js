@@ -73,10 +73,23 @@ export const updateUserById = (api, payload = {}, extra = {}) => {
       formData.append("email", get("email"));
       formData.append("national_code", get("national_code"));
 
-      return await api.post(`${PREFIX_URL}/${extra.userId}`, formData);
+      return await api.post(`${PREFIX_URL}/${extra.user_id}`, formData);
     },
     onSuccess: ({ router }) => {
       router.push(`${PREFIX_URL}`);
+    },
+  };
+};
+
+export const updateUserStatusById = (api, payload = {}, extra = {}) => {
+  return {
+    onSend: async () => {
+      const { get } = dataHandler(payload);
+      const formData = new FormData();
+      formData.append("_method", "PATCH");
+      formData.append("status", get("status"));
+
+      return await api.post(`${PREFIX_URL}/${extra.user_id}/status`, formData);
     },
   };
 };

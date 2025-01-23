@@ -1,18 +1,58 @@
-import React from "react";
+import React, { useState } from "react";
 import { TipsAndUpdates as TipsAndUpdatesIcon } from "@mui/icons-material";
-import { IconButton } from "@mui/material";
+import { IconButton, Grow, Box, Tooltip } from "@mui/material";
+import { useTranslations } from "use-intl";
+
 const TableItemStatus = ({
+  userId,
   status,
   statusConfig = {
     1: "success",
     2: "error",
     3: "warning",
   },
+  onStatusUpdate,
 }) => {
+  const t = useTranslations("Tables.Table");
+
+  const [open, setOpen] = useState(false);
+
+  const statusUpdateHandler = async (statusKey) => {
+    await onStatusUpdate(userId, {
+      status: statusKey,
+    });
+
+    setOpen(false);
+  };
   return (
-    <IconButton color={statusConfig[status]}>
-      <TipsAndUpdatesIcon />
-    </IconButton>
+    <>
+      <Tooltip title={t(`status_${statusConfig[status]}_label`)}>
+        <IconButton color={statusConfig[status]} onClick={() => setOpen(!open)}>
+          <TipsAndUpdatesIcon />
+        </IconButton>
+      </Tooltip>
+
+      {open &&
+        Object.keys(statusConfig)
+          .filter((statusKey) => statusKey.toString() !== status.toString())
+          .map((statusKey, index) => (
+            <Grow
+              in={open}
+              style={{ transformOrigin: "0 0 0" }}
+              {...(open ? { timeout: (index + 1) * 500 } : {})}
+            >
+              <Tooltip title={t(`status_${statusConfig[statusKey]}_label`)}>
+                <IconButton
+                  key={statusKey}
+                  color={statusConfig[statusKey]}
+                  onClick={() => statusUpdateHandler(statusKey)}
+                >
+                  <TipsAndUpdatesIcon />
+                </IconButton>
+              </Tooltip>
+            </Grow>
+          ))}
+    </>
   );
 };
 

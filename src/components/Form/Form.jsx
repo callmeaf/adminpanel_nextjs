@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl";
 import React from "react";
 
 const Form = ({ action, children, loading, t }) => {
-  t = t ?? useTranslations("Forms.Components");
+  t = t ?? useTranslations("Forms.Form");
 
   return (
     <form action={action}>

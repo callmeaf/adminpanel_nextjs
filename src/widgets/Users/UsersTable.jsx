@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import useApi from "@/hooks/use-api";
-import { deleteUser, getUsers } from "@/thunks/user-thunks";
+import {
+  deleteUser,
+  getUsers,
+  updateUserStatusById,
+} from "@/thunks/user-thunks";
 import Table from "@/components/Table/Table";
 import UsersItemTable from "@/widgets/Users/UsersItemTable";
 import { useTranslations } from "next-intl";
@@ -35,6 +39,18 @@ const UsersTable = () => {
   const router = useRouter();
   const editUserHandler = (payload) => {
     router.push(getMenu("users_edit", payload).href);
+  };
+
+  const updateUserStatusHandler = async (userId, payload) => {
+    await handle(updateUserStatusById, {
+      payload,
+      extra: {
+        user_id: userId,
+      },
+    });
+    getUsersHandler(undefined, {
+      showSuccessAlert: false,
+    });
   };
 
   const deleteUserHandler = async (payload) => {
@@ -106,6 +122,7 @@ const UsersTable = () => {
                 index={index}
                 startFrom={users.pagination.meta.from}
                 onEdit={editUserHandler}
+                onStatusUpdate={updateUserStatusHandler}
                 onDelete={deleteUserHandler}
               />
             ))}
