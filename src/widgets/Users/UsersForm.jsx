@@ -4,7 +4,7 @@ import FormInput from "@/components/Form/FormInput";
 import { actionState } from "@/helpers";
 import useApi from "@/hooks/use-api";
 import { getUserEnums } from "@/thunks/user-thunks";
-import React, { useActionState, useEffect, useState } from "react";
+import React, { useActionState, useState } from "react";
 import { useTranslations } from "use-intl";
 
 const UsersForm = ({ onSubmit, user }) => {

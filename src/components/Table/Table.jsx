@@ -26,6 +26,7 @@ export default function Table({
   t,
   onSearch,
   searchParams,
+  filter,
 }) {
   const translateTable = useTranslations("Tables.Table");
 
@@ -38,6 +39,7 @@ export default function Table({
           searchParams={searchParams}
           queryParamsLocalStorageKey={id}
         />
+        {filter}
       </Grid2>
       <Grid2 size={{ xs: 12, md: 6, lg: 4 }} offset={4}>
         <TableDatePicker

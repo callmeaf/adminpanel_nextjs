@@ -14,6 +14,8 @@ import { localStorageArtisan } from "@/helpers";
 import TableRefresherData from "@/components/Table/TableRefresherData";
 import { useRouter } from "@/i18n/routing";
 import useDashboardMenus from "@/hooks/use-dashboard-menus";
+import TableFilter from "@/components/Table/TableFilter";
+import UsersFilterTable from "./UsersFilterTable";
 
 const tableId = "users_table";
 
@@ -114,6 +116,7 @@ const UsersTable = () => {
             onSearch={getUsersHandler}
             searchParams={["mobile", "email", "first_name", "last_name"]}
             onDateChange={getUsersHandler}
+            filter={<TableFilter filterItems={<UsersFilterTable />} />}
           >
             {users.data.map((user, index) => (
               <UsersItemTable

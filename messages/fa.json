@@ -55,6 +55,7 @@
       "created_at_label": "تاریخ ایجاد",
       "deleted_at_label": "تاریخ حذف",
       "status_label": "وضعیت",
+      "type_label": "نوع",
       "status_success_label": "فعال",
       "status_warning_label": "در انتظار تعیین وضعیت",
       "status_error_label": "غیر فعال"

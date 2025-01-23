@@ -30,19 +30,11 @@ const FormAutoComplete = ({
       loading={loading}
       loadingText={t("loading_label")}
       renderInput={(params) => {
-        // console.log({
-        //   params,
-        //   options,
-        //   inputValue: params.inputProps.value,
-        //   hidden: options.find(
-        //     (option) =>
-        //       option.label.toString() === params.inputProps.value?.toString()
-        //   ),
-        // });
         return (
           <>
             <TextField
               {...params}
+              fullWidth
               label={label}
               variant="standard"
               error={!!errors[name]}

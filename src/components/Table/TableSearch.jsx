@@ -4,7 +4,7 @@ import { Search as SearchIcon, Close as CloseIcon } from "@mui/icons-material";
 import { useTranslations } from "next-intl";
 import { localStorageArtisan } from "@/helpers";
 
-let searchTimeout;
+let tableSearchTimeout;
 const TableSearch = ({
   onSearch,
   t,
@@ -21,10 +21,10 @@ const TableSearch = ({
   const searchInputRef = useRef(null);
 
   const searchHandler = (e) => {
-    if (searchTimeout) {
-      clearTimeout(searchTimeout);
+    if (tableSearchTimeout) {
+      clearTimeout(tableSearchTimeout);
     }
-    searchTimeout = setTimeout(
+    tableSearchTimeout = setTimeout(
       () => {
         addSearchParamsToQueryParams(
           searchInputRef.current.value.toString().trim()

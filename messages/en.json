@@ -55,6 +55,7 @@
       "created_at_label": "Created At",
       "deleted_at_label": "Deleted At",
       "status_label": "Status",
+      "type_label": "Type",
       "status_success_label": "Active",
       "status_warning_label": "Pending",
       "status_error_label": "InActive"
