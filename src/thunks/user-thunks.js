@@ -29,8 +29,41 @@ export const createUser = (api, payload = {}) => {
 
       return await api.post("/users", formData);
     },
-    onSuccess: ({ result, finalData, router }) => {
+    onSuccess: ({ result, router }) => {
       router.push(`/users/${result.user.id}/edit`);
+    },
+  };
+};
+
+export const getUserById = (api, payload) => {
+  return {
+    onSend: async () => {
+      return await api.get(`/users/${payload.user_id}`);
+    },
+    onSuccess: async ({ result, finalData }) => {
+      finalData.user = UserModel(result.user);
+    },
+  };
+};
+
+export const updateUserById = (api, payload = {}, extra = {}) => {
+  return {
+    onSend: async () => {
+      const { get } = dataHandler(payload);
+      const formData = new FormData();
+      formData.append("_method", "PATCH");
+      formData.append("status", get("status"));
+      formData.append("type", get("type"));
+      formData.append("first_name", get("first_name"));
+      formData.append("last_name", get("last_name"));
+      formData.append("mobile", get("mobile"));
+      formData.append("email", get("email"));
+      formData.append("national_code", get("national_code"));
+
+      return await api.post(`/users/${extra.userId}`, formData);
+    },
+    onSuccess: ({ router }) => {
+      router.push(`/users`);
     },
   };
 };
@@ -38,7 +71,7 @@ export const createUser = (api, payload = {}) => {
 export const deleteUser = (api, payload = {}) => {
   return {
     onSend: async () => {
-      return await api.delete(`/users/${payload.userId}`);
+      return await api.delete(`/users/${payload.user_id}`);
     },
   };
 };

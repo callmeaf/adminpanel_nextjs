@@ -22,7 +22,7 @@ const UsersItemTable = ({ user, index, startFrom, onEdit, onDelete }) => {
           }}
           onDelete={() =>
             onDelete({
-              userId: user.id,
+              user_id: user.id,
             })
           }
         />

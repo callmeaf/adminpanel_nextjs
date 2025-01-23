@@ -36,7 +36,7 @@ export const useApi = () => {
   const [loading, setLoading] = useState(null);
   const handle = async (
     thunk,
-    { payload, ctx } = {},
+    { payload, ctx, extra = {} } = {},
     { showSuccessAlert = true, showErrorAlert = true } = {}
   ) => {
     const { getAllAsObject } = dataHandler(payload);
@@ -44,7 +44,8 @@ export const useApi = () => {
     const finalData = actionState(getAllAsObject());
     const { onInit, onSend, onSuccess, onError } = thunk(
       axiosInstance,
-      payload
+      payload,
+      extra
     );
 
     let continueSending = true;
@@ -117,12 +118,12 @@ export const useApi = () => {
           router,
           pathname,
           status,
+          finalData,
         });
       }
     } finally {
       setLoading(false);
     }
-    console.log({ finalData });
 
     return finalData;
   };

@@ -21,6 +21,7 @@
     "moment-jalaali": "^0.10.4",
     "next": "15.1.4",
     "next-intl": "^3.26.3",
+    "notistack": "^3.0.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "stylis": "^4.3.5",

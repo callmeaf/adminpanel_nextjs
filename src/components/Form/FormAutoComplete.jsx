@@ -10,9 +10,12 @@ const FormAutoComplete = ({
   options = [],
   onOpen,
   loading,
+  defaultValue = {
+    label: "",
+    value: "",
+  },
 }) => {
   const t = useTranslations("Forms.Components");
-
   return (
     <Autocomplete
       onOpen={onOpen}
@@ -21,9 +24,21 @@ const FormAutoComplete = ({
       isOptionEqualToValue={(option, value) =>
         option.value?.toString() === value.value?.toString()
       }
+      defaultValue={
+        options.length === 0 ? defaultValue : inputs[name].toString()
+      }
       loading={loading}
       loadingText={t("loading_label")}
       renderInput={(params) => {
+        // console.log({
+        //   params,
+        //   options,
+        //   inputValue: params.inputProps.value,
+        //   hidden: options.find(
+        //     (option) =>
+        //       option.label.toString() === params.inputProps.value?.toString()
+        //   ),
+        // });
         return (
           <>
             <TextField
@@ -51,11 +66,13 @@ const FormAutoComplete = ({
               id={name}
               name={name}
               defaultValue={
-                options.find(
-                  (option) =>
-                    option.label.toString() ===
-                    params.inputProps.value?.toString()
-                )?.value
+                options.length === 0
+                  ? defaultValue.value
+                  : options.find(
+                      (option) =>
+                        option.label.toString() ===
+                        params.inputProps.value?.toString()
+                    )?.value
               }
             />
           </>

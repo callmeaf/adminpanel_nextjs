@@ -27,8 +27,8 @@ const UsersTable = () => {
     payload = payload ?? {
       params: get(tableId),
     };
-    const result = await handle(getUsers, { payload }, options);
-    setUsers(result.users);
+    const data = await handle(getUsers, { payload }, options);
+    setUsers(data.users);
   };
 
   const { getMenu } = useDashboardMenus();
