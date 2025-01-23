@@ -51,7 +51,10 @@
       "refresh_alert_label": "اوه! خطای غیر منتظره رخ داد.",
       "actions_label": "عملیات",
       "confirm_delete_action_label": "تایید",
-      "cancel_delete_action_label": "انصراف"
+      "cancel_delete_action_label": "انصراف",
+      "created_at_label": "تاریخ ایجاد",
+      "deleted_at_label": "تاریخ حذف",
+      "status_label": "وضعیت"
     },
     "Users": {
       "id_label": "ID",
@@ -59,8 +62,7 @@
       "first_name_label": "نام",
       "last_name_label": " نام خانوادگی",
       "email_label": "ایمیل",
-      "mobile_label": "موبایل",
-      "created_at_label": "تاریخ ایجاد"
+      "mobile_label": "موبایل"
     }
   },
   "Common": {

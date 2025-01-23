@@ -34,9 +34,7 @@
       "mobile_label": "Mobile",
       "email_label": "Email",
       "national_code_label": "National Code",
-      "submit_label": "Add User",
-      "confirm_delete_action_label": "Confirm",
-      "cancel_delete_action_label": "Cancel"
+      "submit_label": "Add User"
     }
   },
   "Tables": {
@@ -51,7 +49,12 @@
       "created_to_label": "Created To",
       "refresh_button_label": "Refresh Data",
       "refresh_alert_label": "Oops. something went wrong",
-      "actions_label": "Actions"
+      "actions_label": "Actions",
+      "confirm_delete_action_label": "Confirm",
+      "cancel_delete_action_label": "Cancel",
+      "created_at_label": "Created At",
+      "deleted_at_label": "Deleted At",
+      "status_label": "Status"
     },
     "Users": {
       "id_label": "ID",
@@ -59,8 +62,7 @@
       "first_name_label": "First Name",
       "last_name_label": "Last Name",
       "email_label": "Email",
-      "mobile_label": "Mobile",
-      "created_at_label": "Created At"
+      "mobile_label": "Mobile"
     }
   },
   "Common": {

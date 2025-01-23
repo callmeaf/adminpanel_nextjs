@@ -3,13 +3,37 @@ import UserModel from "@/models/UserModel";
 import dataHandler from "@/utils/data-handler";
 import { getEnums } from "./base-thunks";
 
+const PREFIX_URL = "/users";
+
 export const getUsers = (api, payload = {}) => {
   return {
     onSend: async () => {
-      return await api.get("/users", payload);
+      return await api.get(`${PREFIX_URL}`, payload);
     },
     onSuccess: ({ result, finalData }) => {
       finalData.users = paginateModel(result.users, UserModel);
+    },
+  };
+};
+
+export const getUsersTrashed = (api, payload = {}) => {
+  return {
+    onSend: async () => {
+      return await api.get(`${PREFIX_URL}/trashed/index`, payload);
+    },
+    onSuccess: ({ result, finalData }) => {
+      finalData.users = paginateModel(result.users, UserModel);
+    },
+  };
+};
+
+export const getUserById = (api, payload) => {
+  return {
+    onSend: async () => {
+      return await api.get(`${PREFIX_URL}/${payload.user_id}`);
+    },
+    onSuccess: async ({ result, finalData }) => {
+      finalData.user = UserModel(result.user);
     },
   };
 };
@@ -27,21 +51,10 @@ export const createUser = (api, payload = {}) => {
       formData.append("email", get("email"));
       formData.append("national_code", get("national_code"));
 
-      return await api.post("/users", formData);
+      return await api.post(`${PREFIX_URL}`, formData);
     },
     onSuccess: ({ result, router }) => {
-      router.push(`/users/${result.user.id}/edit`);
-    },
-  };
-};
-
-export const getUserById = (api, payload) => {
-  return {
-    onSend: async () => {
-      return await api.get(`/users/${payload.user_id}`);
-    },
-    onSuccess: async ({ result, finalData }) => {
-      finalData.user = UserModel(result.user);
+      router.push(`${PREFIX_URL}/${result.user.id}/edit`);
     },
   };
 };
@@ -60,10 +73,10 @@ export const updateUserById = (api, payload = {}, extra = {}) => {
       formData.append("email", get("email"));
       formData.append("national_code", get("national_code"));
 
-      return await api.post(`/users/${extra.userId}`, formData);
+      return await api.post(`${PREFIX_URL}/${extra.userId}`, formData);
     },
     onSuccess: ({ router }) => {
-      router.push(`/users`);
+      router.push(`${PREFIX_URL}`);
     },
   };
 };
@@ -71,7 +84,7 @@ export const updateUserById = (api, payload = {}, extra = {}) => {
 export const deleteUser = (api, payload = {}) => {
   return {
     onSend: async () => {
-      return await api.delete(`/users/${payload.user_id}`);
+      return await api.delete(`${PREFIX_URL}/${payload.user_id}`);
     },
   };
 };

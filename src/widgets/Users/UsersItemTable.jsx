@@ -2,6 +2,7 @@ import React from "react";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableActions from "@/components/Table/TableItemActions";
+import TableItemStatus from "@/components/Table/Partials/TableItemStatus";
 
 const UsersItemTable = ({ user, index, startFrom, onEdit, onDelete }) => {
   return (
@@ -10,6 +11,9 @@ const UsersItemTable = ({ user, index, startFrom, onEdit, onDelete }) => {
       <TableCell>{user.fullName}</TableCell>
       <TableCell>{user.email}</TableCell>
       <TableCell>{user.mobile}</TableCell>
+      <TableCell>
+        <TableItemStatus status={user.status} />
+      </TableCell>
       <TableCell>{user.createdAtText}</TableCell>
       <TableCell>
         <TableActions

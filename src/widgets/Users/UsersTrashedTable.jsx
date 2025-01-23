@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useApi from "@/hooks/use-api";
-import { deleteUser, getUsers } from "@/thunks/user-thunks";
+import { deleteUser, getUsersTrashed } from "@/thunks/user-thunks";
 import Table from "@/components/Table/Table";
 import UsersItemTable from "@/widgets/Users/UsersItemTable";
 import { useTranslations } from "next-intl";
@@ -13,7 +13,7 @@ import useDashboardMenus from "@/hooks/use-dashboard-menus";
 
 const tableId = "users_table";
 
-const UsersTable = () => {
+const UsersTrashedTable = () => {
   const tableTranslate = useTranslations("Tables.Table");
   const t = useTranslations("Tables.Users");
 
@@ -23,11 +23,11 @@ const UsersTable = () => {
 
   const { handle, loading } = useApi();
 
-  const getUsersHandler = async (payload, options) => {
+  const getUsersTrashedHandler = async (payload, options) => {
     payload = payload ?? {
       params: get(tableId),
     };
-    const data = await handle(getUsers, { payload }, options);
+    const data = await handle(getUsersTrashed, { payload }, options);
     setUsers(data.users);
   };
 
@@ -41,13 +41,13 @@ const UsersTable = () => {
     await handle(deleteUser, {
       payload,
     });
-    getUsersHandler(undefined, {
+    getUsersTrashedHandler(undefined, {
       showSuccessAlert: false,
     });
   };
 
   useEffect(() => {
-    getUsersHandler().catch((e) => console.error({ e }));
+    getUsersTrashedHandler().catch((e) => console.error({ e }));
   }, []);
 
   return (
@@ -80,12 +80,8 @@ const UsersTable = () => {
                 label: t("mobile_label"),
               },
               {
-                id: "status",
-                label: tableTranslate("status_label"),
-              },
-              {
-                id: "created_at",
-                label: tableTranslate("created_at_label"),
+                id: "deleted_at",
+                label: tableTranslate("deleted_at_label"),
               },
               {
                 id: "actions",
@@ -93,11 +89,11 @@ const UsersTable = () => {
               },
             ]}
             pagination={users.pagination}
-            onPageChange={getUsersHandler}
-            onPerPageChange={getUsersHandler}
-            onSearch={getUsersHandler}
+            onPageChange={getUsersTrashedHandler}
+            onPerPageChange={getUsersTrashedHandler}
+            onSearch={getUsersTrashedHandler}
             searchParams={["mobile", "email", "first_name", "last_name"]}
-            onDateChange={getUsersHandler}
+            onDateChange={getUsersTrashedHandler}
           >
             {users.data.map((user, index) => (
               <UsersItemTable
@@ -113,10 +109,13 @@ const UsersTable = () => {
         </>
       )}
       elseChild={() => (
-        <TableRefresherData tableId={tableId} onRefresh={getUsersHandler} />
+        <TableRefresherData
+          tableId={tableId}
+          onRefresh={getUsersTrashedHandler}
+        />
       )}
     />
   );
 };
 
-export default UsersTable;
+export default UsersTrashedTable;
