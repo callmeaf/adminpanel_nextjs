@@ -1,22 +1,19 @@
-import { Grid2, IconButton } from "@mui/material";
-import { Delete as DeleteIcon, Edit as EditIcon } from "@mui/icons-material";
+import { Grid2 } from "@mui/material";
 import React from "react";
+import TableItemEditAction from "./Partials/TableItemEditAction";
+import TableItemDeleteAction from "./Partials/TableItemDeleteAction";
 
 const TableActions = ({ onEdit, onDelete }) => {
   return (
     <Grid2 container spacing={0.5}>
       {onEdit && (
         <Grid2>
-          <IconButton color="primary" onClick={onEdit}>
-            <EditIcon />
-          </IconButton>
+          <TableItemEditAction onEdit={onEdit} />
         </Grid2>
       )}
       {onDelete && (
         <Grid2>
-          <IconButton color="error" onClick={onDelete}>
-            <DeleteIcon />
-          </IconButton>
+          <TableItemDeleteAction onDelete={onDelete} />
         </Grid2>
       )}
     </Grid2>

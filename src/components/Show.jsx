@@ -4,7 +4,7 @@ const Show = ({
   when,
   whenChild,
   elseChild,
-  loading,
+  loading = false,
   loadingChild,
   loadingChildWithWhenChild = false,
 }) => {

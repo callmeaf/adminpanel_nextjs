@@ -34,7 +34,9 @@
       "mobile_label": "Mobile",
       "email_label": "Email",
       "national_code_label": "National Code",
-      "submit_label": "Add User"
+      "submit_label": "Add User",
+      "confirm_delete_action_label": "Confirm",
+      "cancel_delete_action_label": "Cancel"
     }
   },
   "Tables": {

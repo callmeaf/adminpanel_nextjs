@@ -49,7 +49,9 @@
       "created_to_label": "تا تاریخ",
       "refresh_button_label": "تازه سازی داده ها",
       "refresh_alert_label": "اوه! خطای غیر منتظره رخ داد.",
-      "actions_label": "عملیات"
+      "actions_label": "عملیات",
+      "confirm_delete_action_label": "تایید",
+      "cancel_delete_action_label": "انصراف"
     },
     "Users": {
       "id_label": "ID",
