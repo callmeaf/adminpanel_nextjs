@@ -17,6 +17,10 @@
     }
   },
   "Forms": {
+    "Components": {
+      "loading_label": "در حال بارگذاری ...",
+      "submit_label": "ثبت"
+    },
     "Login": {
       "mobile_label": "موبایل",
       "password_label": "رمزعبور",
@@ -62,9 +66,6 @@
       "dashboard_label": "داشبورد",
       "users_label": "کاربران",
       "users_create_label": "ایجاد کاربر"
-    },
-    "Components": {
-      "loading_label": "در حال بارگذاری ..."
     }
   }
 }

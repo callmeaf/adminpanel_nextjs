@@ -17,6 +17,10 @@
     }
   },
   "Forms": {
+    "Components": {
+      "loading_label": "Loading ...",
+      "submit_label": "Submit"
+    },
     "Login": {
       "mobile_label": "Mobile",
       "password_label": "Password",
@@ -62,9 +66,6 @@
       "dashboard_label": "Dashboard",
       "users_label": "Users",
       "users_create_label": "Create User"
-    },
-    "Components": {
-      "loading_label": "Loading ... "
     }
   }
 }
