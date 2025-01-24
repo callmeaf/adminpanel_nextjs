@@ -58,7 +58,8 @@
       "type_label": "Type",
       "status_success_label": "Active",
       "status_warning_label": "Pending",
-      "status_error_label": "InActive"
+      "status_error_label": "InActive",
+      "filter_clean_button_tooltip": "The displayed data is filtered. Click to remove filter"
     },
     "Users": {
       "id_label": "ID",

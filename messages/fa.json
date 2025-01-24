@@ -58,7 +58,8 @@
       "type_label": "نوع",
       "status_success_label": "فعال",
       "status_warning_label": "در انتظار تعیین وضعیت",
-      "status_error_label": "غیر فعال"
+      "status_error_label": "غیر فعال",
+      "filter_clean_button_tooltip": "داده های نمایش داده شده فیلتر شده است. برای حذف فیلتر کلیک کنید."
     },
     "Users": {
       "id_label": "ID",

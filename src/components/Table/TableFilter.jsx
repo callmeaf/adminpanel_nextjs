@@ -1,13 +1,24 @@
-import React, { useActionState, useRef } from "react";
+import React, { useActionState, useEffect, useRef, useState } from "react";
 import {
   Tune as TuneIcon,
   CleaningServices as CleaningServicesIcon,
+  PriorityHigh as PriorityHighIcon,
 } from "@mui/icons-material";
-import { Box, Button, IconButton, Menu, MenuItem } from "@mui/material";
+import {
+  Box,
+  Button,
+  IconButton,
+  Menu,
+  MenuItem,
+  Tooltip,
+} from "@mui/material";
 import { localStorageArtisan } from "@/helpers";
 import dataHandler from "@/utils/data-handler";
+import { useTranslations } from "next-intl";
 
 const TableFilter = ({ onFilter, queryParamsLocalStorageKey, filterItems }) => {
+  const t = useTranslations("Tables.Table");
+  const [isFilteredData, setIsFilteredData] = useState(false);
   const tableFilterFormRef = useRef(null);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -32,6 +43,7 @@ const TableFilter = ({ onFilter, queryParamsLocalStorageKey, filterItems }) => {
 
     onFilter();
     handleClose();
+    setIsFilteredData(true);
   };
   const [state, submitAction, isPending] = useActionState(
     filterHandler,
@@ -44,7 +56,20 @@ const TableFilter = ({ onFilter, queryParamsLocalStorageKey, filterItems }) => {
 
     resetAll();
     filterHandler(undefined, formData);
+    setIsFilteredData(false);
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      const formData = new FormData(tableFilterFormRef.current);
+      for (const [key] of formData) {
+        if (tableParams.hasOwnProperty(key)) {
+          setIsFilteredData(true);
+        }
+      }
+    }, 500);
+  }, []);
+
   return (
     <form id="table-filter-form" action={submitAction} ref={tableFilterFormRef}>
       <IconButton
@@ -57,13 +82,34 @@ const TableFilter = ({ onFilter, queryParamsLocalStorageKey, filterItems }) => {
       >
         <TuneIcon />
       </IconButton>
-      <IconButton
-        id="table-clean-button"
-        onClick={cleanFilterHandler}
-        type="button"
-      >
-        <CleaningServicesIcon />
-      </IconButton>
+      {isFilteredData && (
+        <Tooltip title={t("filter_clean_button_tooltip")}>
+          <IconButton
+            id="table-clean-button"
+            onClick={cleanFilterHandler}
+            type="button"
+            sx={{
+              position: "relative",
+            }}
+          >
+            <CleaningServicesIcon />
+            <PriorityHighIcon
+              fontSize="small"
+              sx={{
+                color: "red",
+                position: "absolute",
+                top: "0",
+                right: "-3px",
+                animation: "blinker 1.5s linear infinite",
+                "@keyframes blinker": {
+                  "50%": { opacity: 0 },
+                },
+              }}
+            />
+          </IconButton>
+        </Tooltip>
+      )}
+
       <Menu
         id="table-filter-menu"
         anchorEl={anchorEl}
@@ -100,14 +146,18 @@ const TableFilter = ({ onFilter, queryParamsLocalStorageKey, filterItems }) => {
             <TuneIcon />
           </Button>
           <Box sx={{ mx: 1 }} />
-          <Button
-            type="button"
-            onClick={cleanFilterHandler}
-            color="warning"
-            variant="contained"
-          >
-            <CleaningServicesIcon />
-          </Button>
+          {isFilteredData && (
+            <Tooltip title={t("filter_clean_button_tooltip")}>
+              <Button
+                type="button"
+                onClick={cleanFilterHandler}
+                color="warning"
+                variant="contained"
+              >
+                <CleaningServicesIcon />
+              </Button>
+            </Tooltip>
+          )}
         </MenuItem>
       </Menu>
     </form>
