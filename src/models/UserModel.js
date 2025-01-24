@@ -12,6 +12,10 @@ export default (user) => ({
     label: user.type_text,
     value: user.type,
   },
+  typeBadgeConfig: {
+    1: "default",
+    2: "error",
+  },
   firstName: user.first_name,
   lastName: user.last_name,
   fullName: user.full_name,
@@ -19,4 +23,5 @@ export default (user) => ({
   mobile: user.mobile,
   nationalCode: user.national_code,
   createdAtText: user.created_at_text,
+  deletedAtText: user.deleted_at_text,
 });

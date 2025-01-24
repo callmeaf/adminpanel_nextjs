@@ -5,13 +5,12 @@ import TableActions from "@/components/Table/TableItemActions";
 import TableItemStatus from "@/components/Table/Partials/TableItemStatus";
 import TableItemType from "@/components/Table/Partials/TableItemType";
 
-const UsersItemTable = ({
+const UsersItemTrashedTable = ({
   user,
   index,
   startFrom,
-  onEdit,
-  onStatusUpdate,
-  onDelete,
+  onRestore,
+  onForceDelete,
 }) => {
   return (
     <TableRow>
@@ -27,24 +26,18 @@ const UsersItemTable = ({
       <TableCell>{user.email}</TableCell>
       <TableCell>{user.mobile}</TableCell>
       <TableCell>
-        <TableItemStatus
-          userId={user.id}
-          status={user.status}
-          onStatusUpdate={onStatusUpdate}
-        />
+        <TableItemStatus userId={user.id} status={user.status} />
       </TableCell>
-      <TableCell>{user.createdAtText}</TableCell>
+      <TableCell>{user.deletedAtText}</TableCell>
       <TableCell>
         <TableActions
-          onEdit={() => {
-            onEdit({
-              replaces: {
-                user_id: user.id,
-              },
+          onRestore={() => {
+            onRestore({
+              user_id: user.id,
             });
           }}
-          onDelete={() =>
-            onDelete({
+          onForceDelete={() =>
+            onForceDelete({
               user_id: user.id,
             })
           }
@@ -54,4 +47,4 @@ const UsersItemTable = ({
   );
 };
 
-export default UsersItemTable;
+export default UsersItemTrashedTable;

@@ -1,6 +1,7 @@
 import {
   People as PeopleIcon,
   PersonAdd as PersonAddIcon,
+  PersonOff as PersonOffIcon,
 } from "@mui/icons-material";
 
 const GROUP = "users";
@@ -24,6 +25,13 @@ export default (t) => [
     id: "users_edit",
     href: "/users/:user_id/edit",
     showInSideBar: false,
+    group: GROUP,
+  },
+  {
+    id: "users_trashed",
+    href: "/users/trashed",
+    label: t("users_trashed_label"),
+    icon: <PersonOffIcon />,
     group: GROUP,
   },
 ];

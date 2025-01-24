@@ -102,6 +102,22 @@ export const deleteUser = (api, payload = {}) => {
   };
 };
 
+export const restoreUser = (api, payload = {}) => {
+  return {
+    onSend: async () => {
+      return await api.patch(`${PREFIX_URL}/${payload.user_id}/restore`);
+    },
+  };
+};
+
+export const forceDeleteUser = (api, payload = {}) => {
+  return {
+    onSend: async () => {
+      return await api.delete(`${PREFIX_URL}/${payload.user_id}/force`);
+    },
+  };
+};
+
 export const getUserEnums = (
   api,
   payload = {

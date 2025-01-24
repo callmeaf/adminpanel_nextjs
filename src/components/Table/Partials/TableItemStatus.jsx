@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { TipsAndUpdates as TipsAndUpdatesIcon } from "@mui/icons-material";
-import { IconButton, Grow, Box, Tooltip } from "@mui/material";
+import { IconButton, Grow, Tooltip } from "@mui/material";
 import { useTranslations } from "use-intl";
 
 const TableItemStatus = ({
@@ -27,12 +27,17 @@ const TableItemStatus = ({
   return (
     <>
       <Tooltip title={t(`status_${statusConfig[status]}_label`)}>
-        <IconButton color={statusConfig[status]} onClick={() => setOpen(!open)}>
+        <IconButton
+          color={statusConfig[status]}
+          onClick={onStatusUpdate ? () => setOpen(!open) : null}
+          sx={{ cursor: onStatusUpdate ? "pointer" : "auto" }}
+        >
           <TipsAndUpdatesIcon />
         </IconButton>
       </Tooltip>
 
-      {open &&
+      {onStatusUpdate &&
+        open &&
         Object.keys(statusConfig)
           .filter((statusKey) => statusKey.toString() !== status.toString())
           .map((statusKey, index) => (

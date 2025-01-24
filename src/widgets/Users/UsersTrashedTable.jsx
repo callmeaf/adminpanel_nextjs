@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from "react";
 import useApi from "@/hooks/use-api";
-import { deleteUser, getUsersTrashed } from "@/thunks/user-thunks";
+import {
+  forceDeleteUser,
+  getUsersTrashed,
+  restoreUser,
+} from "@/thunks/user-thunks";
 import Table from "@/components/Table/Table";
-import UsersItemTable from "@/widgets/Users/UsersItemTable";
 import { useTranslations } from "next-intl";
 import Show from "@/components/Show";
 import { LinearProgress } from "@mui/material";
 import { localStorageArtisan } from "@/helpers";
 import TableRefresherData from "@/components/Table/TableRefresherData";
-import { useRouter } from "@/i18n/routing";
-import useDashboardMenus from "@/hooks/use-dashboard-menus";
+import TableFilter from "@/components/Table/TableFilter";
+import UsersFilterTable from "./UsersFilterTable";
+import UsersItemTrashedTable from "./UsersItemTrashedTable";
 
-const tableId = "users_table";
+const tableId = "users_trashed_table";
 
 const UsersTrashedTable = () => {
   const tableTranslate = useTranslations("Tables.Table");
@@ -31,14 +35,17 @@ const UsersTrashedTable = () => {
     setUsers(data.users);
   };
 
-  const { getMenu } = useDashboardMenus();
-  const router = useRouter();
-  const editUserHandler = (payload) => {
-    router.push(getMenu("users_edit", payload).href);
+  const restoreUserHandler = async (payload) => {
+    await handle(restoreUser, {
+      payload,
+    });
+    getUsersTrashedHandler(undefined, {
+      showSuccessAlert: false,
+    });
   };
 
-  const deleteUserHandler = async (payload) => {
-    await handle(deleteUser, {
+  const forceDeleteUserHandler = async (payload) => {
+    await handle(forceDeleteUser, {
       payload,
     });
     getUsersTrashedHandler(undefined, {
@@ -80,6 +87,10 @@ const UsersTrashedTable = () => {
                 label: t("mobile_label"),
               },
               {
+                id: "status",
+                label: tableTranslate("status_label"),
+              },
+              {
                 id: "deleted_at",
                 label: tableTranslate("deleted_at_label"),
               },
@@ -94,15 +105,24 @@ const UsersTrashedTable = () => {
             onSearch={getUsersTrashedHandler}
             searchParams={["mobile", "email", "first_name", "last_name"]}
             onDateChange={getUsersTrashedHandler}
+            filter={
+              <TableFilter
+                queryParamsLocalStorageKey={tableId}
+                onFilter={getUsersTrashedHandler}
+                filterItems={
+                  <UsersFilterTable queryParamsLocalStorageKey={tableId} />
+                }
+              />
+            }
           >
             {users.data.map((user, index) => (
-              <UsersItemTable
+              <UsersItemTrashedTable
                 key={user.id}
                 user={user}
                 index={index}
                 startFrom={users.pagination.meta.from}
-                onEdit={editUserHandler}
-                onDelete={deleteUserHandler}
+                onRestore={restoreUserHandler}
+                onForceDelete={forceDeleteUserHandler}
               />
             ))}
           </Table>
@@ -110,7 +130,7 @@ const UsersTrashedTable = () => {
       )}
       elseChild={() => (
         <TableRefresherData
-          tableId={tableId}
+          queryParamsLocalStorageKey={tableId}
           onRefresh={getUsersTrashedHandler}
         />
       )}

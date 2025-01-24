@@ -14,6 +14,9 @@
     },
     "UsersEdit": {
       "title": "Edit User"
+    },
+    "UsersTrashed": {
+      "title": "Trashed Users"
     }
   },
   "Forms": {
@@ -74,7 +77,8 @@
     "DashboardMenu": {
       "dashboard_label": "Dashboard",
       "users_label": "Users",
-      "users_create_label": "Create User"
+      "users_create_label": "Create User",
+      "users_trashed_label": "Trashed Users"
     }
   }
 }
