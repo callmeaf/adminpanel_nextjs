@@ -5,22 +5,30 @@ import { Grid2 } from "@mui/material";
 import moment from "moment-jalaali";
 import { localStorageArtisan } from "@/helpers";
 import DateTimeFormat from "@/constants/DateTimeFormat";
+import { digitsFaToEn } from "@persian-tools/persian-tools";
 
 const TableDatePicker = ({ onDateChange, queryParamsLocalStorageKey }) => {
   const t = useTranslations("Tables.Table");
   const { get, replace } = localStorageArtisan();
   const tableParams = get(queryParamsLocalStorageKey, {
-    created_from: moment()
-      .subtract(1, "year")
-      .format(DateTimeFormat.DATE_TIME_WITH_DASH),
-    created_to: moment().format(DateTimeFormat.DATE_TIME_WITH_DASH),
+    created_from: digitsFaToEn(
+      moment().subtract(1, "year").format(DateTimeFormat.DATE_TIME_WITH_DASH)
+    ),
+    created_to: digitsFaToEn(
+      moment().add(1, "day").format(DateTimeFormat.DATE_TIME_WITH_DASH)
+    ),
   });
 
   const fromDateChangeHandler = (newDate) => {
     newDate = moment(newDate);
-    tableParams.created_from = newDate.isValid()
-      ? moment(newDate).format(DateTimeFormat.DATE_TIME_WITH_DASH)
+    newDate = newDate.isValid()
+      ? newDate.format(DateTimeFormat.DATE_TIME_WITH_DASH)
       : null;
+
+    if (newDate) {
+      newDate = digitsFaToEn(newDate);
+    }
+    tableParams.created_from = newDate;
 
     onDateChange({
       params: tableParams,
@@ -30,20 +38,19 @@ const TableDatePicker = ({ onDateChange, queryParamsLocalStorageKey }) => {
 
   const toDateChangeHandler = (newDate) => {
     newDate = moment(newDate);
-    tableParams.created_to = newDate.isValid()
+    newDate = newDate.isValid()
       ? newDate.format(DateTimeFormat.DATE_TIME_WITH_DASH)
       : null;
+
+    if (newDate) {
+      newDate = digitsFaToEn(newDate);
+    }
+    tableParams.created_to = newDate;
 
     onDateChange({
       params: tableParams,
     });
     replace(queryParamsLocalStorageKey, tableParams);
-  };
-
-  const removeDateHandler = () => {
-    onDateChange({
-      params: tableParams,
-    });
   };
 
   return (
