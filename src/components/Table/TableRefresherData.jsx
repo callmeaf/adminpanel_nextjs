@@ -3,12 +3,12 @@ import { useTranslations } from "next-intl";
 import React from "react";
 import { localStorageArtisan } from "@/helpers";
 
-const TableRefresherData = ({ onRefresh, tableId }) => {
+const TableRefresherData = ({ onRefresh, queryParamsLocalStorageKey }) => {
   const t = useTranslations("Tables.Table");
 
   const { remove } = localStorageArtisan();
   const refreshUsersDataWithoutAnyParams = () => {
-    remove(tableId);
+    remove(queryParamsLocalStorageKey);
     onRefresh();
   };
   return (

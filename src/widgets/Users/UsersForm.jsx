@@ -49,7 +49,6 @@ const UsersForm = ({ onSubmit, user }) => {
         label={t("status_label")}
         onOpen={getUserEnumsHandler}
         options={statuses}
-        inputs={inputs}
         errors={errors}
         loading={loading}
         defaultValue={user?.statusValue}
@@ -59,7 +58,6 @@ const UsersForm = ({ onSubmit, user }) => {
         label={t("type_label")}
         onOpen={getUserEnumsHandler}
         options={types}
-        inputs={inputs}
         errors={errors}
         loading={loading}
         defaultValue={user?.typeValue}

@@ -34,7 +34,7 @@ const TableItemDeleteAction = ({ onDelete }) => {
   return (
     <Show
       when={confirmed}
-      whenChild={
+      whenChild={() => (
         <>
           <Tooltip title={t("confirm_delete_action_label")}>
             <IconButton color="success" onClick={onDelete}>
@@ -47,12 +47,12 @@ const TableItemDeleteAction = ({ onDelete }) => {
             </IconButton>
           </Tooltip>
         </>
-      }
-      elseChild={
+      )}
+      elseChild={() => (
         <IconButton color="error" onClick={confirmHandler} loading={loading}>
           <DeleteIcon />
         </IconButton>
-      }
+      )}
     />
   );
 };

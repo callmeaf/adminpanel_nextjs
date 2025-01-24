@@ -40,10 +40,10 @@ const TableItemStatus = ({
               in={open}
               style={{ transformOrigin: "0 0 0" }}
               {...(open ? { timeout: (index + 1) * 500 } : {})}
+              key={statusKey}
             >
               <Tooltip title={t(`status_${statusConfig[statusKey]}_label`)}>
                 <IconButton
-                  key={statusKey}
                   color={statusConfig[statusKey]}
                   onClick={() => statusUpdateHandler(statusKey)}
                 >

@@ -54,7 +54,7 @@ export const createUser = (api, payload = {}) => {
       return await api.post(`${PREFIX_URL}`, formData);
     },
     onSuccess: ({ result, router }) => {
-      router.push(`${PREFIX_URL}/${result.user.id}/edit`);
+      router.push(`${PREFIX_URL}`);
     },
   };
 };

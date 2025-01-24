@@ -34,7 +34,10 @@ const BaseLayout = ({ children }) => {
   return (
     <CacheProvider value={rtlCache}>
       <ThemeProvider theme={rtlTheme}>
-        <SnackbarProvider maxSnack={3}>
+        <SnackbarProvider
+          maxSnack={3}
+          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        >
           <CssBaseline />
           {children}
           <SnackbarLayout />

@@ -71,7 +71,7 @@ const UsersTable = () => {
   return (
     <Show
       loading={loading}
-      loadingChild={<LinearProgress key={"loading"} hidden={!loading} />}
+      loadingChild={() => <LinearProgress key={"loading"} hidden={!loading} />}
       loadingChildWithWhenChild
       when={users}
       whenChild={() => (
@@ -116,7 +116,15 @@ const UsersTable = () => {
             onSearch={getUsersHandler}
             searchParams={["mobile", "email", "first_name", "last_name"]}
             onDateChange={getUsersHandler}
-            filter={<TableFilter filterItems={<UsersFilterTable />} />}
+            filter={
+              <TableFilter
+                queryParamsLocalStorageKey={tableId}
+                onFilter={getUsersHandler}
+                filterItems={
+                  <UsersFilterTable queryParamsLocalStorageKey={tableId} />
+                }
+              />
+            }
           >
             {users.data.map((user, index) => (
               <UsersItemTable
@@ -133,7 +141,10 @@ const UsersTable = () => {
         </>
       )}
       elseChild={() => (
-        <TableRefresherData tableId={tableId} onRefresh={getUsersHandler} />
+        <TableRefresherData
+          queryParamsLocalStorageKey={tableId}
+          onRefresh={getUsersHandler}
+        />
       )}
     />
   );

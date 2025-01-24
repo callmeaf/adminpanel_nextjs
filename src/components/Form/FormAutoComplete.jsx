@@ -5,7 +5,6 @@ import React from "react";
 const FormAutoComplete = ({
   name,
   label,
-  inputs = {},
   errors = {},
   options = [],
   onOpen,
@@ -14,8 +13,13 @@ const FormAutoComplete = ({
     label: "",
     value: "",
   },
+  onlyLoadIfOptionLoaded = false,
 }) => {
   const t = useTranslations("Forms.Form");
+  if (onlyLoadIfOptionLoaded && options.length === 0) {
+    return;
+  }
+
   return (
     <Autocomplete
       onOpen={onOpen}
@@ -24,9 +28,7 @@ const FormAutoComplete = ({
       isOptionEqualToValue={(option, value) =>
         option.value?.toString() === value.value?.toString()
       }
-      defaultValue={
-        options.length === 0 ? defaultValue : inputs[name].toString()
-      }
+      defaultValue={defaultValue?.value ? defaultValue : undefined}
       loading={loading}
       loadingText={t("loading_label")}
       renderInput={(params) => {

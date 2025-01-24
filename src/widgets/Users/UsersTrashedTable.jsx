@@ -53,7 +53,7 @@ const UsersTrashedTable = () => {
   return (
     <Show
       loading={loading}
-      loadingChild={<LinearProgress key={"loading"} hidden={!loading} />}
+      loadingChild={() => <LinearProgress key={"loading"} hidden={!loading} />}
       loadingChildWithWhenChild
       when={users}
       whenChild={() => (

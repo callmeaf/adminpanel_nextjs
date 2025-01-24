@@ -48,14 +48,14 @@ const UsersWrapper = ({ userId }) => {
   return (
     <Show
       loading={loading}
-      loadingChild={<LinearProgress />}
+      loadingChild={() => <LinearProgress />}
       when={userId ? user : true}
-      whenChild={
+      whenChild={() => (
         <UsersForm
           onSubmit={userId ? updateUserHandler : createUserHandler}
           user={user}
         />
-      }
+      )}
     />
   );
 };

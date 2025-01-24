@@ -76,12 +76,44 @@ const dataHandler = (data = {}) => {
     }
   };
 
+  const reset = (key) => {
+    if (isFormData) {
+      if (data.has(key)) {
+        data.set(key, "");
+      }
+    } else {
+      if (data.hasOwnProperty(key)) {
+        data[key] = undefined;
+      }
+    }
+  };
+
+  const resetAll = (keys = []) => {
+    if (isFormData) {
+      for (const [key] of data) {
+        if (keys.length !== 0 && !keys.includes(key)) {
+          continue;
+        }
+        reset(key);
+      }
+    } else {
+      for (const [key] of Object.entries(data)) {
+        if (keys.length !== 0 && !keys.includes(key)) {
+          continue;
+        }
+        reset(key);
+      }
+    }
+  };
+
   return {
     get,
     set,
     remove,
+    reset,
     getAllAsObject,
     removeEmptyValues,
+    resetAll,
   };
 };
 
