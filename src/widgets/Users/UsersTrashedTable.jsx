@@ -8,12 +8,12 @@ import {
 import Table from "@/components/Table/Table";
 import { useTranslations } from "next-intl";
 import Show from "@/components/Show";
-import { LinearProgress } from "@mui/material";
 import { localStorageArtisan } from "@/helpers";
 import TableRefresherData from "@/components/Table/TableRefresherData";
 import TableFilter from "@/components/Table/TableFilter";
 import UsersFilterTable from "./UsersFilterTable";
 import UsersItemTrashedTable from "./UsersItemTrashedTable";
+import TableLoading from "@/components/Table/Partials/TableLoading";
 
 const tableId = "users_trashed_table";
 
@@ -60,7 +60,7 @@ const UsersTrashedTable = () => {
   return (
     <Show
       loading={loading}
-      loadingChild={() => <LinearProgress key={"loading"} hidden={!loading} />}
+      loadingChild={() => <TableLoading />}
       loadingChildWithWhenChild
       when={users}
       whenChild={() => (

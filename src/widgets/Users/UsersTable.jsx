@@ -9,13 +9,13 @@ import Table from "@/components/Table/Table";
 import UsersItemTable from "@/widgets/Users/UsersItemTable";
 import { useTranslations } from "next-intl";
 import Show from "@/components/Show";
-import { LinearProgress } from "@mui/material";
 import { localStorageArtisan } from "@/helpers";
 import TableRefresherData from "@/components/Table/TableRefresherData";
 import { useRouter } from "@/i18n/routing";
 import useDashboardMenus from "@/hooks/use-dashboard-menus";
 import TableFilter from "@/components/Table/TableFilter";
 import UsersFilterTable from "./UsersFilterTable";
+import TableLoading from "@/components/Table/Partials/TableLoading";
 
 const tableId = "users_table";
 
@@ -71,7 +71,7 @@ const UsersTable = () => {
   return (
     <Show
       loading={loading}
-      loadingChild={() => <LinearProgress key={"loading"} hidden={!loading} />}
+      loadingChild={() => <TableLoading />}
       loadingChildWithWhenChild
       when={users}
       whenChild={() => (

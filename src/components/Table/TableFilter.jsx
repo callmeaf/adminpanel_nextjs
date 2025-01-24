@@ -16,6 +16,8 @@ import { localStorageArtisan } from "@/helpers";
 import dataHandler from "@/utils/data-handler";
 import { useTranslations } from "next-intl";
 
+let setFilteredDataTimeout;
+
 const TableFilter = ({ onFilter, queryParamsLocalStorageKey, filterItems }) => {
   const t = useTranslations("Tables.Table");
   const [isFilteredData, setIsFilteredData] = useState(false);
@@ -60,14 +62,20 @@ const TableFilter = ({ onFilter, queryParamsLocalStorageKey, filterItems }) => {
   };
 
   useEffect(() => {
-    setTimeout(() => {
+    setFilteredDataTimeout = setTimeout(() => {
       const formData = new FormData(tableFilterFormRef.current);
       for (const [key] of formData) {
         if (tableParams.hasOwnProperty(key)) {
           setIsFilteredData(true);
         }
       }
-    }, 500);
+    }, 1000);
+
+    return () => {
+      if (setFilteredDataTimeout) {
+        clearTimeout(setFilteredDataTimeout);
+      }
+    };
   }, []);
 
   return (

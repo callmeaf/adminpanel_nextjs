@@ -9,7 +9,15 @@ const useDashboardMenus = () => {
   const t = useTranslations("Common.DashboardMenu");
 
   const menus = useMemo(
-    () => [...dashboard_routes(t), ...users_routes(t)],
+    () => [
+      ...dashboard_routes(t),
+      ...users_routes(t),
+      {
+        id: "test",
+        href: "/testing",
+        label: "Test",
+      },
+    ],
     [user]
   );
 

@@ -27,3 +27,35 @@ body {
 img {
   max-width: 100% !important;
 }
+
+/* styles/nprogress.css */
+#nprogress {
+  pointer-events: none;
+}
+
+#nprogress .bar {
+  background: rgb(238, 21, 14) !important; /* رنگ لودینگ */
+  position: fixed;
+  z-index: 1031;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px; /* ضخامت نوار */
+}
+
+#nprogress .peg {
+  display: block;
+  position: absolute;
+  right: 0px;
+  width: 100px;
+  height: 100%;
+  box-shadow: 0 0 10px rgb(138, 80, 78), 0 0 5px rgb(235, 16, 9) !important;
+  opacity: 1;
+  -webkit-transform: rotate(3deg) translate(0px, -4px);
+  -ms-transform: rotate(3deg) translate(0px, -4px);
+  transform: rotate(3deg) translate(0px, -4px);
+}
+
+#nprogress .spinner {
+  display: none; /* غیرفعال کردن اسپینر */
+}
