@@ -12,6 +12,10 @@ const TableExporter = ({ onExcelExport }) => {
     setAnchorEl(null);
   };
 
+  const excelExportHandler = () => {
+    onExcelExport();
+  };
+
   return (
     <Box component={"div"}>
       <IconButton
@@ -55,11 +59,13 @@ const TableExporter = ({ onExcelExport }) => {
           },
         }}
       >
-        <MenuItem>
-          <Button onClick={onExcelExport} fullWidth>
-            Excel
-          </Button>
-        </MenuItem>
+        {onExcelExport && (
+          <MenuItem>
+            <Button onClick={excelExportHandler} fullWidth>
+              Excel
+            </Button>
+          </MenuItem>
+        )}
       </Menu>
     </Box>
   );

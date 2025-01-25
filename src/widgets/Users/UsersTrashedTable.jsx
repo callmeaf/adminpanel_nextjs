@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useApi from "@/hooks/use-api";
 import {
+  exportExcelUsers,
   forceDeleteUser,
   getUsersTrashed,
   restoreUser,
@@ -51,6 +52,24 @@ const UsersTrashedTable = () => {
     getUsersTrashedHandler(undefined, {
       showSuccessAlert: false,
     });
+  };
+
+  const usersExportExcelHandler = async (payload, options) => {
+    payload = payload ?? {
+      params: get(tableId, {}),
+    };
+
+    payload.params.only_trashed = "true";
+    await handle(
+      exportExcelUsers,
+      {
+        payload,
+        extra: {
+          key: "users",
+        },
+      },
+      options
+    );
   };
 
   useEffect(() => {
@@ -105,6 +124,7 @@ const UsersTrashedTable = () => {
             onSearch={getUsersTrashedHandler}
             searchParams={["mobile", "email", "first_name", "last_name"]}
             onDateChange={getUsersTrashedHandler}
+            onExcelExport={usersExportExcelHandler}
             filter={
               <TableFilter
                 queryParamsLocalStorageKey={tableId}

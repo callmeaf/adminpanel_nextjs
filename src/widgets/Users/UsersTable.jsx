@@ -38,9 +38,9 @@ const UsersTable = () => {
     setUsers(data.users);
   };
 
-  const usersExportExcel = async (payload, options) => {
+  const usersExportExcelHandler = async (payload, options) => {
     payload = payload ?? {
-      params: get(tableId),
+      params: get(tableId, {}),
     };
     await handle(
       exportExcelUsers,
@@ -142,7 +142,7 @@ const UsersTable = () => {
                 }
               />
             }
-            onExcelExport={usersExportExcel}
+            onExcelExport={usersExportExcelHandler}
           >
             {users.data.map((user, index) => (
               <UsersItemTable
