@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import useApi from "@/hooks/use-api";
 import {
   deleteUser,
+  exportExcelUsers,
   getUsers,
   updateUserStatusById,
 } from "@/thunks/user-thunks";
@@ -35,6 +36,22 @@ const UsersTable = () => {
     };
     const data = await handle(getUsers, { payload }, options);
     setUsers(data.users);
+  };
+
+  const usersExportExcel = async (payload, options) => {
+    payload = payload ?? {
+      params: get(tableId),
+    };
+    await handle(
+      exportExcelUsers,
+      {
+        payload,
+        extra: {
+          key: "users",
+        },
+      },
+      options
+    );
   };
 
   const { getMenu } = useDashboardMenus();
@@ -125,6 +142,7 @@ const UsersTable = () => {
                 }
               />
             }
+            onExcelExport={usersExportExcel}
           >
             {users.data.map((user, index) => (
               <UsersItemTable

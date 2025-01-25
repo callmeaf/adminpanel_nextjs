@@ -7,7 +7,6 @@ import rtlPlugin from "stylis-plugin-rtl";
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import { CacheProvider } from "@emotion/react";
 import SnackbarLayout from "@/components/Layout/Partials/SnabkbarLayout";
-import { createPortal } from "react-dom";
 import { SnackbarProvider } from "notistack";
 
 const BaseLayout = ({ children }) => {

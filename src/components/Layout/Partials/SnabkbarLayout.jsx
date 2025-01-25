@@ -8,7 +8,7 @@ const SnackbarLayout = () => {
 
   const { enqueueSnackbar } = useSnackbar();
   useEffect(() => {
-    if (message.body.trim().length !== 0) {
+    if (message.body && message.body.trim().length !== 0) {
       enqueueSnackbar(message.body, { variant: message.type });
     }
   }, [message.body]);

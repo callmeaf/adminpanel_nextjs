@@ -2,6 +2,7 @@ import paginateModel from "@/models/PaginateModel";
 import UserModel from "@/models/UserModel";
 import dataHandler from "@/utils/data-handler";
 import { getEnums } from "./base-thunks";
+import { exportExcel } from "./excel-thunks";
 
 const PREFIX_URL = "/users";
 
@@ -124,3 +125,6 @@ export const getUserEnums = (
     keys: ["user", "cart"],
   }
 ) => getEnums(api, payload);
+
+export const exportExcelUsers = (api, payload = {}, extra = {}) =>
+  exportExcel(api, payload, extra);

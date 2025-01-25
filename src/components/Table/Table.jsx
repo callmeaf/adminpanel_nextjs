@@ -8,11 +8,13 @@ import {
   TableRow,
   Paper,
   Grid2,
+  Box,
 } from "@mui/material";
 import TablePagination from "@/components/Table/TablePagination";
 import TableSearch from "@/components/Table/TableSearch";
 import { useTranslations } from "next-intl";
 import TableDatePicker from "./TableDatePicker";
+import TableExporter from "./TableExporter";
 
 export default function Table({
   id,
@@ -27,6 +29,7 @@ export default function Table({
   onSearch,
   searchParams,
   filter,
+  onExcelExport,
 }) {
   const translateTable = useTranslations("Tables.Table");
 
@@ -39,7 +42,13 @@ export default function Table({
           searchParams={searchParams}
           queryParamsLocalStorageKey={id}
         />
-        {filter}
+        <Box
+          component={"div"}
+          sx={{ display: "flex", justifyContent: "space-between" }}
+        >
+          {filter}
+          <TableExporter onExcelExport={onExcelExport} />
+        </Box>
       </Grid2>
       <Grid2 size={{ xs: 12, md: 6, lg: 4 }} offset={4}>
         <TableDatePicker
