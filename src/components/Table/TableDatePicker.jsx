@@ -11,12 +11,8 @@ const TableDatePicker = ({ onDateChange, queryParamsLocalStorageKey }) => {
   const t = useTranslations("Tables.Table");
   const { get, replace } = localStorageArtisan();
   const tableParams = get(queryParamsLocalStorageKey, {
-    created_from: digitsFaToEn(
-      moment().subtract(1, "year").format(DateTimeFormat.DATE_TIME_WITH_DASH)
-    ),
-    created_to: digitsFaToEn(
-      moment().add(1, "day").format(DateTimeFormat.DATE_TIME_WITH_DASH)
-    ),
+    created_from: undefined,
+    created_to: undefined,
   });
 
   const fromDateChangeHandler = (newDate) => {
@@ -60,7 +56,11 @@ const TableDatePicker = ({ onDateChange, queryParamsLocalStorageKey }) => {
           id={"created_from"}
           name={"created_from"}
           label={t("created_from_label")}
-          defaultValue={moment(tableParams.created_from)}
+          defaultValue={
+            tableParams.created_from
+              ? moment(tableParams.created_from)
+              : undefined
+          }
           onChange={fromDateChangeHandler}
         />
       </Grid2>
@@ -69,7 +69,9 @@ const TableDatePicker = ({ onDateChange, queryParamsLocalStorageKey }) => {
           id={"created_to"}
           name={"created_to"}
           label={t("created_to_label")}
-          defaultValue={moment(tableParams.created_to)}
+          defaultValue={
+            tableParams.created_to ? moment(tableParams.created_to) : undefined
+          }
           onChange={toDateChangeHandler}
         />
       </Grid2>

@@ -49,9 +49,11 @@ const TableItemDeleteAction = ({ onDelete }) => {
         </>
       )}
       elseChild={() => (
-        <IconButton color="error" onClick={confirmHandler} loading={loading}>
-          <DeleteIcon />
-        </IconButton>
+        <Tooltip title={t("delete_label")}>
+          <IconButton color="error" onClick={confirmHandler} loading={loading}>
+            <DeleteIcon />
+          </IconButton>
+        </Tooltip>
       )}
     />
   );

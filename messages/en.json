@@ -62,7 +62,17 @@
       "status_success_label": "Active",
       "status_warning_label": "Pending",
       "status_error_label": "InActive",
-      "filter_clean_button_tooltip": "The displayed data is filtered. Click to remove filter"
+      "filter_clean_button_tooltip": "The displayed data is filtered. Click to remove filter",
+      "export_modal_title": "The applied filters affect the final output.",
+      "export_all_page_button_label": "Export from all pages",
+      "export_current_page_button_label": "Export from current page {page}",
+      "export_excel_label": "Excel",
+      "filter_label": "Filter",
+      "export_label": "Export",
+      "edit_label": "Edit",
+      "delete_label": "Delete",
+      "restore_label": "Restore",
+      "force_delete_label": "Force Delete"
     },
     "Users": {
       "id_label": "ID",

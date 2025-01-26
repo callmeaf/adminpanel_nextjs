@@ -1,12 +1,16 @@
 import React from "react";
 import { SettingsBackupRestore as SettingsBackupRestoreIcon } from "@mui/icons-material";
-import { IconButton } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
+import { useTranslations } from "use-intl";
 
 const TableItemRestoreAction = ({ onRestore }) => {
+  const t = useTranslations("Tables.Table");
   return (
-    <IconButton color="warning" onClick={onRestore}>
-      <SettingsBackupRestoreIcon />
-    </IconButton>
+    <Tooltip title={t("restore_label")}>
+      <IconButton color="warning" onClick={onRestore}>
+        <SettingsBackupRestoreIcon />
+      </IconButton>
+    </Tooltip>
   );
 };
 

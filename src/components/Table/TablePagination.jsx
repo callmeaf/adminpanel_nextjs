@@ -14,7 +14,7 @@ import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
 import { localStorageArtisan } from "@/helpers";
 
-const perPages = [1, 15, 30, 50, 100];
+const perPages = [15, 30, 50, 100];
 
 const TablePagination = ({
   pagination,

@@ -80,16 +80,18 @@ const TableFilter = ({ onFilter, queryParamsLocalStorageKey, filterItems }) => {
 
   return (
     <form id="table-filter-form" action={submitAction} ref={tableFilterFormRef}>
-      <IconButton
-        id="table-filter-button"
-        aria-controls={open ? "table-filter-menu" : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? "true" : undefined}
-        onClick={handleClick}
-        type="button"
-      >
-        <TuneIcon />
-      </IconButton>
+      <Tooltip title={t("filter_label")}>
+        <IconButton
+          id="table-filter-button"
+          aria-controls={open ? "table-filter-menu" : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? "true" : undefined}
+          onClick={handleClick}
+          type="button"
+        >
+          <TuneIcon />
+        </IconButton>
+      </Tooltip>
       {isFilteredData && (
         <Tooltip title={t("filter_clean_button_tooltip")}>
           <IconButton
@@ -150,9 +152,12 @@ const TableFilter = ({ onFilter, queryParamsLocalStorageKey, filterItems }) => {
       >
         {filterItems}
         <MenuItem>
-          <Button type="submit" color="primary" variant="contained">
-            <TuneIcon />
-          </Button>
+          <Tooltip title={t("filter_label")}>
+            <Button type="submit" color="primary" variant="contained">
+              <TuneIcon />
+            </Button>
+          </Tooltip>
+
           <Box sx={{ mx: 1 }} />
           {isFilteredData && (
             <Tooltip title={t("filter_clean_button_tooltip")}>

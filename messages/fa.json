@@ -62,7 +62,17 @@
       "status_success_label": "فعال",
       "status_warning_label": "در انتظار تعیین وضعیت",
       "status_error_label": "غیر فعال",
-      "filter_clean_button_tooltip": "داده های نمایش داده شده فیلتر شده است. برای حذف فیلتر کلیک کنید."
+      "filter_clean_button_tooltip": "داده های نمایش داده شده فیلتر شده است. برای حذف فیلتر کلیک کنید.",
+      "export_modal_title": "فیلترهای اعمال شده، در خروجی نهایی اثر میگذارند.",
+      "export_all_page_button_label": "خروجی از تمام صفحات",
+      "export_current_page_button_label": "خروجی از صفحه  {page}",
+      "export_excel_label": "اکسل",
+      "filter_label": "فیلتر",
+      "export_label": "خروجی",
+      "edit_label": "ویرایش",
+      "delete_label": "حذف",
+      "restore_label": "بازگردانی",
+      "force_delete_label": "حذف دائم"
     },
     "Users": {
       "id_label": "ID",

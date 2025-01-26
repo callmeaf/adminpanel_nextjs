@@ -49,9 +49,11 @@ const TableItemForceDeleteAction = ({ onForceDelete }) => {
         </>
       )}
       elseChild={() => (
-        <IconButton color="error" onClick={confirmHandler} loading={loading}>
-          <DeleteForeverIcon />
-        </IconButton>
+        <Tooltip title={t("force_delete_label")}>
+          <IconButton color="error" onClick={confirmHandler} loading={loading}>
+            <DeleteForeverIcon />
+          </IconButton>
+        </Tooltip>
       )}
     />
   );

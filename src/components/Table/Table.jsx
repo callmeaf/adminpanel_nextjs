@@ -47,7 +47,10 @@ export default function Table({
           sx={{ display: "flex", justifyContent: "space-between" }}
         >
           {filter}
-          <TableExporter onExcelExport={onExcelExport} />
+          <TableExporter
+            queryParamsLocalStorageKey={id}
+            onExcelExport={onExcelExport}
+          />
         </Box>
       </Grid2>
       <Grid2 size={{ xs: 12, md: 6, lg: 4 }} offset={4}>
