@@ -1,10 +1,10 @@
 const dataHandler = (data = {}) => {
   const isFormData = data instanceof FormData;
 
-  const get = (key, defaultValue) => {
+  const get = (key, defaultValue, { getAsAll = false } = {}) => {
     if (isFormData) {
       if (data.has(key)) {
-        return data.get(key);
+        return getAsAll ? data.getAll(key) : data.get(key);
       } else {
         return defaultValue;
       }
@@ -12,6 +12,11 @@ const dataHandler = (data = {}) => {
       return data[key] ?? defaultValue;
     }
   };
+
+  const getAll = (key, defaultValue) =>
+    get(key, defaultValue, {
+      getAsAll: true,
+    });
 
   const set = (key, value) => {
     if (isFormData) {
@@ -114,6 +119,7 @@ const dataHandler = (data = {}) => {
     getAllAsObject,
     removeEmptyValues,
     resetAll,
+    getAll,
   };
 };
 

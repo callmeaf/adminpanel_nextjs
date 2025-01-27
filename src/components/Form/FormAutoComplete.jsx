@@ -1,8 +1,35 @@
 import { Autocomplete, CircularProgress, TextField } from "@mui/material";
 import { useTranslations } from "next-intl";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 let formAutoCompleteSearchTimeout;
+
+const inputHiddenDefaultValue = ({
+  multiple,
+  options,
+  params,
+  defaultValue,
+}) => {
+  if (multiple) {
+    const selectedLabels = params.InputProps.startAdornment?.map(
+      (item) => item.props.label
+    );
+    const selectedOptions = options.filter((option) =>
+      selectedLabels?.includes(option.label)
+    );
+
+    return selectedOptions;
+  } else {
+    if (options.length) {
+      return options.find(
+        (option) =>
+          option.label?.toString() === params.inputProps.value?.toString()
+      )?.value;
+    } else {
+      return defaultValue.value;
+    }
+  }
+};
 
 const FormAutoComplete = ({
   name,
@@ -21,9 +48,7 @@ const FormAutoComplete = ({
   onSearch,
 }) => {
   const t = useTranslations("Forms.Form");
-  if (onlyLoadIfOptionLoaded && options.length === 0) {
-    return;
-  }
+  const [searchValue, setSearchValue] = useState("");
 
   const scrollHandler = (event) => {
     if (!onScroll) {
@@ -32,9 +57,11 @@ const FormAutoComplete = ({
     const listboxNode = event.currentTarget;
     if (
       listboxNode.scrollTop + listboxNode.offsetHeight >=
-      listboxNode.scrollHeight // فاصله مشخصی تا انتهای لیست
+      listboxNode.scrollHeight
     ) {
-      onScroll();
+      onScroll({
+        searchValue,
+      });
     }
   };
 
@@ -42,15 +69,32 @@ const FormAutoComplete = ({
     if (!onSearch) {
       return;
     }
-    if (formAutoCompleteSearchTimeout) {
-      clearTimeout(formAutoCompleteSearchTimeout);
+    if (!["selectOption", "reset"].includes(reason)) {
+      setSearchValue(value.toString().trim());
+    }
+  };
+
+  useEffect(() => {
+    if (!onSearch) {
+      return;
     }
     formAutoCompleteSearchTimeout = setTimeout(() => {
       onSearch({
-        searchValue: value.toString().trim(),
+        searchValue,
       });
     }, 500);
-  };
+
+    return () => {
+      if (formAutoCompleteSearchTimeout) {
+        clearTimeout(formAutoCompleteSearchTimeout);
+      }
+    };
+  }, [searchValue]);
+
+  if (onlyLoadIfOptionLoaded && options.length === 0) {
+    return;
+  }
+
   return (
     <Autocomplete
       onInputChange={searchHandler}
@@ -60,16 +104,25 @@ const FormAutoComplete = ({
       isOptionEqualToValue={(option, value) =>
         option.value?.toString() === value.value?.toString()
       }
+      inputValue={multiple ? searchValue : undefined}
       defaultValue={defaultValue?.value ? defaultValue : undefined}
       loading={loading}
       loadingText={t("loading_label")}
       multiple={multiple}
+      disableCloseOnSelect={multiple}
       slotProps={{
         listbox: {
           onScroll: scrollHandler,
         },
       }}
       renderInput={(params) => {
+        const inputHiddenValues = inputHiddenDefaultValue({
+          multiple,
+          options,
+          params,
+          defaultValue,
+        });
+
         return (
           <>
             <TextField
@@ -93,20 +146,25 @@ const FormAutoComplete = ({
                 },
               }}
             />
-            <input
-              type="hidden"
-              id={name}
-              name={name}
-              defaultValue={
-                options.length === 0
-                  ? defaultValue.value
-                  : options.find(
-                      (option) =>
-                        option.label?.toString() ===
-                        params.inputProps.value?.toString()
-                    )?.value
-              }
-            />
+
+            {multiple ? (
+              inputHiddenValues.map((item, index) => (
+                <input
+                  key={item.value}
+                  type="hidden"
+                  id={`${name}[${index}]`}
+                  name={`${name}[]`}
+                  defaultValue={item.value}
+                />
+              ))
+            ) : (
+              <input
+                type="hidden"
+                id={name}
+                name={name}
+                defaultValue={inputHiddenValues}
+              />
+            )}
           </>
         );
       }}

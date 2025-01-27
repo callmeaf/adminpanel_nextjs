@@ -3,8 +3,10 @@ import FormAutoComplete from "@/components/Form/FormAutoComplete";
 import FormInput from "@/components/Form/FormInput";
 import { actionState } from "@/helpers";
 import useApi from "@/hooks/use-api";
+import useAutoCompleteOptions from "@/hooks/use-auto-complete-options";
 import { getRoles } from "@/thunks/permission-thunks";
 import { getUserEnums } from "@/thunks/user-thunks";
+import { Grid2 } from "@mui/material";
 import React, { useActionState, useState } from "react";
 import { useTranslations } from "use-intl";
 
@@ -45,31 +47,25 @@ const UsersForm = ({ onSubmit, user }) => {
   };
 
   const { handle: handleRoles, loading: loadingRoles } = useApi();
-  const [roles, setRoles] = useState({});
-  const getRolesHandler = async ({ searchValue } = {}) => {
-    console.log({ roles });
-    if (
-      !searchValue &&
-      roles.pagination &&
-      !roles.pagination.meta.hasNextPage()
-    ) {
-      return;
-    }
+  const getRolesHandler = async (payload) => {
     const data = await handleRoles(
       getRoles,
       {
-        payload: {
-          params: {
-            page: searchValue ? 1 : roles.pagination?.meta?.nextPage,
-            name: searchValue,
-            name_fa: searchValue,
-          },
-        },
+        payload,
       },
       { showSuccessAlert: false }
     );
-    setRoles(data.roles.mergeData(roles.data));
+
+    return data.roles;
   };
+  const {
+    options: rolesOptions,
+    onOpen: rolesOnOpen,
+    onScroll: rolesOnScroll,
+    onSearch: rolesOnSearch,
+  } = useAutoCompleteOptions(getRolesHandler, {
+    searchParams: ["name", "name_fa"],
+  });
 
   return (
     <Form action={submitAction} loading={isPending}>
@@ -103,22 +99,23 @@ const UsersForm = ({ onSubmit, user }) => {
             errors={errors}
           />
         ))}
-
-      <FormAutoComplete
-        name="role"
-        label={t("role_label")}
-        onOpen={getRolesHandler}
-        options={roles.data?.map((role) => ({
-          label: role.fullName,
-          value: role.id,
-        }))}
-        errors={errors}
-        loading={loadingRoles}
-        multiple
-        onScroll={getRolesHandler}
-        onSearch={getRolesHandler}
-        // defaultValue={user?.typeValue}
-      />
+      <Grid2 size={12}>
+        <FormAutoComplete
+          name="roles"
+          label={t("role_label")}
+          onOpen={rolesOnOpen}
+          options={rolesOptions.data?.map((role) => ({
+            label: role.fullName,
+            value: role.id,
+          }))}
+          errors={errors}
+          loading={loadingRoles}
+          multiple
+          onScroll={rolesOnScroll}
+          onSearch={rolesOnSearch}
+          // defaultValue={user?.typeValue}
+        />
+      </Grid2>
     </Form>
   );
 };

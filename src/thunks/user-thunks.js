@@ -42,10 +42,13 @@ export const getUserById = (api, payload) => {
 export const createUser = (api, payload = {}) => {
   return {
     onSend: async () => {
-      const { get } = dataHandler(payload);
+      const { get, getAll } = dataHandler(payload);
       const formData = new FormData();
       formData.append("status", get("status"));
       formData.append("type", get("type"));
+      getAll("roles[]", []).forEach((role) => {
+        formData.append("roles[]", role);
+      });
       formData.append("first_name", get("first_name"));
       formData.append("last_name", get("last_name"));
       formData.append("mobile", get("mobile"));
