@@ -37,7 +37,8 @@
       "mobile_label": "موبایل",
       "email_label": "ایمیل",
       "national_code_label": "کد ملی",
-      "submit_label": "ایجاد کاربر"
+      "submit_label": "ایجاد کاربر",
+      "role_label": "نقش ها"
     }
   },
   "Tables": {

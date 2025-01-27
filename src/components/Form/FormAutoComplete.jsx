@@ -2,6 +2,8 @@ import { Autocomplete, CircularProgress, TextField } from "@mui/material";
 import { useTranslations } from "next-intl";
 import React from "react";
 
+let formAutoCompleteSearchTimeout;
+
 const FormAutoComplete = ({
   name,
   label,
@@ -14,14 +16,44 @@ const FormAutoComplete = ({
     value: "",
   },
   onlyLoadIfOptionLoaded = false,
+  multiple = false,
+  onScroll,
+  onSearch,
 }) => {
   const t = useTranslations("Forms.Form");
   if (onlyLoadIfOptionLoaded && options.length === 0) {
     return;
   }
 
+  const scrollHandler = (event) => {
+    if (!onScroll) {
+      return;
+    }
+    const listboxNode = event.currentTarget;
+    if (
+      listboxNode.scrollTop + listboxNode.offsetHeight >=
+      listboxNode.scrollHeight // فاصله مشخصی تا انتهای لیست
+    ) {
+      onScroll();
+    }
+  };
+
+  const searchHandler = (event, value, reason) => {
+    if (!onSearch) {
+      return;
+    }
+    if (formAutoCompleteSearchTimeout) {
+      clearTimeout(formAutoCompleteSearchTimeout);
+    }
+    formAutoCompleteSearchTimeout = setTimeout(() => {
+      onSearch({
+        searchValue: value.toString().trim(),
+      });
+    }, 500);
+  };
   return (
     <Autocomplete
+      onInputChange={searchHandler}
       onOpen={onOpen}
       options={options}
       getOptionLabel={(option) => option.label ?? ""}
@@ -31,6 +63,12 @@ const FormAutoComplete = ({
       defaultValue={defaultValue?.value ? defaultValue : undefined}
       loading={loading}
       loadingText={t("loading_label")}
+      multiple={multiple}
+      slotProps={{
+        listbox: {
+          onScroll: scrollHandler,
+        },
+      }}
       renderInput={(params) => {
         return (
           <>
@@ -64,7 +102,7 @@ const FormAutoComplete = ({
                   ? defaultValue.value
                   : options.find(
                       (option) =>
-                        option.label.toString() ===
+                        option.label?.toString() ===
                         params.inputProps.value?.toString()
                     )?.value
               }

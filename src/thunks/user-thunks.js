@@ -1,4 +1,4 @@
-import paginateModel from "@/models/PaginateModel";
+import PaginateModel from "@/models/PaginateModel";
 import UserModel from "@/models/UserModel";
 import dataHandler from "@/utils/data-handler";
 import { getEnums } from "./base-thunks";
@@ -12,7 +12,7 @@ export const getUsers = (api, payload = {}) => {
       return await api.get(`${PREFIX_URL}`, payload);
     },
     onSuccess: ({ result, finalData }) => {
-      finalData.users = paginateModel(result.users, UserModel);
+      finalData.users = PaginateModel(result.users, UserModel);
     },
   };
 };
@@ -23,7 +23,7 @@ export const getUsersTrashed = (api, payload = {}) => {
       return await api.get(`${PREFIX_URL}/trashed/index`, payload);
     },
     onSuccess: ({ result, finalData }) => {
-      finalData.users = paginateModel(result.users, UserModel);
+      finalData.users = PaginateModel(result.users, UserModel);
     },
   };
 };

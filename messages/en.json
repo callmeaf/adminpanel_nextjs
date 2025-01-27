@@ -37,7 +37,8 @@
       "mobile_label": "Mobile",
       "email_label": "Email",
       "national_code_label": "National Code",
-      "submit_label": "Add User"
+      "submit_label": "Add User",
+      "role_label": "Roles"
     }
   },
   "Tables": {

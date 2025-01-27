@@ -112,3 +112,13 @@ export function localStorageArtisan() {
     remove,
   };
 }
+
+export function arrayArtisan(data) {
+  const unique = (key) => {
+    return Array.from(new Map(data.map((item) => [item[key], item])).values());
+  };
+
+  return {
+    unique,
+  };
+}
