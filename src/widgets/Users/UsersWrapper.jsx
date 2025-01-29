@@ -10,7 +10,7 @@ import {
 } from "@/thunks/user-thunks";
 import Show from "@/components/Show";
 import { LinearProgress } from "@mui/material";
-import axios from "axios";
+import { typeOf } from "@/helpers";
 
 const UsersWrapper = ({ userId }) => {
   const { handle, loading } = useApi();
@@ -18,52 +18,64 @@ const UsersWrapper = ({ userId }) => {
   const createUserHandler = async (prevState, formData) => {
     const data = await handle(createUser, { payload: formData });
     if (data.user) {
-      const promises = [
-        handle(
-          assignRolesToUser,
-          {
-            payload: formData,
-            extra: {
-              user_id: data.user.id,
-            },
-          },
-          {
-            showSuccessAlert: false,
-          }
-        ),
-      ];
-
-      if (formData.get("image") instanceof File) {
-        promises.push(
-          handle(
-            updateProfileImageUser,
-            {
-              payload: formData,
-              extra: {
-                user_id: data.user.id,
-              },
-            },
-            {
-              showSuccessAlert: false,
-              hasFile: true,
-            }
-          )
-        );
-      }
-
-      await Promise.all(promises);
+      await Promise.all([
+        assignRolesToUserHandler(user.id, formData),
+        updateProfileImageUserHandler(user.id, formData),
+      ]);
     }
 
     return data;
   };
 
   const updateUserHandler = async (prevState, formData) => {
-    return await handle(updateUserById, {
+    const data = await handle(updateUserById, {
       payload: formData,
       extra: {
         user_id: userId,
       },
     });
+
+    await Promise.all([
+      assignRolesToUserHandler(user.id, formData),
+      updateProfileImageUserHandler(user.id, formData),
+    ]);
+
+    return data;
+  };
+
+  const assignRolesToUserHandler = async (userId, formData) => {
+    return await handle(
+      assignRolesToUser,
+      {
+        payload: formData,
+        extra: {
+          user_id: userId,
+        },
+      },
+      {
+        showSuccessAlert: false,
+      }
+    );
+  };
+
+  const updateProfileImageUserHandler = async (userId, formData) => {
+    const { isUploadedFile } = typeOf(formData.get("image"));
+
+    if (isUploadedFile) {
+      return await handle(
+        updateProfileImageUser,
+        {
+          payload: formData,
+          extra: {
+            user_id: user.id,
+          },
+        },
+        {
+          showSuccessAlert: false,
+          hasFile: true,
+        }
+      );
+    }
   };
 
   const [user, setUser] = useState(null);

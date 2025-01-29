@@ -2,9 +2,12 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { Avatar, Box } from "@mui/material";
+import { typeOf } from "@/helpers";
 
 export default function FormFile({ name, label, inputs = {}, errors = {} }) {
   const [image, setImage] = React.useState(inputs[name]);
+
+  const { isUploadedFile } = typeOf(image);
 
   return (
     <Box component={"div"} sx={{ display: "flex", gap: 3 }}>
@@ -27,8 +30,8 @@ export default function FormFile({ name, label, inputs = {}, errors = {} }) {
 
       {image && (
         <Avatar
-          alt={image instanceof File ? image.name : image.fileName}
-          src={image instanceof File ? URL.createObjectURL(image) : image.url}
+          alt={isUploadedFile ? image.name : image.fileName}
+          src={isUploadedFile ? URL.createObjectURL(image) : image.url}
         />
       )}
     </Box>

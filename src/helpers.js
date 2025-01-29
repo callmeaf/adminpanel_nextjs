@@ -23,6 +23,7 @@ export const typeOf = (value) => {
     isArray: Array.isArray(value) || value instanceof Array,
     isObject:
       typeof value === "object" && !Array.isArray(value) && value !== null,
+    isUploadedFile: value instanceof File && !!value.name,
   };
 };
 

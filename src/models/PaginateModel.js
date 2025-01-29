@@ -31,7 +31,7 @@ export default ({ data, meta, links }, dataModel) => ({
   },
   mergeData: function (newData = []) {
     const { unique } = arrayArtisan();
-    const updatedData = unique("id", [...newData, ...this.data]);
+    const updatedData = unique([...newData, ...this.data], "id");
     this.data = updatedData;
 
     return this;
