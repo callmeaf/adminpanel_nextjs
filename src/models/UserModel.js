@@ -1,3 +1,6 @@
+import MediaModel from "./MediaModel";
+import RoleModel from "./RoleModel";
+
 export default ({
   id,
   status,
@@ -10,6 +13,9 @@ export default ({
   email,
   mobile,
   national_code,
+  image,
+  roles_ids,
+  roles,
   created_at_text,
   deleted_at_text,
 }) => ({
@@ -36,6 +42,15 @@ export default ({
   email: email,
   mobile: mobile,
   nationalCode: national_code,
+  image: image ? MediaModel(image) : null,
+  rolesIds: roles_ids ?? [],
+  roles: roles ? roles.data.map((role) => RoleModel(role)) : [],
+  rolesValues: function () {
+    return this.roles.map((role) => ({
+      label: role.fullName,
+      value: role.id,
+    }));
+  },
   createdAtText: created_at_text,
   deletedAtText: deleted_at_text,
 });

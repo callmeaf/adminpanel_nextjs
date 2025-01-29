@@ -42,13 +42,10 @@ export const getUserById = (api, payload) => {
 export const createUser = (api, payload = {}) => {
   return {
     onSend: async () => {
-      const { get, getAll } = dataHandler(payload);
+      const { get } = dataHandler(payload);
       const formData = new FormData();
       formData.append("status", get("status"));
       formData.append("type", get("type"));
-      getAll("roles[]", []).forEach((role) => {
-        formData.append("roles[]", role);
-      });
       formData.append("first_name", get("first_name"));
       formData.append("last_name", get("last_name"));
       formData.append("mobile", get("mobile"));
@@ -57,7 +54,8 @@ export const createUser = (api, payload = {}) => {
 
       return await api.post(`${PREFIX_URL}`, formData);
     },
-    onSuccess: ({ result, router }) => {
+    onSuccess: ({ result, finalData, router }) => {
+      finalData.user = UserModel(result.user);
       router.push(`${PREFIX_URL}`);
     },
   };
@@ -131,3 +129,36 @@ export const getUserEnums = (
 
 export const exportExcelUsers = (api, payload = {}, extra = {}) =>
   exportExcel(api, payload, extra);
+
+export const assignRolesToUser = (api, payload = {}, extra = {}) => {
+  return {
+    onSend: async () => {
+      const { getAll } = dataHandler(payload);
+
+      const formData = new FormData();
+      formData.append("_method", "PATCH");
+      getAll("roles[]", []).forEach((role) => {
+        formData.append("roles_ids[]", role);
+      });
+      return await api.post(`${PREFIX_URL}/${extra.user_id}/roles`, formData);
+    },
+  };
+};
+
+export const updateProfileImageUser = (api, payload = {}, extra = {}) => {
+  return {
+    onSend: async () => {
+      const { get } = dataHandler(payload);
+
+      const formData = new FormData();
+      formData.append("_method", "PATCH");
+      const image = get("image");
+      formData.append("image", image, image.name);
+
+      return await api.post(
+        `${PREFIX_URL}/${extra.user_id}/profile_image`,
+        formData
+      );
+    },
+  };
+};

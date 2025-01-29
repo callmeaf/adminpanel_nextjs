@@ -37,11 +37,16 @@ export const useApi = () => {
   const handle = async (
     thunk,
     { payload, ctx, extra = {} } = {},
-    { showSuccessAlert = true, showErrorAlert = true } = {}
+    { showSuccessAlert = true, showErrorAlert = true, hasFile = false } = {}
   ) => {
     const { getAllAsObject } = dataHandler(payload);
 
     const finalData = actionState(getAllAsObject());
+
+    if (hasFile) {
+      axiosInstance.defaults.headers.common["Content-Type"] =
+        "multipart/form-data";
+    }
     const { onInit, onSend, onSuccess, onError } = thunk(
       axiosInstance,
       payload,
@@ -88,7 +93,7 @@ export const useApi = () => {
         });
       }
     } catch (exception) {
-      console.error({ exception });
+      console.error(`Thunk Error: ${thunk}`, { exception });
       const {
         response: {
           status,

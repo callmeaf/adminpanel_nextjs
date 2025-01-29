@@ -38,7 +38,8 @@
       "email_label": "ایمیل",
       "national_code_label": "کد ملی",
       "submit_label": "ایجاد کاربر",
-      "role_label": "نقش ها"
+      "roles_label": "نقش ها",
+      "image_label": "عکس کاربر"
     }
   },
   "Tables": {

@@ -1,15 +1,60 @@
 import React, { useEffect, useState } from "react";
 import UsersForm from "./UsersForm";
 import useApi from "@/hooks/use-api";
-import { createUser, getUserById, updateUserById } from "@/thunks/user-thunks";
+import {
+  assignRolesToUser,
+  createUser,
+  getUserById,
+  updateProfileImageUser,
+  updateUserById,
+} from "@/thunks/user-thunks";
 import Show from "@/components/Show";
 import { LinearProgress } from "@mui/material";
+import axios from "axios";
 
 const UsersWrapper = ({ userId }) => {
   const { handle, loading } = useApi();
 
   const createUserHandler = async (prevState, formData) => {
-    return await handle(createUser, { payload: formData });
+    const data = await handle(createUser, { payload: formData });
+    if (data.user) {
+      const promises = [
+        handle(
+          assignRolesToUser,
+          {
+            payload: formData,
+            extra: {
+              user_id: data.user.id,
+            },
+          },
+          {
+            showSuccessAlert: false,
+          }
+        ),
+      ];
+
+      if (formData.get("image") instanceof File) {
+        promises.push(
+          handle(
+            updateProfileImageUser,
+            {
+              payload: formData,
+              extra: {
+                user_id: data.user.id,
+              },
+            },
+            {
+              showSuccessAlert: false,
+              hasFile: true,
+            }
+          )
+        );
+      }
+
+      await Promise.all(promises);
+    }
+
+    return data;
   };
 
   const updateUserHandler = async (prevState, formData) => {

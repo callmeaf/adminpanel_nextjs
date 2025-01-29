@@ -113,9 +113,15 @@ export function localStorageArtisan() {
   };
 }
 
-export function arrayArtisan(data) {
-  const unique = (key) => {
-    return Array.from(new Map(data.map((item) => [item[key], item])).values());
+export function arrayArtisan() {
+  const unique = (data, key) => {
+    if (key) {
+      return Array.from(
+        new Map(data.map((item) => [item[key], item])).values()
+      );
+    } else {
+      return [...new Set(data)];
+    }
   };
 
   return {

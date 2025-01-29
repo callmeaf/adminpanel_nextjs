@@ -1,5 +1,6 @@
 import Form from "@/components/Form/Form";
 import FormAutoComplete from "@/components/Form/FormAutoComplete";
+import FormFile from "@/components/Form/FormFile";
 import FormInput from "@/components/Form/FormInput";
 import { actionState } from "@/helpers";
 import useApi from "@/hooks/use-api";
@@ -23,7 +24,8 @@ const UsersForm = ({ onSubmit, user }) => {
       mobile: user ? user.mobile : "",
       national_code: user ? user.nationalCode : "",
       email: user ? user.email : "",
-      roles: [],
+      roles: user ? user.rolesIds : [],
+      image: user ? user.image : null,
     })
   );
 
@@ -69,6 +71,14 @@ const UsersForm = ({ onSubmit, user }) => {
 
   return (
     <Form action={submitAction} loading={isPending}>
+      <Grid2 size={12}>
+        <FormFile
+          name="image"
+          label={t("image_label")}
+          inputs={inputs}
+          errors={errors}
+        />
+      </Grid2>
       <FormAutoComplete
         name="status"
         label={t("status_label")}
@@ -89,7 +99,7 @@ const UsersForm = ({ onSubmit, user }) => {
       />
 
       {Object.keys(inputs)
-        .filter((name) => !["status", "type", "roles"].includes(name))
+        .filter((name) => !["status", "type", "roles", "image"].includes(name))
         .map((name) => (
           <FormInput
             key={name}
@@ -99,10 +109,11 @@ const UsersForm = ({ onSubmit, user }) => {
             errors={errors}
           />
         ))}
+
       <Grid2 size={12}>
         <FormAutoComplete
           name="roles"
-          label={t("role_label")}
+          label={t("roles_label")}
           onOpen={rolesOnOpen}
           options={rolesOptions.data?.map((role) => ({
             label: role.fullName,
@@ -113,7 +124,7 @@ const UsersForm = ({ onSubmit, user }) => {
           multiple
           onScroll={rolesOnScroll}
           onSearch={rolesOnSearch}
-          // defaultValue={user?.typeValue}
+          defaultValue={user?.rolesValues()}
         />
       </Grid2>
     </Form>

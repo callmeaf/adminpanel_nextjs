@@ -1,3 +1,4 @@
+import { arrayArtisan } from "@/helpers";
 import { Autocomplete, CircularProgress, TextField } from "@mui/material";
 import { useTranslations } from "next-intl";
 import React, { useEffect, useState } from "react";
@@ -11,12 +12,28 @@ const inputHiddenDefaultValue = ({
   defaultValue,
 }) => {
   if (multiple) {
-    const selectedLabels = params.InputProps.startAdornment?.map(
-      (item) => item.props.label
-    );
-    const selectedOptions = options.filter((option) =>
-      selectedLabels?.includes(option.label)
-    );
+    const { unique } = arrayArtisan();
+
+    let selectedLabels = [
+      ...params.InputProps.startAdornment?.map((item) => item.props.label),
+    ];
+    if (defaultValue && defaultValue.length) {
+      selectedLabels = [
+        ...selectedLabels,
+        ...defaultValue.map((item) => item.label),
+      ];
+    }
+    selectedLabels = unique(selectedLabels);
+
+    let selectedOptions;
+    selectedOptions = [
+      ...options.filter((option) => selectedLabels?.includes(option.label)),
+    ];
+    if (defaultValue && defaultValue.length) {
+      selectedOptions = [...selectedOptions, ...defaultValue];
+    }
+
+    selectedOptions = unique(selectedOptions, "value");
 
     return selectedOptions;
   } else {
@@ -91,6 +108,13 @@ const FormAutoComplete = ({
     };
   }, [searchValue]);
 
+  const inputDefaultValue = () => {
+    if (multiple) {
+      return defaultValue ?? undefined;
+    }
+    return defaultValue?.value ? defaultValue : undefined;
+  };
+
   if (onlyLoadIfOptionLoaded && options.length === 0) {
     return;
   }
@@ -105,7 +129,7 @@ const FormAutoComplete = ({
         option.value?.toString() === value.value?.toString()
       }
       inputValue={multiple ? searchValue : undefined}
-      defaultValue={defaultValue?.value ? defaultValue : undefined}
+      defaultValue={inputDefaultValue()}
       loading={loading}
       loadingText={t("loading_label")}
       multiple={multiple}
