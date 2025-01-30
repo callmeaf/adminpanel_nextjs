@@ -15,13 +15,8 @@ const inputHiddenDefaultValue = ({
     const { unique } = arrayArtisan();
     const inputPropsStartAdornment =
       params.InputProps.startAdornment?.map((item) => item.props.label) ?? [];
+
     let selectedLabels = [...inputPropsStartAdornment];
-    if (defaultValue && defaultValue.length) {
-      selectedLabels = [
-        ...selectedLabels,
-        ...defaultValue.map((item) => item.label),
-      ];
-    }
     selectedLabels = unique(selectedLabels);
 
     let selectedOptions = [
@@ -31,6 +26,9 @@ const inputHiddenDefaultValue = ({
     if (defaultValue && defaultValue.length) {
       selectedOptions = [...selectedOptions, ...defaultValue];
     }
+    selectedOptions = selectedOptions.filter((selectedOption) =>
+      selectedLabels.includes(selectedOption.label)
+    );
     selectedOptions = unique(selectedOptions, "value");
 
     return selectedOptions;
