@@ -1,13 +1,42 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import { Avatar, Box } from "@mui/material";
+import { Avatar, Box, IconButton, Modal } from "@mui/material";
 import { typeOf } from "@/helpers";
+import { Close as CloseIcon } from "@mui/icons-material";
+import useModal from "@/hooks/use-modal";
+import ConfirmModal from "../Modals/ConfirmModal";
+import useApi from "@/hooks/use-api";
+import { deleteMedia } from "@/thunks/media-thunks";
+import MediaModel from "@/models/MediaModel";
 
-export default function FormFile({ name, label, inputs = {}, errors = {} }) {
+export default function FormFile({
+  name,
+  label,
+  inputs = {},
+  errors = {},
+  onDelete,
+}) {
   const [image, setImage] = React.useState(inputs[name]);
 
   const { isUploadedFile } = typeOf(image);
+
+  const { open, openHandler, closeHandler } = useModal();
+
+  const { handle } = useApi();
+
+  const deleteMediaHandler = async () => {
+    if (image.id) {
+      await handle(deleteMedia, {
+        payload: {
+          media_id: image.id,
+        },
+      });
+    }
+
+    closeHandler();
+    setImage(null);
+  };
 
   return (
     <Box component={"div"} sx={{ display: "flex", gap: 3 }}>
@@ -29,11 +58,29 @@ export default function FormFile({ name, label, inputs = {}, errors = {} }) {
       </Button>
 
       {image && (
-        <Avatar
-          alt={isUploadedFile ? image.name : image.fileName}
-          src={isUploadedFile ? URL.createObjectURL(image) : image.url}
-        />
+        <Box component={"div"} position={"relative"} className="group">
+          <IconButton
+            sx={{ position: "absolute", top: "-25px", right: "-25px" }}
+            color="error"
+            className="media_delete_button hidden group-hover:flex"
+            onClick={openHandler}
+          >
+            <CloseIcon />
+          </IconButton>
+          <Avatar
+            className="media_avatar"
+            alt={isUploadedFile ? image.name : image.fileName}
+            src={isUploadedFile ? URL.createObjectURL(image) : image.url}
+          />
+        </Box>
       )}
+
+      <ConfirmModal
+        open={open}
+        onClose={closeHandler}
+        onCancel={closeHandler}
+        onConfirm={deleteMediaHandler}
+      />
     </Box>
   );
 }

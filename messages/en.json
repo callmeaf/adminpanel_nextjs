@@ -91,6 +91,9 @@
       "users_label": "Users",
       "users_create_label": "Create User",
       "users_trashed_label": "Trashed Users"
+    },
+    "Modals": {
+      "confirm_modal_title": "Confirm the action"
     }
   }
 }

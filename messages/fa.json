@@ -91,6 +91,9 @@
       "users_label": "کاربران",
       "users_create_label": "ایجاد کاربر",
       "users_trashed_label": "زباله دان کاربران"
+    },
+    "Modals": {
+      "confirm_modal_title": "عملیات را تایید کنید"
     }
   }
 }
