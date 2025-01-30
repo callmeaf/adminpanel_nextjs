@@ -40,9 +40,13 @@ export const useApi = () => {
     { showSuccessAlert = true, showErrorAlert = true, hasFile = false } = {}
   ) => {
     const { getAllAsObject } = dataHandler(payload);
-
-    const finalData = actionState(getAllAsObject());
-
+    const finalData = actionState(
+      getAllAsObject([], {
+        keyReplaces: {
+          "[]": "",
+        },
+      })
+    );
     if (hasFile) {
       axiosInstance.defaults.headers.common["Content-Type"] =
         "multipart/form-data";

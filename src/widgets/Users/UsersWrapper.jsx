@@ -17,10 +17,12 @@ const UsersWrapper = ({ userId }) => {
 
   const createUserHandler = async (prevState, formData) => {
     const data = await handle(createUser, { payload: formData });
-    if (data.user) {
+    const { user: userData } = data;
+
+    if (userData) {
       await Promise.all([
-        assignRolesToUserHandler(user.id, formData),
-        updateProfileImageUserHandler(user.id, formData),
+        assignRolesToUserHandler(userData.id, formData),
+        updateProfileImageUserHandler(userData.id, formData),
       ]);
     }
 
@@ -34,10 +36,9 @@ const UsersWrapper = ({ userId }) => {
         user_id: userId,
       },
     });
-
     await Promise.all([
-      assignRolesToUserHandler(user.id, formData),
-      updateProfileImageUserHandler(user.id, formData),
+      assignRolesToUserHandler(userId, formData),
+      updateProfileImageUserHandler(userId, formData),
     ]);
 
     return data;
@@ -60,14 +61,13 @@ const UsersWrapper = ({ userId }) => {
 
   const updateProfileImageUserHandler = async (userId, formData) => {
     const { isUploadedFile } = typeOf(formData.get("image"));
-
     if (isUploadedFile) {
       return await handle(
         updateProfileImageUser,
         {
           payload: formData,
           extra: {
-            user_id: user.id,
+            user_id: userId,
           },
         },
         {

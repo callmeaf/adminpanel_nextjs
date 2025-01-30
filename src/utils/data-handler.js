@@ -1,3 +1,5 @@
+import { arrayArtisan } from "@/helpers";
+
 const dataHandler = (data = {}) => {
   const isFormData = data instanceof FormData;
 
@@ -26,22 +28,49 @@ const dataHandler = (data = {}) => {
     }
   };
 
-  const getAllAsObject = (keys = []) => {
-    const updatedData = {};
+  const keyReplacesHandler = (key, replaces = {}) => {
+    for (const [keyReplace, valueReplace] of Object.entries(replaces)) {
+      key = key.replaceAll(keyReplace, valueReplace);
+    }
 
+    return key;
+  };
+
+  const getAllAsObject = (keys = [], { keyReplaces = {} } = {}) => {
+    const updatedData = {};
+    const { unique } = arrayArtisan();
     if (isFormData) {
-      for (const [key, value] of data) {
-        if (keys.length !== 0 && !keys.includes(key)) {
+      for (let [key, value] of data) {
+        if (
+          keys.length !== 0 &&
+          !keys.includes(keyReplacesHandler(key, keyReplaces))
+        ) {
           continue;
         }
-        updatedData[key] = value;
+        if (key.includes("[]")) {
+          key = keyReplacesHandler(key, keyReplaces);
+          const oldValueUpdatedData = updatedData[key] ?? [];
+          updatedData[key] = unique([...oldValueUpdatedData, value]);
+        } else {
+          updatedData[key] = value;
+        }
       }
     } else {
-      for (const [key, value] of Object.entries(data)) {
-        if (keys.length !== 0 && !keys.includes(key)) {
+      for (let [key, value] of Object.entries(data)) {
+        key = keyReplacesHandler(key, keyReplaces);
+        if (
+          keys.length !== 0 &&
+          !keys.includes(keyReplacesHandler(key, keyReplaces))
+        ) {
           continue;
         }
-        updatedData[key] = value;
+        if (key.includes("[]")) {
+          key = keyReplacesHandler(key, keyReplaces);
+          const oldValueUpdatedData = updatedData[key] ?? [];
+          updatedData[key] = unique([...oldValueUpdatedData, value]);
+        } else {
+          updatedData[key] = value;
+        }
       }
     }
 
