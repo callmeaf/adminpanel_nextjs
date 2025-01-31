@@ -17,6 +17,9 @@
     },
     "UsersTrashed": {
       "title": "زباله دان کاربران"
+    },
+    "Roles": {
+      "title": "لیست نقش ها"
     }
   },
   "Forms": {
@@ -83,6 +86,12 @@
       "last_name_label": " نام خانوادگی",
       "email_label": "ایمیل",
       "mobile_label": "موبایل"
+    },
+    "Roles": {
+      "id_label": "ID",
+      "name_label": "نام انگلیسی",
+      "name_fa_label": "نام فارسی",
+      "full_name_label": "نام کامل"
     }
   },
   "Common": {
@@ -90,7 +99,9 @@
       "dashboard_label": "داشبورد",
       "users_label": "کاربران",
       "users_create_label": "ایجاد کاربر",
-      "users_trashed_label": "زباله دان کاربران"
+      "users_trashed_label": "زباله دان کاربران",
+      "roles_label": "نقش ها",
+      "roles_create_label": "ایجاد نقش"
     },
     "Modals": {
       "confirm_modal_title": "عملیات را تایید کنید"

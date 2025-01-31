@@ -17,6 +17,9 @@
     },
     "UsersTrashed": {
       "title": "Trashed Users"
+    },
+    "Roles": {
+      "title": "Roles List"
     }
   },
   "Forms": {
@@ -83,6 +86,12 @@
       "last_name_label": "Last Name",
       "email_label": "Email",
       "mobile_label": "Mobile"
+    },
+    "Roles": {
+      "id_label": "ID",
+      "name_label": "English Name",
+      "name_fa_label": "Persian Name",
+      "full_name_label": "Full Name"
     }
   },
   "Common": {
@@ -90,7 +99,9 @@
       "dashboard_label": "Dashboard",
       "users_label": "Users",
       "users_create_label": "Create User",
-      "users_trashed_label": "Trashed Users"
+      "users_trashed_label": "Trashed Users",
+      "roles_label": "Roles",
+      "roles_create_label": "Create Role"
     },
     "Modals": {
       "confirm_modal_title": "Confirm the action"

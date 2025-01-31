@@ -128,7 +128,10 @@ export const getUserEnums = (
 ) => getEnums(api, payload);
 
 export const exportExcelUsers = (api, payload = {}, extra = {}) =>
-  exportExcel(api, payload, extra);
+  exportExcel(api, payload, {
+    key: "users",
+    ...extra,
+  });
 
 export const assignRolesToUser = (api, payload = {}, extra = {}) => {
   return {

@@ -5,7 +5,7 @@ import FormInput from "@/components/Form/FormInput";
 import { actionState } from "@/helpers";
 import useApi from "@/hooks/use-api";
 import useAutoCompleteOptions from "@/hooks/use-auto-complete-options";
-import { getRoles } from "@/thunks/permission-thunks";
+import { getRoles } from "@/thunks/role-thunks";
 import { getUserEnums } from "@/thunks/user-thunks";
 import { Grid2 } from "@mui/material";
 import React, { useActionState, useState } from "react";

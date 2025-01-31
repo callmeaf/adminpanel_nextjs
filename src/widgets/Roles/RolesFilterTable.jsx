@@ -6,7 +6,7 @@ import { MenuItem } from "@mui/material";
 import React, { useEffect, useMemo, useState } from "react";
 import { useTranslations } from "use-intl";
 
-const UsersFilterTable = ({ queryParamsLocalStorageKey }) => {
+const RolesFilterTable = ({ queryParamsLocalStorageKey }) => {
   const { get } = localStorageArtisan();
   const tableParams = get(queryParamsLocalStorageKey, {
     status: "",
@@ -54,32 +54,7 @@ const UsersFilterTable = ({ queryParamsLocalStorageKey }) => {
     [types.length]
   );
 
-  return (
-    <>
-      <MenuItem sx={{ display: "block" }}>
-        <FormAutoComplete
-          name="status"
-          label={t("status_label")}
-          onOpen={getUserEnumsHandler}
-          options={statuses}
-          loading={loading}
-          defaultValue={memoStatusValue}
-          onlyLoadIfOptionLoaded
-        />
-      </MenuItem>
-      <MenuItem sx={{ display: "block" }}>
-        <FormAutoComplete
-          name="type"
-          label={t("type_label")}
-          onOpen={getUserEnumsHandler}
-          options={types}
-          loading={loading}
-          defaultValue={memoTypeValue}
-          onlyLoadIfOptionLoaded
-        />
-      </MenuItem>
-    </>
-  );
+  return <></>;
 };
 
-export default UsersFilterTable;
+export default RolesFilterTable;

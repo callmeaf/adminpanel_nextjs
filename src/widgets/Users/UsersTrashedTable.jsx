@@ -64,9 +64,6 @@ const UsersTrashedTable = () => {
       exportExcelUsers,
       {
         payload,
-        extra: {
-          key: "users",
-        },
       },
       options
     );

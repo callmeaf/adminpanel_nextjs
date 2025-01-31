@@ -1,85 +1,79 @@
 import React, { useEffect, useState } from "react";
 import useApi from "@/hooks/use-api";
 import {
-  deleteUser,
-  exportExcelUsers,
-  getUsers,
-  updateUserStatusById,
+  exportExcelRoles,
+  forceDeleteUser,
+  getRolesTrashed,
+  restoreUser,
 } from "@/thunks/user-thunks";
 import Table from "@/components/Table/Table";
-import UsersItemTable from "@/widgets/Users/UsersItemTable";
 import { useTranslations } from "next-intl";
 import Show from "@/components/Show";
 import { localStorageArtisan } from "@/helpers";
 import TableRefresherData from "@/components/Table/TableRefresherData";
-import { useRouter } from "@/i18n/routing";
-import useDashboardMenus from "@/hooks/use-dashboard-menus";
 import TableFilter from "@/components/Table/TableFilter";
-import UsersFilterTable from "./UsersFilterTable";
+import RolesFilterTable from "./RolesFilterTable";
+import RolesItemTrashedTable from "./RolesItemTrashedTable";
 import TableLoading from "@/components/Table/Partials/TableLoading";
 
-const tableId = "users_table";
+const tableId = "roles_trashed_table";
 
-const UsersTable = () => {
+const RolesTrashedTable = () => {
   const tableTranslate = useTranslations("Tables.Table");
-  const t = useTranslations("Tables.Users");
+  const t = useTranslations("Tables.Roles");
 
   const { get } = localStorageArtisan();
 
-  const [users, setUsers] = useState(null);
+  const [Roles, setRoles] = useState(null);
 
   const { handle, loading } = useApi();
 
-  const getUsersHandler = async (payload, options) => {
+  const getRolesTrashedHandler = async (payload, options) => {
     payload = payload ?? {
       params: get(tableId),
     };
-    const data = await handle(getUsers, { payload }, options);
-    setUsers(data.users);
+    const data = await handle(getRolesTrashed, { payload }, options);
+    setRoles(data.Roles);
   };
 
-  const usersExportExcelHandler = async (payload, options) => {
+  const restoreUserHandler = async (payload) => {
+    await handle(restoreUser, {
+      payload,
+    });
+    getRolesTrashedHandler(undefined, {
+      showSuccessAlert: false,
+    });
+  };
+
+  const forceDeleteUserHandler = async (payload) => {
+    await handle(forceDeleteUser, {
+      payload,
+    });
+    getRolesTrashedHandler(undefined, {
+      showSuccessAlert: false,
+    });
+  };
+
+  const RolesExportExcelHandler = async (payload, options) => {
     payload = payload ?? {
       params: get(tableId, {}),
     };
+
+    payload.params.only_trashed = "true";
     await handle(
-      exportExcelUsers,
+      exportExcelRoles,
       {
         payload,
+        extra: {
+          key: "Roles",
+        },
       },
       options
     );
   };
 
-  const { getMenu } = useDashboardMenus();
-  const router = useRouter();
-  const editUserHandler = (payload) => {
-    router.push(getMenu("users_edit", payload).href);
-  };
-
-  const updateUserStatusHandler = async (userId, payload) => {
-    await handle(updateUserStatusById, {
-      payload,
-      extra: {
-        user_id: userId,
-      },
-    });
-    getUsersHandler(undefined, {
-      showSuccessAlert: false,
-    });
-  };
-
-  const deleteUserHandler = async (payload) => {
-    await handle(deleteUser, {
-      payload,
-    });
-    getUsersHandler(undefined, {
-      showSuccessAlert: false,
-    });
-  };
-
   useEffect(() => {
-    getUsersHandler().catch((e) => console.error({ e }));
+    getRolesTrashedHandler().catch((e) => console.error({ e }));
   }, []);
 
   return (
@@ -87,7 +81,7 @@ const UsersTable = () => {
       loading={loading}
       loadingChild={() => <TableLoading />}
       loadingChildWithWhenChild
-      when={users}
+      when={Roles}
       whenChild={() => (
         <>
           <Table
@@ -116,40 +110,39 @@ const UsersTable = () => {
                 label: tableTranslate("status_label"),
               },
               {
-                id: "created_at",
-                label: tableTranslate("created_at_label"),
+                id: "deleted_at",
+                label: tableTranslate("deleted_at_label"),
               },
               {
                 id: "actions",
                 label: tableTranslate("actions_label"),
               },
             ]}
-            pagination={users.pagination}
-            onPageChange={getUsersHandler}
-            onPerPageChange={getUsersHandler}
-            onSearch={getUsersHandler}
+            pagination={Roles.pagination}
+            onPageChange={getRolesTrashedHandler}
+            onPerPageChange={getRolesTrashedHandler}
+            onSearch={getRolesTrashedHandler}
             searchParams={["mobile", "email", "first_name", "last_name"]}
-            onDateChange={getUsersHandler}
+            onDateChange={getRolesTrashedHandler}
+            onExcelExport={RolesExportExcelHandler}
             filter={
               <TableFilter
                 queryParamsLocalStorageKey={tableId}
-                onFilter={getUsersHandler}
+                onFilter={getRolesTrashedHandler}
                 filterItems={
-                  <UsersFilterTable queryParamsLocalStorageKey={tableId} />
+                  <RolesFilterTable queryParamsLocalStorageKey={tableId} />
                 }
               />
             }
-            onExcelExport={usersExportExcelHandler}
           >
-            {users.data.map((user, index) => (
-              <UsersItemTable
+            {Roles.data.map((user, index) => (
+              <RolesItemTrashedTable
                 key={user.id}
                 user={user}
                 index={index}
-                startFrom={users.pagination.meta.from}
-                onEdit={editUserHandler}
-                onStatusUpdate={updateUserStatusHandler}
-                onDelete={deleteUserHandler}
+                startFrom={Roles.pagination.meta.from}
+                onRestore={restoreUserHandler}
+                onForceDelete={forceDeleteUserHandler}
               />
             ))}
           </Table>
@@ -158,11 +151,11 @@ const UsersTable = () => {
       elseChild={() => (
         <TableRefresherData
           queryParamsLocalStorageKey={tableId}
-          onRefresh={getUsersHandler}
+          onRefresh={getRolesTrashedHandler}
         />
       )}
     />
   );
 };
 
-export default UsersTable;
+export default RolesTrashedTable;

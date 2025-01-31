@@ -3,13 +3,14 @@ import { AuthContext } from "@/context/auth/auth-context";
 import { useTranslations } from "next-intl";
 import users_routes from "@/routes/users_routes";
 import dashboard_routes from "@/routes/dashboard_routes";
+import roles_routes from "@/routes/roles_routes";
 
 const useDashboardMenus = () => {
   const { user } = useContext(AuthContext);
   const t = useTranslations("Common.DashboardMenu");
 
   const menus = useMemo(
-    () => [...dashboard_routes(t), ...users_routes(t)],
+    () => [...dashboard_routes(t), ...users_routes(t), ...roles_routes(t)],
     [user]
   );
 
