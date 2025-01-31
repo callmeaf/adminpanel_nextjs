@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useApi from "@/hooks/use-api";
-import {
-  deleteRole,
-  exportExcelRoles,
-  getRoles,
-  updateRoleStatusById,
-} from "@/thunks/role-thunks";
+import { deleteRole, exportExcelRoles, getRoles } from "@/thunks/role-thunks";
 import Table from "@/components/Table/Table";
 import RolesItemTable from "@/widgets/Roles/RolesItemTable";
 import { useTranslations } from "next-intl";
@@ -14,8 +9,6 @@ import { localStorageArtisan } from "@/helpers";
 import TableRefresherData from "@/components/Table/TableRefresherData";
 import { useRouter } from "@/i18n/routing";
 import useDashboardMenus from "@/hooks/use-dashboard-menus";
-import TableFilter from "@/components/Table/TableFilter";
-import RolesFilterTable from "./RolesFilterTable";
 import TableLoading from "@/components/Table/Partials/TableLoading";
 
 const tableId = "roles_table";
@@ -55,18 +48,6 @@ const RolesTable = () => {
   const router = useRouter();
   const editRoleHandler = (payload) => {
     router.push(getMenu("roles_edit", payload).href);
-  };
-
-  const updateRoleStatusHandler = async (roleId, payload) => {
-    await handle(updateRoleStatusById, {
-      payload,
-      extra: {
-        role_id: roleId,
-      },
-    });
-    getRolesHandler(undefined, {
-      showSuccessAlert: false,
-    });
   };
 
   const deleteRoleHandler = async (payload) => {
@@ -127,7 +108,6 @@ const RolesTable = () => {
                 index={index}
                 startFrom={roles.pagination.meta.from}
                 onEdit={editRoleHandler}
-                onStatusUpdate={updateRoleStatusHandler}
                 onDelete={deleteRoleHandler}
               />
             ))}

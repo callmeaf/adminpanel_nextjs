@@ -20,7 +20,7 @@ export default ({
     : [],
   permissionsValues: function () {
     return this.permissions.map((permission) => ({
-      label: permission.fullName,
+      label: permission.nameText,
       value: permission.id,
     }));
   },

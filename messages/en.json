@@ -20,6 +20,12 @@
     },
     "Roles": {
       "title": "Roles List"
+    },
+    "RolesCreate": {
+      "title": "Create Role"
+    },
+    "RolesEdit": {
+      "title": "Edit Role"
     }
   },
   "Forms": {
@@ -43,6 +49,12 @@
       "submit_label": "Add User",
       "roles_label": "Roles",
       "image_label": "Image"
+    },
+    "Roles": {
+      "name_label": "English Name",
+      "name_fa_label": "Persian Name",
+      "permissions_label": "Permissions",
+      "submit_label": "Add Role"
     }
   },
   "Tables": {

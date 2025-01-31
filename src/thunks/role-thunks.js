@@ -22,7 +22,7 @@ export const getRoleById = (api, payload) => {
       return await api.get(`${PREFIX_URL}/${payload.role_id}`);
     },
     onSuccess: async ({ result, finalData }) => {
-      finalData.Role = RoleModel(result.Role);
+      finalData.role = RoleModel(result.role);
     },
   };
 };
@@ -30,18 +30,15 @@ export const getRoleById = (api, payload) => {
 export const createRole = (api, payload = {}) => {
   return {
     onSend: async () => {
-      const { get, getAll } = dataHandler(payload);
+      const { get } = dataHandler(payload);
       const formData = new FormData();
       formData.append("name", get("name"));
       formData.append("name_fa", get("name_fa"));
-      getAll("permissions[]", []).forEach((permission) => {
-        formData.append("permissions_ids[]", permission);
-      });
 
       return await api.post(`${PREFIX_URL}`, formData);
     },
     onSuccess: ({ result, finalData, router }) => {
-      finalData.Role = RoleModel(result.Role);
+      finalData.role = RoleModel(result.role);
       router.push(`${PREFIX_URL}`);
     },
   };
@@ -55,9 +52,6 @@ export const updateRoleById = (api, payload = {}, extra = {}) => {
       formData.append("_method", "PATCH");
       formData.append("name", get("name"));
       formData.append("name_fa", get("name_fa"));
-      getAll("permissions[]", []).forEach((permission) => {
-        formData.append("permissions_ids[]", permission);
-      });
 
       return await api.post(`${PREFIX_URL}/${extra.role_id}`, formData);
     },
@@ -67,15 +61,20 @@ export const updateRoleById = (api, payload = {}, extra = {}) => {
   };
 };
 
-export const updateRoleStatusById = (api, payload = {}, extra = {}) => {
+export const assignPermissionsToRole = (api, payload = {}, extra = {}) => {
   return {
     onSend: async () => {
-      const { get } = dataHandler(payload);
+      const { getAll } = dataHandler(payload);
+
       const formData = new FormData();
       formData.append("_method", "PATCH");
-      formData.append("status", get("status"));
-
-      return await api.post(`${PREFIX_URL}/${extra.role_id}/status`, formData);
+      getAll("permissions[]", []).forEach((permission) => {
+        formData.append("permissions_ids[]", permission);
+      });
+      return await api.post(
+        `${PREFIX_URL}/${extra.role_id}/permissions`,
+        formData
+      );
     },
   };
 };

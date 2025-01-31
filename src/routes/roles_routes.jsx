@@ -22,7 +22,7 @@ export default (t) => [
   },
   {
     id: "roles_edit",
-    href: "/roles/:user_id/edit",
+    href: "/roles/:role_id/edit",
     showInSideBar: false,
     group: GROUP,
   },

@@ -20,6 +20,12 @@
     },
     "Roles": {
       "title": "لیست نقش ها"
+    },
+    "RolesCreate": {
+      "title": "ایجاد نقش"
+    },
+    "RolesEdit": {
+      "title": "ویرایش نقش"
     }
   },
   "Forms": {
@@ -43,6 +49,12 @@
       "submit_label": "ایجاد کاربر",
       "roles_label": "نقش ها",
       "image_label": "عکس کاربر"
+    },
+    "Roles": {
+      "name_label": "نام انگلیسی",
+      "name_fa_label": "نام فارسی",
+      "permissions_label": "سطح دسترسی ها",
+      "submit_label": "ایجاد نقش"
     }
   },
   "Tables": {

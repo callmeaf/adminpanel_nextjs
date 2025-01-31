@@ -79,10 +79,7 @@ const FormAutoComplete = ({
   };
 
   const searchHandler = (event, value, reason) => {
-    if (!onSearch) {
-      return;
-    }
-    if (!["selectOption", "reset"].includes(reason)) {
+    if (!["selectOption", "reset", "removeOption"].includes(reason)) {
       setSearchValue(value.toString().trim());
     }
   };
@@ -125,7 +122,8 @@ const FormAutoComplete = ({
       isOptionEqualToValue={(option, value) =>
         option.value?.toString() === value.value?.toString()
       }
-      inputValue={multiple ? searchValue : undefined}
+      getOptionKey={(option) => option.value}
+      inputValue={searchValue}
       defaultValue={inputDefaultValue()}
       loading={loading}
       loadingText={t("loading_label")}
@@ -143,6 +141,7 @@ const FormAutoComplete = ({
           params,
           defaultValue,
         });
+
         return (
           <>
             <TextField

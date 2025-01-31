@@ -4,9 +4,9 @@ import FormInput from "@/components/Form/FormInput";
 import { actionState } from "@/helpers";
 import useApi from "@/hooks/use-api";
 import useAutoCompleteOptions from "@/hooks/use-auto-complete-options";
-import { getRoles } from "@/thunks/role-thunks";
+import { getPermissions } from "@/thunks/permission-thunks";
 import { Grid2 } from "@mui/material";
-import React, { useActionState, useState } from "react";
+import React, { useActionState } from "react";
 import { useTranslations } from "use-intl";
 
 const RolesForm = ({ onSubmit, role }) => {
@@ -21,25 +21,29 @@ const RolesForm = ({ onSubmit, role }) => {
     })
   );
 
-  const { handle: handleRoles, loading: loadingRoles } = useApi();
-  const getRolesHandler = async (payload) => {
-    const data = await handleRoles(
-      getRoles,
+  const { handle: handlePermissions, loading: loadingPermissions } = useApi();
+  const getPermissionsHandler = async (payload = {}) => {
+    payload.params = {
+      per_page: 999,
+      ...payload.params,
+    };
+
+    const data = await handlePermissions(
+      getPermissions,
       {
         payload,
       },
       { showSuccessAlert: false }
     );
 
-    return data.roles;
+    return data.permissions;
   };
   const {
-    options: rolesOptions,
-    onOpen: rolesOnOpen,
-    onScroll: rolesOnScroll,
-    onSearch: rolesOnSearch,
-  } = useAutoCompleteOptions(getRolesHandler, {
-    searchParams: ["name", "name_fa"],
+    options: permissionsOptions,
+    onOpen: permissionsOnOpen,
+    onScroll: permissionsOnScroll,
+  } = useAutoCompleteOptions(getPermissionsHandler, {
+    searchParams: ["name"],
   });
 
   return (
@@ -62,14 +66,13 @@ const RolesForm = ({ onSubmit, role }) => {
           label={t("permissions_label")}
           onOpen={permissionsOnOpen}
           options={permissionsOptions.data?.map((permission) => ({
-            label: permission.fullName,
+            label: permission.nameText,
             value: permission.id,
           }))}
           errors={errors}
           loading={loadingPermissions}
           multiple
           onScroll={permissionsOnScroll}
-          onSearch={permissionsOnSearch}
           defaultValue={role?.permissionsValues()}
         />
       </Grid2>

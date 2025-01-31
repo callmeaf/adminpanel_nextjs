@@ -1,56 +1,50 @@
 import React, { useEffect, useState } from "react";
 import RolesForm from "./RolesForm";
 import useApi from "@/hooks/use-api";
-import {
-  assignRolesToUser,
-  createUser,
-  getUserById,
-  updateProfileImageUser,
-  updateUserById,
-} from "@/thunks/user-thunks";
 import Show from "@/components/Show";
 import { LinearProgress } from "@mui/material";
-import { typeOf } from "@/helpers";
+import {
+  assignPermissionsToRole,
+  createRole,
+  getRoleById,
+  updateRoleById,
+} from "@/thunks/role-thunks";
 
-const RolesWrapper = ({ userId }) => {
+const RolesWrapper = ({ roleId }) => {
   const { handle, loading } = useApi();
 
-  const createUserHandler = async (prevState, formData) => {
-    const data = await handle(createUser, { payload: formData });
-    const { user: userData } = data;
+  const createRoleHandler = async (prevState, formData) => {
+    const data = await handle(createRole, { payload: formData });
+    const { role: roleData } = data;
 
-    if (userData) {
+    if (roleData) {
       await Promise.all([
-        assignRolesToUserHandler(userData.id, formData),
-        updateProfileImageUserHandler(userData.id, formData),
+        assignPermissionsToRoleHandler(roleData.id, formData),
       ]);
     }
 
     return data;
   };
 
-  const updateUserHandler = async (prevState, formData) => {
-    const data = await handle(updateUserById, {
+  const updateRoleHandler = async (prevState, formData) => {
+    const data = await handle(updateRoleById, {
       payload: formData,
       extra: {
-        user_id: userId,
+        role_id: roleId,
       },
     });
-    await Promise.all([
-      assignRolesToUserHandler(userId, formData),
-      updateProfileImageUserHandler(userId, formData),
-    ]);
+    await Promise.all([assignPermissionsToRoleHandler(roleId, formData)]);
 
     return data;
   };
 
-  const assignRolesToUserHandler = async (userId, formData) => {
+  const assignPermissionsToRoleHandler = async (roleId, formData) => {
     return await handle(
-      assignRolesToUser,
+      assignPermissionsToRole,
       {
         payload: formData,
         extra: {
-          user_id: userId,
+          role_id: roleId,
         },
       },
       {
@@ -59,35 +53,16 @@ const RolesWrapper = ({ userId }) => {
     );
   };
 
-  const updateProfileImageUserHandler = async (userId, formData) => {
-    const { isUploadedFile } = typeOf(formData.get("image"));
-    if (isUploadedFile) {
-      return await handle(
-        updateProfileImageUser,
-        {
-          payload: formData,
-          extra: {
-            user_id: userId,
-          },
-        },
-        {
-          showSuccessAlert: false,
-          hasFile: true,
-        }
-      );
-    }
-  };
-
-  const [user, setUser] = useState(null);
-  const getUserByIdHandler = async () => {
-    if (!userId) {
+  const [role, setRole] = useState(null);
+  const getRoleByIdHandler = async () => {
+    if (!roleId) {
       return;
     }
     const data = await handle(
-      getUserById,
+      getRoleById,
       {
         payload: {
-          user_id: userId,
+          role_id: roleId,
         },
       },
       {
@@ -95,22 +70,22 @@ const RolesWrapper = ({ userId }) => {
       }
     );
 
-    setUser(data.user);
+    setRole(data.role);
   };
 
   useEffect(() => {
-    getUserByIdHandler();
-  }, [userId]);
+    getRoleByIdHandler();
+  }, [roleId]);
 
   return (
     <Show
       loading={loading}
       loadingChild={() => <LinearProgress />}
-      when={userId ? user : true}
+      when={roleId ? role : true}
       whenChild={() => (
         <RolesForm
-          onSubmit={userId ? updateUserHandler : createUserHandler}
-          user={user}
+          onSubmit={roleId ? updateRoleHandler : createRoleHandler}
+          role={role}
         />
       )}
     />

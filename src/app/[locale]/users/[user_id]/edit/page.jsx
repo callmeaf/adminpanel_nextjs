@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import DashboardLayout from "@/components/Layout/DashboardLayout";
 import { useTranslations } from "use-intl";
 import useDashboardMenus from "@/hooks/use-dashboard-menus";
