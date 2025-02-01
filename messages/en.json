@@ -26,6 +26,18 @@
     },
     "RolesEdit": {
       "title": "Edit Role"
+    },
+    "ProductCategories": {
+      "title": "Product Categories List"
+    },
+    "ProductCategoriesCreate": {
+      "title": "Create Product Category"
+    },
+    "ProductCategoriesEdit": {
+      "title": "Edit Product Category"
+    },
+    "ProductCategoriesTrashed": {
+      "title": "Trashed Product Categories"
     }
   },
   "Forms": {
@@ -55,6 +67,17 @@
       "name_fa_label": "Persian Name",
       "permissions_label": "Permissions",
       "submit_label": "Add Role"
+    },
+    "ProductCategories": {
+      "status_label": "Product Category Status",
+      "type_label": "Product Category Type",
+      "title_label": "Title",
+      "slug_label": "Slug",
+      "summary_label": "Summary",
+      "content_label": "Content",
+      "parent_label": "Parent",
+      "submit_label": "Add Product Category",
+      "image_label": "Image"
     }
   },
   "Tables": {
@@ -104,6 +127,11 @@
       "name_label": "English Name",
       "name_fa_label": "Persian Name",
       "full_name_label": "Full Name"
+    },
+    "ProductCategories": {
+      "id_label": "ID",
+      "title_label": "Title",
+      "slug_label": "Slug"
     }
   },
   "Common": {
@@ -113,7 +141,10 @@
       "users_create_label": "Create User",
       "users_trashed_label": "Trashed Users",
       "roles_label": "Roles",
-      "roles_create_label": "Create Role"
+      "roles_create_label": "Create Role",
+      "product_categories_label": "Product Categories",
+      "product_categories_create_label": "Create Product Category",
+      "product_categories_trashed_label": "Trashed Product Categories"
     },
     "Modals": {
       "confirm_modal_title": "Confirm the action"

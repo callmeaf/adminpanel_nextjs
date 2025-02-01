@@ -26,6 +26,18 @@
     },
     "RolesEdit": {
       "title": "ویرایش نقش"
+    },
+    "ProductCategories": {
+      "title": "لیست دسته بندی محصولات"
+    },
+    "ProductCategoriesCreate": {
+      "title": "ایجاد دسته بندی محصول"
+    },
+    "ProductCategoriesEdit": {
+      "title": "ویرایش دسته بندی محصول"
+    },
+    "ProductCategoriesTrashed": {
+      "title": "زباله دان دسته بندی محصولات"
     }
   },
   "Forms": {
@@ -55,6 +67,17 @@
       "name_fa_label": "نام فارسی",
       "permissions_label": "سطح دسترسی ها",
       "submit_label": "ایجاد نقش"
+    },
+    "ProductCategories": {
+      "status_label": "وضعیت دسته بندی محصول",
+      "type_label": "نوع دسته بندی محصول",
+      "title_label": "عنوان",
+      "slug_label": "اسلاگ",
+      "summary_label": "خلاصه محتوا",
+      "content_label": "محتوا",
+      "parent_label": "دسته بندی مادر",
+      "submit_label": "ایجاد دسته بندی محصول",
+      "image_label": "عکس دسته بندی محصول"
     }
   },
   "Tables": {
@@ -104,6 +127,11 @@
       "name_label": "نام انگلیسی",
       "name_fa_label": "نام فارسی",
       "full_name_label": "نام کامل"
+    },
+    "ProductCategories": {
+      "id_label": "ID",
+      "title_label": "عنوان",
+      "slug_label": "اسلاگ"
     }
   },
   "Common": {
@@ -113,7 +141,10 @@
       "users_create_label": "ایجاد کاربر",
       "users_trashed_label": "زباله دان کاربران",
       "roles_label": "نقش ها",
-      "roles_create_label": "ایجاد نقش"
+      "roles_create_label": "ایجاد نقش",
+      "product_categories_label": "دسته بندی محصولات",
+      "product_categories_create_label": "ایجاد دسته بندی محصول",
+      "product_categories_trashed_label": "زباله دان دسته بندی محصولات"
     },
     "Modals": {
       "confirm_modal_title": "عملیات را تایید کنید"

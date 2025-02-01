@@ -123,7 +123,7 @@ export const forceDeleteUser = (api, payload = {}) => {
 export const getUserEnums = (
   api,
   payload = {
-    keys: ["user", "cart"],
+    keys: ["user"],
   }
 ) => getEnums(api, payload);
 
