@@ -5,6 +5,7 @@ import FormInput from "@/components/Form/FormInput";
 import { actionState } from "@/helpers";
 import useApi from "@/hooks/use-api";
 import useAutoCompleteOptions from "@/hooks/use-auto-complete-options";
+import useSlug from "@/hooks/use-slug";
 import {
   getProductCategories,
   getProductCategoryEnums,
@@ -71,6 +72,12 @@ const ProductCategoriesForm = ({ onSubmit, productCategory }) => {
     searchParams: ["title", "slug"],
   });
 
+  const {
+    loading: slugLoading,
+    slug,
+    onBlurInputHandler,
+  } = useSlug("product_category");
+
   return (
     <Form action={submitAction} loading={isPending}>
       <Grid2 size={12}>
@@ -132,6 +139,8 @@ const ProductCategoriesForm = ({ onSubmit, productCategory }) => {
             label={t(`${name}_label`)}
             inputs={inputs}
             errors={errors}
+            onInput={name === "title" ? onBlurInputHandler : null}
+            defaultValue={name === "slug" ? slug : undefined}
           />
         ))}
     </Form>

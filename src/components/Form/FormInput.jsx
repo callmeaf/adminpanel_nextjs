@@ -1,7 +1,14 @@
 import { TextField } from "@mui/material";
 import React from "react";
 
-const FormInput = ({ name, label, inputs = {}, errors = {} }) => {
+const FormInput = ({
+  name,
+  label,
+  inputs = {},
+  errors = {},
+  defaultValue,
+  ...otherProps
+}) => {
   return (
     <TextField
       id={name}
@@ -9,9 +16,10 @@ const FormInput = ({ name, label, inputs = {}, errors = {} }) => {
       label={label}
       fullWidth
       variant={`standard`}
-      defaultValue={inputs[name]}
+      defaultValue={defaultValue ?? inputs[name]}
       error={!!errors[name]}
       helperText={errors[name]}
+      {...otherProps}
     />
   );
 };
