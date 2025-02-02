@@ -113,6 +113,7 @@ const FormAutoComplete = ({
     return;
   }
 
+  console.log({ inputDefaultValue: inputDefaultValue(), searchValue, options });
   return (
     <Autocomplete
       onInputChange={searchHandler}

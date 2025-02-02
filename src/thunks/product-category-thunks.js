@@ -40,7 +40,9 @@ export const getProductCategoryById = (api, payload) => {
       return await api.get(`${PREFIX_URL}/${payload.product_category_id}`);
     },
     onSuccess: async ({ result, finalData }) => {
-      finalData.productCategory = ProductCategoryModel(result.product_category);
+      finalData.product_category = ProductCategoryModel(
+        result.product_category
+      );
     },
   };
 };
@@ -61,7 +63,9 @@ export const createProductCategory = (api, payload = {}) => {
       return await api.post(`${PREFIX_URL}`, formData);
     },
     onSuccess: ({ result, finalData, router }) => {
-      finalData.productCategory = ProductCategoryModel(result.product_category);
+      finalData.product_category = ProductCategoryModel(
+        result.product_category
+      );
       router.push(`${PREFIX_URL}`);
     },
   };

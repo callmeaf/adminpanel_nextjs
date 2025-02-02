@@ -22,7 +22,7 @@ export default (t) => [
   },
   {
     id: "product_categories_edit",
-    href: "/product_categories/:product_category/edit",
+    href: "/product_categories/:product_category_id/edit",
     showInSideBar: false,
     group: GROUP,
   },

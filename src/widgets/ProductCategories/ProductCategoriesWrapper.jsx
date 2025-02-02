@@ -16,7 +16,7 @@ const ProductCategoriesWrapper = ({ productCategoryId }) => {
 
   const createProductCategoryHandler = async (prevState, formData) => {
     const data = await handle(createProductCategory, { payload: formData });
-    const { productCategory: productCategoryData } = data;
+    const { product_category: productCategoryData } = data;
 
     if (productCategoryData) {
       await Promise.all([
@@ -31,7 +31,7 @@ const ProductCategoriesWrapper = ({ productCategoryId }) => {
     const data = await handle(updateProductCategoryById, {
       payload: formData,
       extra: {
-        ProductCategory_id: productCategoryId,
+        product_category_id: productCategoryId,
       },
     });
     await Promise.all([
@@ -52,7 +52,7 @@ const ProductCategoriesWrapper = ({ productCategoryId }) => {
         {
           payload: formData,
           extra: {
-            ProductCategory_id: productCategoryId,
+            product_category_id: productCategoryId,
           },
         },
         {
@@ -72,7 +72,7 @@ const ProductCategoriesWrapper = ({ productCategoryId }) => {
       getProductCategoryById,
       {
         payload: {
-          ProductCategory_id: productCategoryId,
+          product_category_id: productCategoryId,
         },
       },
       {
@@ -80,7 +80,7 @@ const ProductCategoriesWrapper = ({ productCategoryId }) => {
       }
     );
 
-    setProductCategory(data.productCategory);
+    setProductCategory(data.product_category);
   };
 
   useEffect(() => {
