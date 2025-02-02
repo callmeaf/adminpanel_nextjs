@@ -4,8 +4,8 @@ import { useState } from "react";
 
 let slugTimeout;
 
-const useSlug = (type) => {
-  const [slug, setSlug] = useState("");
+const useSlug = (type, { initialValue = "" } = {}) => {
+  const [slug, setSlug] = useState(initialValue);
   const { handle, loading } = useApi();
 
   const uniqueSlugHandler = async (value) => {
@@ -40,7 +40,7 @@ const useSlug = (type) => {
 
     slugTimeout = setTimeout(() => {
       uniqueSlugHandler(e.target.value.toString().trim());
-    }, 1000);
+    }, 500);
   };
 
   return {

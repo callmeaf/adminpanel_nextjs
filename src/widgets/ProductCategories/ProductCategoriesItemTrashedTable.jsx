@@ -34,12 +34,12 @@ const ProductCategoriesItemTrashedTable = ({
         <TableActions
           onRestore={() => {
             onRestore({
-              productCategory_id: productCategory.id,
+              product_category_id: productCategory.id,
             });
           }}
           onForceDelete={() =>
             onForceDelete({
-              productCategory_id: productCategory.id,
+              product_category_id: productCategory.id,
             })
           }
         />

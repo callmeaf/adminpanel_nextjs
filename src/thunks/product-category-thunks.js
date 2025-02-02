@@ -153,7 +153,7 @@ export const getProductCategoryEnums = (
 
 export const exportExcelProductCategories = (api, payload = {}, extra = {}) =>
   exportExcel(api, payload, {
-    key: "product_category",
+    key: "product_categories",
     ...extra,
   });
 

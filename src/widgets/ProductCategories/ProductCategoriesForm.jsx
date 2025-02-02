@@ -76,7 +76,9 @@ const ProductCategoriesForm = ({ onSubmit, productCategory }) => {
     loading: slugLoading,
     slug,
     onBlurInputHandler,
-  } = useSlug("product_category");
+  } = useSlug("product_category", {
+    initialValue: productCategory?.slug,
+  });
 
   return (
     <Form action={submitAction} loading={isPending}>
@@ -110,10 +112,14 @@ const ProductCategoriesForm = ({ onSubmit, productCategory }) => {
         name="parent_id"
         label={t("parent_label")}
         onOpen={productCategoriesOnOpen}
-        options={productCategoriesOptions.data?.map((productCategory) => ({
-          label: productCategory.title,
-          value: productCategory.id,
-        }))}
+        options={productCategoriesOptions.data
+          ?.map((productCategory) => ({
+            label: productCategory.title,
+            value: productCategory.id,
+          }))
+          ?.filter(
+            (item) => item.value?.toString() !== productCategory?.id?.toString()
+          )}
         errors={errors}
         loading={loadingProductCategories}
         onScroll={productCategoresOnScroll}
@@ -139,8 +145,15 @@ const ProductCategoriesForm = ({ onSubmit, productCategory }) => {
             label={t(`${name}_label`)}
             inputs={inputs}
             errors={errors}
-            onInput={name === "title" ? onBlurInputHandler : null}
+            onInput={
+              productCategory
+                ? null
+                : name === "title"
+                ? onBlurInputHandler
+                : null
+            }
             defaultValue={name === "slug" ? slug : undefined}
+            loading={name === "slug" ? slugLoading : undefined}
           />
         ))}
     </Form>

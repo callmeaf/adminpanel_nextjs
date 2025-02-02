@@ -130,6 +130,7 @@
     },
     "ProductCategories": {
       "id_label": "ID",
+      "parent_label": "Parent",
       "title_label": "Title",
       "slug_label": "Slug"
     }

@@ -4,7 +4,7 @@ import { IconButton, Grow, Tooltip } from "@mui/material";
 import { useTranslations } from "use-intl";
 
 const TableItemStatus = ({
-  userId,
+  itemId,
   status,
   statusConfig = {
     1: "success",
@@ -18,7 +18,7 @@ const TableItemStatus = ({
   const [open, setOpen] = useState(false);
 
   const statusUpdateHandler = async (statusKey) => {
-    await onStatusUpdate(userId, {
+    await onStatusUpdate(itemId, {
       status: statusKey,
     });
 

@@ -113,7 +113,6 @@ const FormAutoComplete = ({
     return;
   }
 
-  console.log({ inputDefaultValue: inputDefaultValue(), searchValue, options });
   return (
     <Autocomplete
       onInputChange={searchHandler}
@@ -124,7 +123,7 @@ const FormAutoComplete = ({
         option.value?.toString() === value.value?.toString()
       }
       getOptionKey={(option) => option.value}
-      inputValue={searchValue}
+      inputValue={multiple ? searchValue : undefined}
       defaultValue={inputDefaultValue()}
       loading={loading}
       loadingText={t("loading_label")}

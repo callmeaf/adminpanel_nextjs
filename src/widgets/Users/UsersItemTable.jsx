@@ -28,9 +28,14 @@ const UsersItemTable = ({
       <TableCell>{user.mobile}</TableCell>
       <TableCell>
         <TableItemStatus
-          userId={user.id}
+          itemId={user.id}
           status={user.status}
           onStatusUpdate={onStatusUpdate}
+          statusConfig={{
+            1: "success",
+            2: "error",
+            3: "warning",
+          }}
         />
       </TableCell>
       <TableCell>{user.createdAtText}</TableCell>

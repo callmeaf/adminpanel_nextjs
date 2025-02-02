@@ -130,6 +130,7 @@
     },
     "ProductCategories": {
       "id_label": "ID",
+      "parent_label": "دسته بندی مادر",
       "title_label": "عنوان",
       "slug_label": "اسلاگ"
     }

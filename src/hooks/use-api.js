@@ -31,7 +31,8 @@ export const useApi = () => {
 
   prepareAxiosInstance(locale);
 
-  const { dispatch: uiDispatch } = useContext(UiContext);
+  const { state: uiState, dispatch: uiDispatch } = useContext(UiContext);
+  const { message: oldMessage } = uiState;
 
   const [loading, setLoading] = useState(null);
   const handle = async (
@@ -112,7 +113,11 @@ export const useApi = () => {
           type: SET_MESSAGE,
           payload: {
             type: MESSAGE_TYPES.ERROR,
-            body: message,
+            body:
+              oldMessage.type === MESSAGE_TYPES.ERROR &&
+              oldMessage.body === message
+                ? `${message} !`
+                : message,
           },
         });
       }

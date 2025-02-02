@@ -82,7 +82,7 @@ const ProductCategoriesTrashedTable = () => {
       loading={loading}
       loadingChild={() => <TableLoading />}
       loadingChildWithWhenChild
-      when={ProductCategories}
+      when={productCategories}
       whenChild={() => (
         <>
           <Table
