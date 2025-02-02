@@ -30,6 +30,7 @@ export default function Table({
   searchParams,
   filter,
   onExcelExport,
+  inTrashed = false,
 }) {
   const translateTable = useTranslations("Tables.Table");
 
@@ -57,6 +58,7 @@ export default function Table({
         <TableDatePicker
           onDateChange={onDateChange}
           queryParamsLocalStorageKey={id}
+          inTrashed={inTrashed}
         />
       </Grid2>
       <Grid2 size={12}>

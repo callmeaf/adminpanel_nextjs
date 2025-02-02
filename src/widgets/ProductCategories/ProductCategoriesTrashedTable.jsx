@@ -89,6 +89,7 @@ const ProductCategoriesTrashedTable = () => {
             id={tableId}
             t={t}
             loading={loading}
+            inTrashed
             heads={[
               {
                 id: "id",

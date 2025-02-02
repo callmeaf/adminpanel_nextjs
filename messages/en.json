@@ -90,6 +90,8 @@
       "no_data": "No Data Found.",
       "created_from_label": "Created From",
       "created_to_label": "Created To",
+      "deleted_from_label": "Deleted From",
+      "deleted_to_label": "Deleted To",
       "refresh_button_label": "Refresh Data",
       "refresh_alert_label": "Oops. something went wrong",
       "actions_label": "Actions",
