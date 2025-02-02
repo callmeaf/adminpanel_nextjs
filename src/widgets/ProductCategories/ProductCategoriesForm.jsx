@@ -156,6 +156,15 @@ const ProductCategoriesForm = ({ onSubmit, productCategory }) => {
             loading={name === "slug" ? slugLoading : undefined}
           />
         ))}
+      <Grid2 size={12}>
+        <FormInput
+          name={"summary"}
+          label={t(`summary_label`)}
+          inputs={inputs}
+          errors={errors}
+          multiline
+        />
+      </Grid2>
     </Form>
   );
 };

@@ -8,6 +8,7 @@ const FormInput = ({
   errors = {},
   defaultValue,
   loading = false,
+  multiline = false,
   ...otherProps
 }) => {
   return (
@@ -21,11 +22,13 @@ const FormInput = ({
         defaultValue={defaultValue ?? inputs[name]}
         error={!!errors[name]}
         helperText={errors[name]}
+        rows={multiline ? 4 : undefined}
         slotProps={{
           inputLabel: {
             shrink: name === "slug" ? true : undefined,
           },
         }}
+        multiline={multiline}
         {...otherProps}
       />
       {loading && <CircularProgress />}

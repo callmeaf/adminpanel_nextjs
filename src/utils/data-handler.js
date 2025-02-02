@@ -8,7 +8,7 @@ const dataHandler = (data = {}) => {
       if (data.has(key)) {
         return getAsAll ? data.getAll(key) : data.get(key);
       } else {
-        return defaultValue;
+        return defaultValue ?? "";
       }
     } else {
       return data[key] ?? defaultValue;
