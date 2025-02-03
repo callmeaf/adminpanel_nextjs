@@ -2,6 +2,7 @@ import Form from "@/components/Form/Form";
 import FormAutoComplete from "@/components/Form/FormAutoComplete";
 import FormFile from "@/components/Form/FormFile";
 import FormInput from "@/components/Form/FormInput";
+import FormEditor from "@/components/Form/FormTextEditor";
 import { actionState } from "@/helpers";
 import useApi from "@/hooks/use-api";
 import useAutoCompleteOptions from "@/hooks/use-auto-complete-options";
@@ -163,6 +164,15 @@ const ProductCategoriesForm = ({ onSubmit, productCategory }) => {
           inputs={inputs}
           errors={errors}
           multiline
+        />
+      </Grid2>
+      <Grid2 size={12}>
+        <FormEditor
+          name={"content"}
+          label={t("content_label")}
+          inputs={inputs}
+          errors={errors}
+          defaultValue={productCategory?.content}
         />
       </Grid2>
     </Form>
