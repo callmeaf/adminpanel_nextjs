@@ -38,6 +38,18 @@
     },
     "ProductCategoriesTrashed": {
       "title": "Trashed Product Categories"
+    },
+    "Products": {
+      "title": "Products List"
+    },
+    "ProductsCreate": {
+      "title": "Create Product"
+    },
+    "ProductsEdit": {
+      "title": "Edit Product"
+    },
+    "ProductsTrashed": {
+      "title": "Trashed Products"
     }
   },
   "Forms": {
@@ -136,6 +148,11 @@
       "parent_label": "Parent",
       "title_label": "Title",
       "slug_label": "Slug"
+    },
+    "Products": {
+      "id_label": "ID",
+      "title_label": "Title",
+      "slug_label": "Slug"
     }
   },
   "Common": {
@@ -148,7 +165,10 @@
       "roles_create_label": "Create Role",
       "product_categories_label": "Product Categories",
       "product_categories_create_label": "Create Product Category",
-      "product_categories_trashed_label": "Trashed Product Categories"
+      "product_categories_trashed_label": "Trashed Product Categories",
+      "products_label": "Products",
+      "products_create_label": "Create Product",
+      "products_trashed_label": "Trashed Products"
     },
     "Modals": {
       "confirm_modal_title": "Confirm the action",

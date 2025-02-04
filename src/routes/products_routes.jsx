@@ -1,37 +1,37 @@
 import {
-  People as PeopleIcon,
-  PersonAdd as PersonAddIcon,
-  PersonOff as PersonOffIcon,
+  Dashboard as DashboardIcon,
+  DashboardCustomize as DashboardCustomizeIcon,
+  DeveloperBoard as DeveloperBoardIcon,
 } from "@mui/icons-material";
 
-const GROUP = "users";
+const GROUP = "products";
 
 export default (t) => [
   {
-    id: "users",
-    href: "/users",
-    label: t("users_label"),
-    icon: <PeopleIcon />,
+    id: "products",
+    href: "/products",
+    label: t("products_label"),
+    icon: <DashboardIcon />,
     group: GROUP,
   },
   {
-    id: "users_create",
-    href: "/users/create",
-    label: t("users_create_label"),
-    icon: <PersonAddIcon />,
+    id: "products_create",
+    href: "/products/create",
+    label: t("products_create_label"),
+    icon: <DashboardCustomizeIcon />,
     group: GROUP,
   },
   {
-    id: "users_edit",
-    href: "/users/:user_id/edit",
+    id: "products_edit",
+    href: "/products/:product_id/edit",
     showInSideBar: false,
     group: GROUP,
   },
   {
-    id: "users_trashed",
-    href: "/users/trashed",
-    label: t("users_trashed_label"),
-    icon: <PersonOffIcon />,
+    id: "products_trashed",
+    href: "/products/trashed",
+    label: t("products_trashed_label"),
+    icon: <DeveloperBoardIcon />,
     group: GROUP,
   },
 ];

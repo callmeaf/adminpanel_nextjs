@@ -1,8 +1,11 @@
 import MediaModel from "./MediaModel";
+import ProductCategoryModel from "./ProductCategoryModel";
+import UserModel from "./UserModel";
 
-export default function ProductCategoryModel({
+export default function ProductModel({
   id,
-  parent_id,
+  author_id,
+  province_id,
   status,
   status_text,
   type,
@@ -14,11 +17,15 @@ export default function ProductCategoryModel({
   image,
   created_at_text,
   deleted_at_text,
-  parent,
+  author,
+  cats_ids,
+  cats,
+  province,
 }) {
   return {
     id: id,
-    parentId: parent_id,
+    authorId: author_id,
+    provinceId: province_id,
     status: status,
     statusText: status_text,
     statusValue: {
@@ -42,12 +49,14 @@ export default function ProductCategoryModel({
     image: image ? MediaModel(image) : null,
     createdAtText: created_at_text,
     deletedAtText: deleted_at_text,
-    parent: parent ? ProductCategoryModel(parent) : null,
-    parentValue: function () {
+    author: author ? UserModel(author) : null,
+    authorValue: function () {
       return {
-        label: this.parent?.title,
-        value: this.parent?.id,
+        label: this.author?.fullName,
+        value: this.author?.id,
       };
     },
+    catsIds: cats_ids,
+    cats: cats ? cats.data.map((cat) => ProductCategoryModel(cat)) : [],
   };
 }

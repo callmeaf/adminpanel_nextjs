@@ -38,6 +38,18 @@
     },
     "ProductCategoriesTrashed": {
       "title": "زباله دان دسته بندی محصولات"
+    },
+    "Products": {
+      "title": "لیست محصولات"
+    },
+    "ProductsCreate": {
+      "title": "ایجاد محصول"
+    },
+    "ProductsEdit": {
+      "title": "ویرایش محصول"
+    },
+    "ProductsTrashed": {
+      "title": "زباله دان محصولات"
     }
   },
   "Forms": {
@@ -136,6 +148,11 @@
       "parent_label": "دسته بندی مادر",
       "title_label": "عنوان",
       "slug_label": "اسلاگ"
+    },
+    "Products": {
+      "id_label": "ID",
+      "title_label": "عنوان",
+      "slug_label": "اسلاگ"
     }
   },
   "Common": {
@@ -148,7 +165,10 @@
       "roles_create_label": "ایجاد نقش",
       "product_categories_label": "دسته بندی محصولات",
       "product_categories_create_label": "ایجاد دسته بندی محصول",
-      "product_categories_trashed_label": "زباله دان دسته بندی محصولات"
+      "product_categories_trashed_label": "زباله دان دسته بندی محصولات",
+      "products_label": "محصولات",
+      "products_create_label": "ایجاد محصول",
+      "products_trashed_label": "زباله دان محصولات"
     },
     "Modals": {
       "confirm_modal_title": "عملیات را تایید کنید",
