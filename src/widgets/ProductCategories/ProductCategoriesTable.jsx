@@ -18,7 +18,7 @@ import TableFilter from "@/components/Table/TableFilter";
 import ProductCategoriesFilterTable from "./ProductCategoriesFilterTable";
 import TableLoading from "@/components/Table/Partials/TableLoading";
 
-const tableId = "ProductCategories_table";
+const tableId = "product_categories_table";
 
 const ProductCategoriesTable = () => {
   const tableTranslate = useTranslations("Tables.Table");
