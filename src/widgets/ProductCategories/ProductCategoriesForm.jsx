@@ -125,7 +125,7 @@ const ProductCategoriesForm = ({ onSubmit, productCategory }) => {
         loading={loadingProductCategories}
         onScroll={productCategoresOnScroll}
         onSearch={productCategoriesOnSearch}
-        defaultValue={productCategory?.parentId}
+        defaultValue={productCategory?.parentValue()}
       />
       {Object.keys(inputs)
         .filter(

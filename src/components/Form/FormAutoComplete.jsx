@@ -10,6 +10,7 @@ const inputHiddenDefaultValue = ({
   options,
   params,
   defaultValue,
+  changeReason,
 }) => {
   if (multiple) {
     const { unique } = arrayArtisan();
@@ -39,6 +40,9 @@ const inputHiddenDefaultValue = ({
           option.label?.toString() === params.inputProps.value?.toString()
       )?.value;
     } else {
+      if (changeReason === "clear") {
+        return undefined;
+      }
       return defaultValue?.value;
     }
   }
@@ -62,6 +66,7 @@ const FormAutoComplete = ({
 }) => {
   const t = useTranslations("Forms.Form");
   const [searchValue, setSearchValue] = useState("");
+  const [changeReason, setChangeReason] = useState("");
 
   const scrollHandler = (event) => {
     if (!onScroll) {
@@ -129,6 +134,7 @@ const FormAutoComplete = ({
       loadingText={t("loading_label")}
       multiple={multiple}
       disableCloseOnSelect={multiple}
+      onChange={(e, value, reason) => setChangeReason(reason)}
       slotProps={{
         listbox: {
           onScroll: scrollHandler,
@@ -140,6 +146,7 @@ const FormAutoComplete = ({
           options,
           params,
           defaultValue,
+          changeReason,
         });
 
         return (

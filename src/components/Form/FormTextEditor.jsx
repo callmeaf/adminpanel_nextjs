@@ -6,7 +6,7 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import dynamic from "next/dynamic";
 import draftToHtml from "draftjs-to-html";
 import { InputLabel } from "@mui/material";
-import htmlToDraft from "html-to-draftjs";
+// import htmlToDraft from "html-to-draftjs";
 
 const Editor = dynamic(
   () => import("react-draft-wysiwyg").then((mod) => mod.Editor),
@@ -14,6 +14,12 @@ const Editor = dynamic(
     ssr: false,
   }
 );
+
+const htmlToDraftHandler = async (value) => {
+  const { default: htmlToDraft } = await import("html-to-draftjs");
+
+  return htmlToDraft(value);
+};
 
 const textAreaValue = (editorState) => {
   const content = editorState.getCurrentContent();
@@ -30,15 +36,24 @@ const FormEditor = ({
   errors = {},
   defaultValue = "",
 }) => {
-  const [editorState, setEditorState] = useState(
-    defaultValue
-      ? EditorState.createWithContent(
-          ContentState.createFromBlockArray(
-            htmlToDraft(defaultValue).contentBlocks
-          )
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+
+  const setEditorStateHandler = async () => {
+    if (defaultValue) {
+      const content = await htmlToDraftHandler(defaultValue);
+      setEditorState(
+        EditorState.createWithContent(
+          ContentState.createFromBlockArray(content)
         )
-      : EditorState.createEmpty()
-  );
+      );
+    } else {
+      setEditorState(EditorState.createEmpty());
+    }
+  };
+
+  useEffect(() => {
+    setEditorStateHandler();
+  }, [defaultValue]);
 
   useEffect(() => {
     inputs[name] = textAreaValue(editorState);
@@ -53,8 +68,7 @@ const FormEditor = ({
         name={name}
         value={textAreaValue(editorState)}
         readOnly
-        rows={5}
-        style={{ width: "100%" }}
+        hidden
       />
     </>
   );

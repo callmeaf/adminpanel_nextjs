@@ -43,5 +43,11 @@ export default function ProductCategoryModel({
     createdAtText: created_at_text,
     deletedAtText: deleted_at_text,
     parent: parent ? ProductCategoryModel(parent) : null,
+    parentValue: function () {
+      return {
+        label: this?.parent?.title,
+        value: this?.parent?.id,
+      };
+    },
   };
 }
