@@ -43,7 +43,8 @@
   "Forms": {
     "Form": {
       "loading_label": "در حال بارگذاری ...",
-      "submit_label": "ثبت"
+      "submit_label": "ثبت",
+      "file_delete_tooltip": "حذف فایل"
     },
     "Login": {
       "mobile_label": "موبایل",
@@ -150,7 +151,9 @@
       "product_categories_trashed_label": "زباله دان دسته بندی محصولات"
     },
     "Modals": {
-      "confirm_modal_title": "عملیات را تایید کنید"
+      "confirm_modal_title": "عملیات را تایید کنید",
+      "confirm_button_tooltip": "تایید",
+      "cancel_button_tooltip": "انصراف"
     }
   }
 }

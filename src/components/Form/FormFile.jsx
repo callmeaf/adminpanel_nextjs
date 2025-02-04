@@ -1,7 +1,7 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import { Avatar, Box, IconButton, Modal } from "@mui/material";
+import { Avatar, Box, IconButton, Modal, Tooltip } from "@mui/material";
 import { typeOf } from "@/helpers";
 import { Close as CloseIcon } from "@mui/icons-material";
 import useModal from "@/hooks/use-modal";
@@ -9,6 +9,7 @@ import ConfirmModal from "../Modals/ConfirmModal";
 import useApi from "@/hooks/use-api";
 import { deleteMedia } from "@/thunks/media-thunks";
 import MediaModel from "@/models/MediaModel";
+import { useTranslations } from "use-intl";
 
 export default function FormFile({
   name,
@@ -17,6 +18,8 @@ export default function FormFile({
   errors = {},
   onDelete,
 }) {
+  const t = useTranslations("Forms.Form");
+
   const [image, setImage] = React.useState(inputs[name]);
 
   const { isUploadedFile } = typeOf(image);
@@ -59,14 +62,16 @@ export default function FormFile({
 
       {image && (
         <Box component={"div"} position={"relative"} className="group">
-          <IconButton
-            sx={{ position: "absolute", top: "-25px", right: "-25px" }}
-            color="error"
-            className="media_delete_button hidden group-hover:flex"
-            onClick={openHandler}
-          >
-            <CloseIcon />
-          </IconButton>
+          <Tooltip title={t("file_delete_tooltip")}>
+            <IconButton
+              sx={{ position: "absolute", top: "-25px", right: "-25px" }}
+              color="error"
+              className="media_delete_button hidden group-hover:flex"
+              onClick={openHandler}
+            >
+              <CloseIcon />
+            </IconButton>
+          </Tooltip>
           <Avatar
             className="media_avatar"
             alt={isUploadedFile ? image.name : image.fileName}

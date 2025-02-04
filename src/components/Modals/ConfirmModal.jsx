@@ -1,5 +1,5 @@
 import { Cancel as CancelIcon, Check as CheckIcon } from "@mui/icons-material";
-import { Box, Button, Grid2, Modal, Typography } from "@mui/material";
+import { Box, Button, Grid2, Modal, Tooltip, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
 import React from "react";
 
@@ -25,24 +25,28 @@ const ConfirmModal = ({ open, onClose, title, onConfirm, onCancel }) => {
         </Typography>
         <Grid2 container spacing={3}>
           <Grid2 size={{ xs: 12, md: 6 }}>
-            <Button
-              color="success"
-              onClick={onConfirm}
-              fullWidth
-              variant="contained"
-            >
-              <CheckIcon />
-            </Button>
+            <Tooltip title={t("confirm_button_tooltip")}>
+              <Button
+                color="success"
+                onClick={onConfirm}
+                fullWidth
+                variant="contained"
+              >
+                <CheckIcon />
+              </Button>
+            </Tooltip>
           </Grid2>
           <Grid2 size={{ xs: 12, md: 6 }}>
-            <Button
-              color="default"
-              onClick={onCancel}
-              fullWidth
-              variant="contained"
-            >
-              <CancelIcon />
-            </Button>
+            <Tooltip title={t("cancel_button_tooltip")}>
+              <Button
+                color="default"
+                onClick={onCancel}
+                fullWidth
+                variant="contained"
+              >
+                <CancelIcon />
+              </Button>
+            </Tooltip>
           </Grid2>
         </Grid2>
       </Box>

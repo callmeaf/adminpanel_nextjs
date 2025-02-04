@@ -43,7 +43,8 @@
   "Forms": {
     "Components": {
       "loading_label": "Loading ...",
-      "submit_label": "Submit"
+      "submit_label": "Submit",
+      "file_delete_tooltip": "Delete File"
     },
     "Login": {
       "mobile_label": "Mobile",
@@ -150,7 +151,9 @@
       "product_categories_trashed_label": "Trashed Product Categories"
     },
     "Modals": {
-      "confirm_modal_title": "Confirm the action"
+      "confirm_modal_title": "Confirm the action",
+      "confirm_button_tooltip": "Confirm",
+      "cancel_button_tooltip": "Cancel"
     }
   }
 }
