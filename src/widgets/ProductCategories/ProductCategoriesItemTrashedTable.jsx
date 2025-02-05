@@ -4,6 +4,8 @@ import TableCell from "@mui/material/TableCell";
 import TableActions from "@/components/Table/TableItemActions";
 import TableItemStatus from "@/components/Table/Partials/TableItemStatus";
 import TableItemType from "@/components/Table/Partials/TableItemType";
+import useDashboardMenus from "@/hooks/use-dashboard-menus";
+import { Link } from "@/i18n/routing";
 
 const ProductCategoriesItemTrashedTable = ({
   productCategory,
@@ -12,6 +14,8 @@ const ProductCategoriesItemTrashedTable = ({
   onRestore,
   onForceDelete,
 }) => {
+  const { getMenu } = useDashboardMenus();
+
   return (
     <TableRow>
       <TableCell>{startFrom + index}</TableCell>
@@ -22,6 +26,21 @@ const ProductCategoriesItemTrashedTable = ({
           typeText={productCategory.typeText}
           typeConfig={productCategory.typeBadgeConfig}
         />
+      </TableCell>
+      <TableCell>
+        {productCategory.parent && (
+          <Link
+            href={
+              getMenu("product_categories_edit", {
+                replaces: {
+                  product_category_id: productCategory.parent.id,
+                },
+              }).href
+            }
+          >
+            {productCategory.parent.title}
+          </Link>
+        )}
       </TableCell>
       <TableCell>
         <TableItemStatus

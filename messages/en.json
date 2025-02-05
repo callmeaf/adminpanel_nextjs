@@ -152,7 +152,9 @@
     "Products": {
       "id_label": "ID",
       "title_label": "Title",
-      "slug_label": "Slug"
+      "slug_label": "Slug",
+      "author_label": "Author",
+      "province_label": "Province"
     }
   },
   "Common": {

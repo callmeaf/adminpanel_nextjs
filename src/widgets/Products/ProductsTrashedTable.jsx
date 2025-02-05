@@ -96,6 +96,14 @@ const ProductsTrashedTable = () => {
                 label: t("title_label"),
               },
               {
+                id: "author",
+                label: t("author_label"),
+              },
+              {
+                id: "province",
+                label: t("province_label"),
+              },
+              {
                 id: "status",
                 label: tableTranslate("status_label"),
               },

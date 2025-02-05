@@ -100,6 +100,10 @@ const ProductCategoriesTrashedTable = () => {
                 label: t("title_label"),
               },
               {
+                id: "parent",
+                label: t("parent_label"),
+              },
+              {
                 id: "status",
                 label: tableTranslate("status_label"),
               },

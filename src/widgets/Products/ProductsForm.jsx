@@ -7,28 +7,25 @@ import { actionState } from "@/helpers";
 import useApi from "@/hooks/use-api";
 import useAutoCompleteOptions from "@/hooks/use-auto-complete-options";
 import useSlug from "@/hooks/use-slug";
-import {
-  getProductCategories,
-  getProductCategoryEnums,
-} from "@/thunks/product-category-thunks";
+import { getProducts, getProductEnums } from "@/thunks/product-category-thunks";
 import { Grid2 } from "@mui/material";
 import React, { useActionState, useState } from "react";
 import { useTranslations } from "use-intl";
 
-const ProductCategoriesForm = ({ onSubmit, productCategory }) => {
-  const t = useTranslations("Forms.ProductCategories");
+const ProductsForm = ({ onSubmit, product }) => {
+  const t = useTranslations("Forms.Products");
 
   const [{ inputs, errors }, submitAction, isPending] = useActionState(
     onSubmit,
     actionState({
-      status: productCategory ? productCategory.status : "",
-      type: productCategory ? productCategory.type : "",
-      title: productCategory ? productCategory.title : "",
-      slug: productCategory ? productCategory.slug : "",
-      summary: productCategory ? productCategory.summary : "",
-      content: productCategory ? productCategory.content : "",
-      parent_id: productCategory ? productCategory.parentId : [],
-      image: productCategory ? productCategory.image : null,
+      status: product ? product.status : "",
+      type: product ? product.type : "",
+      title: product ? product.title : "",
+      slug: product ? product.slug : "",
+      summary: product ? product.summary : "",
+      content: product ? product.content : "",
+      parent_id: product ? product.parentId : [],
+      image: product ? product.image : null,
     })
   );
 
@@ -36,40 +33,39 @@ const ProductCategoriesForm = ({ onSubmit, productCategory }) => {
   const [types, setTypes] = useState([]);
   const { handle: handleEnums, loading: loadingEnums } = useApi();
 
-  const getProductCategoryEnumsHandler = async () => {
+  const getProductEnumsHandler = async () => {
     if (statuses.length !== 0 && types.length !== 0) {
       return;
     }
     const data = await handleEnums(
-      getProductCategoryEnums,
+      getProductEnums,
       {},
       {
         showSuccessAlert: false,
       }
     );
-    setStatuses(data.enums.product_category.statuses);
-    setTypes(data.enums.product_category.types);
+    setStatuses(data.enums.product.statuses);
+    setTypes(data.enums.product.types);
   };
 
-  const { handle: handleProductCategories, loading: loadingProductCategories } =
-    useApi();
-  const getProductCategoriesHandler = async (payload) => {
-    const data = await handleProductCategories(
-      getProductCategories,
+  const { handle: handleProducts, loading: loadingProducts } = useApi();
+  const getProductsHandler = async (payload) => {
+    const data = await handleProducts(
+      getProducts,
       {
         payload,
       },
       { showSuccessAlert: false }
     );
 
-    return data.product_categories;
+    return data.products;
   };
   const {
-    options: productCategoriesOptions,
-    onOpen: productCategoriesOnOpen,
-    onScroll: productCategoriesOnScroll,
-    onSearch: productCategoriesOnSearch,
-  } = useAutoCompleteOptions(getProductCategoriesHandler, {
+    options: productsOptions,
+    onOpen: productsOnOpen,
+    onScroll: productsOnScroll,
+    onSearch: productsOnSearch,
+  } = useAutoCompleteOptions(getProductsHandler, {
     searchParams: ["title", "slug"],
   });
 
@@ -77,8 +73,8 @@ const ProductCategoriesForm = ({ onSubmit, productCategory }) => {
     loading: slugLoading,
     slug,
     onBlurInputHandler,
-  } = useSlug("product_category", {
-    initialValue: productCategory?.slug,
+  } = useSlug("product", {
+    initialValue: product?.slug,
   });
 
   return (
@@ -94,38 +90,38 @@ const ProductCategoriesForm = ({ onSubmit, productCategory }) => {
       <FormAutoComplete
         name="status"
         label={t("status_label")}
-        onOpen={getProductCategoryEnumsHandler}
+        onOpen={getProductEnumsHandler}
         options={statuses}
         errors={errors}
         loading={loadingEnums}
-        defaultValue={productCategory?.statusValue}
+        defaultValue={product?.statusValue}
       />
       <FormAutoComplete
         name="type"
         label={t("type_label")}
-        onOpen={getProductCategoryEnumsHandler}
+        onOpen={getProductEnumsHandler}
         options={types}
         errors={errors}
         loading={loadingEnums}
-        defaultValue={productCategory?.typeValue}
+        defaultValue={product?.typeValue}
       />
       <FormAutoComplete
         name="parent_id"
         label={t("parent_label")}
-        onOpen={productCategoriesOnOpen}
-        options={productCategoriesOptions.data
-          ?.map((productCategory) => ({
-            label: productCategory.title,
-            value: productCategory.id,
+        onOpen={productsOnOpen}
+        options={productsOptions.data
+          ?.map((product) => ({
+            label: product.title,
+            value: product.id,
           }))
           ?.filter(
-            (item) => item.value?.toString() !== productCategory?.id?.toString()
+            (item) => item.value?.toString() !== product?.id?.toString()
           )}
         errors={errors}
-        loading={loadingProductCategories}
-        onScroll={productCategoriesOnScroll}
-        onSearch={productCategoriesOnSearch}
-        defaultValue={productCategory?.parentValue()}
+        loading={loadingProducts}
+        onScroll={productsOnScroll}
+        onSearch={productsOnSearch}
+        defaultValue={product?.parentValue()}
       />
       {Object.keys(inputs)
         .filter(
@@ -147,11 +143,7 @@ const ProductCategoriesForm = ({ onSubmit, productCategory }) => {
             inputs={inputs}
             errors={errors}
             onInput={
-              productCategory
-                ? null
-                : name === "title"
-                ? onBlurInputHandler
-                : null
+              product ? null : name === "title" ? onBlurInputHandler : null
             }
             defaultValue={name === "slug" ? slug : undefined}
             loading={name === "slug" ? slugLoading : undefined}
@@ -172,11 +164,11 @@ const ProductCategoriesForm = ({ onSubmit, productCategory }) => {
           label={t("content_label")}
           inputs={inputs}
           errors={errors}
-          defaultValue={productCategory?.content}
+          defaultValue={product?.content}
         />
       </Grid2>
     </Form>
   );
 };
 
-export default ProductCategoriesForm;
+export default ProductsForm;

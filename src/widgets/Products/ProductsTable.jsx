@@ -104,8 +104,12 @@ const ProductsTable = () => {
                 label: t("title_label"),
               },
               {
-                id: "parent",
-                label: t("parent_label"),
+                id: "author",
+                label: t("author_label"),
+              },
+              {
+                id: "province",
+                label: t("province_label"),
               },
               {
                 id: "status",

@@ -152,7 +152,9 @@
     "Products": {
       "id_label": "ID",
       "title_label": "عنوان",
-      "slug_label": "اسلاگ"
+      "slug_label": "اسلاگ",
+      "author_label": "نویسنده",
+      "province_label": "استان / شهر"
     }
   },
   "Common": {
