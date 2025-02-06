@@ -91,6 +91,20 @@
       "parent_label": "دسته بندی مادر",
       "submit_label": "ایجاد دسته بندی محصول",
       "image_label": "عکس دسته بندی محصول"
+    },
+    "Products": {
+      "status_label": "وضعیت محصول",
+      "type_label": "نوع محصول",
+      "title_label": "عنوان",
+      "slug_label": "اسلاگ",
+      "summary_label": "خلاصه محتوا",
+      "content_label": "محتوا",
+      "author_label": "نویسنده",
+      "province_label": "استان / شهر",
+      "submit_label": "ایجاد محصول",
+      "image_label": "عکس",
+      "images_label": "عکس های بیشتر",
+      "cats_label": "دسته بندی های محصول"
     }
   },
   "Tables": {

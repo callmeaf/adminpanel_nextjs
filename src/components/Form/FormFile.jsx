@@ -1,23 +1,16 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import { Avatar, Box, IconButton, Modal, Tooltip } from "@mui/material";
+import { Alert, Avatar, Box, IconButton, Tooltip } from "@mui/material";
 import { typeOf } from "@/helpers";
 import { Close as CloseIcon } from "@mui/icons-material";
 import useModal from "@/hooks/use-modal";
 import ConfirmModal from "../Modals/ConfirmModal";
 import useApi from "@/hooks/use-api";
 import { deleteMedia } from "@/thunks/media-thunks";
-import MediaModel from "@/models/MediaModel";
 import { useTranslations } from "use-intl";
 
-export default function FormFile({
-  name,
-  label,
-  inputs = {},
-  errors = {},
-  onDelete,
-}) {
+export default function FormFile({ name, label, inputs = {}, errors = {} }) {
   const t = useTranslations("Forms.Form");
 
   const [image, setImage] = React.useState(inputs[name]);
@@ -60,6 +53,7 @@ export default function FormFile({
         />
       </Button>
 
+      {errors[name] && <Alert title={errors[name]} security="error" />}
       {image && (
         <Box component={"div"} position={"relative"} className="group">
           <Tooltip title={t("file_delete_tooltip")}>

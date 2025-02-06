@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import ProductCategoriesForm from "./ProductCategoriesForm";
 import useApi from "@/hooks/use-api";
 import {
   createProduct,

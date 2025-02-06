@@ -7,7 +7,10 @@ import { actionState } from "@/helpers";
 import useApi from "@/hooks/use-api";
 import useAutoCompleteOptions from "@/hooks/use-auto-complete-options";
 import useSlug from "@/hooks/use-slug";
-import { getProducts, getProductEnums } from "@/thunks/product-category-thunks";
+import { getProductCategories } from "@/thunks/product-category-thunks";
+import { getProducts, getProductEnums } from "@/thunks/product-thunks";
+import { getProvinces } from "@/thunks/province-thunks";
+import { getUsers } from "@/thunks/user-thunks";
 import { Grid2 } from "@mui/material";
 import React, { useActionState, useState } from "react";
 import { useTranslations } from "use-intl";
@@ -48,25 +51,47 @@ const ProductsForm = ({ onSubmit, product }) => {
     setTypes(data.enums.product.types);
   };
 
-  const { handle: handleProducts, loading: loadingProducts } = useApi();
-  const getProductsHandler = async (payload) => {
-    const data = await handleProducts(
-      getProducts,
+  const { handle: handleProductCategories, loading: loadingProductCategories } =
+    useApi();
+  const getProductCategoriesHandler = async (payload) => {
+    const data = await handleProductCategories(
+      getProductCategories,
       {
         payload,
       },
       { showSuccessAlert: false }
     );
 
-    return data.products;
+    return data.product_categories;
   };
   const {
-    options: productsOptions,
-    onOpen: productsOnOpen,
-    onScroll: productsOnScroll,
-    onSearch: productsOnSearch,
-  } = useAutoCompleteOptions(getProductsHandler, {
+    options: productCategoriesOptions,
+    onOpen: productCategoriesOnOpen,
+    onScroll: productCategoriesOnScroll,
+    onSearch: productCategoriesOnSearch,
+  } = useAutoCompleteOptions(getProductCategoriesHandler, {
     searchParams: ["title", "slug"],
+  });
+
+  const { handle: handleProvinces, loading: loadingProvinces } = useApi();
+  const getProvincesHandler = async (payload) => {
+    const data = await handleProvinces(
+      getProvinces,
+      {
+        payload,
+      },
+      { showSuccessAlert: false }
+    );
+
+    return data.provinces;
+  };
+  const {
+    options: provincesOptions,
+    onOpen: provincesOnOpen,
+    onScroll: provincesOnScroll,
+    onSearch: provincesOnSearch,
+  } = useAutoCompleteOptions(getProvincesHandler, {
+    searchParams: ["name", "code"],
   });
 
   const {
@@ -106,22 +131,18 @@ const ProductsForm = ({ onSubmit, product }) => {
         defaultValue={product?.typeValue}
       />
       <FormAutoComplete
-        name="parent_id"
-        label={t("parent_label")}
-        onOpen={productsOnOpen}
-        options={productsOptions.data
-          ?.map((product) => ({
-            label: product.title,
-            value: product.id,
-          }))
-          ?.filter(
-            (item) => item.value?.toString() !== product?.id?.toString()
-          )}
+        name="province_id"
+        label={t("province_label")}
+        onOpen={provincesOnOpen}
+        options={provincesOptions.data?.map((province) => ({
+          label: province.name,
+          value: province.id,
+        }))}
         errors={errors}
-        loading={loadingProducts}
-        onScroll={productsOnScroll}
-        onSearch={productsOnSearch}
-        defaultValue={product?.parentValue()}
+        loading={loadingProvinces}
+        onScroll={provincesOnScroll}
+        onSearch={provincesOnSearch}
+        defaultValue={product?.provinceValue()}
       />
       {Object.keys(inputs)
         .filter(
@@ -149,6 +170,23 @@ const ProductsForm = ({ onSubmit, product }) => {
             loading={name === "slug" ? slugLoading : undefined}
           />
         ))}
+      <Grid2 size={12}>
+        <FormAutoComplete
+          name="cats"
+          label={t("cats_label")}
+          onOpen={productCategoriesOnOpen}
+          options={productCategoriesOptions.data?.map((productCategory) => ({
+            label: productCategory.title,
+            value: productCategory.id,
+          }))}
+          errors={errors}
+          loading={loadingProductCategories}
+          multiple
+          onScroll={productCategoriesOnScroll}
+          onSearch={productCategoriesOnSearch}
+          defaultValue={product?.catsValues()}
+        />
+      </Grid2>
       <Grid2 size={12}>
         <FormInput
           name={"summary"}

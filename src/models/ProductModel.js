@@ -1,5 +1,6 @@
 import MediaModel from "./MediaModel";
 import ProductCategoryModel from "./ProductCategoryModel";
+import ProvinceModel from "./ProvinceModel";
 import UserModel from "./UserModel";
 
 export default function ProductModel({
@@ -56,7 +57,20 @@ export default function ProductModel({
         value: this.author?.id,
       };
     },
+    province: province ? ProvinceModel(province) : null,
+    provinceValue: function () {
+      return {
+        label: this.province.name,
+        value: this.province.id,
+      };
+    },
     catsIds: cats_ids,
     cats: cats ? cats.data.map((cat) => ProductCategoryModel(cat)) : [],
+    catsValues: function () {
+      return this.cats.map((cat) => ({
+        label: cat.title,
+        value: cat.id,
+      }));
+    },
   };
 }

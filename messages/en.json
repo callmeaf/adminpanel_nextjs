@@ -91,6 +91,20 @@
       "parent_label": "Parent",
       "submit_label": "Add Product Category",
       "image_label": "Image"
+    },
+    "Products": {
+      "status_label": "Product Status",
+      "type_label": "Product Type",
+      "title_label": "Title",
+      "slug_label": "Slug",
+      "summary_label": "Summary",
+      "content_label": "Content",
+      "author_label": "Parent",
+      "province_label": "Parent",
+      "submit_label": "Add Product",
+      "image_label": "Image",
+      "images_label": "Images",
+      "cats_label": "Product Categories"
     }
   },
   "Tables": {
