@@ -10,7 +10,13 @@ import useApi from "@/hooks/use-api";
 import { deleteMedia } from "@/thunks/media-thunks";
 import { useTranslations } from "use-intl";
 
-export default function FormFile({ name, label, inputs = {}, errors = {} }) {
+export default function FormFile({
+  name,
+  label,
+  inputs = {},
+  errors = {},
+  onContextMenu,
+}) {
   const t = useTranslations("Forms.Form");
 
   const [image, setImage] = React.useState(inputs[name]);
@@ -35,7 +41,11 @@ export default function FormFile({ name, label, inputs = {}, errors = {} }) {
   };
 
   return (
-    <Box component={"div"} sx={{ display: "flex", gap: 3 }}>
+    <Box
+      component={"div"}
+      sx={{ display: "flex", gap: 3 }}
+      onContextMenu={onContextMenu}
+    >
       <Button
         component="label"
         role={undefined}

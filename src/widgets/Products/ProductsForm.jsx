@@ -2,6 +2,7 @@ import Form from "@/components/Form/Form";
 import FormAutoComplete from "@/components/Form/FormAutoComplete";
 import FormFile from "@/components/Form/FormFile";
 import FormInput from "@/components/Form/FormInput";
+import FormMultiFile from "@/components/Form/FormMultiFile";
 import FormEditor from "@/components/Form/FormTextEditor";
 import { actionState } from "@/helpers";
 import useApi from "@/hooks/use-api";
@@ -29,6 +30,7 @@ const ProductsForm = ({ onSubmit, product }) => {
       content: product ? product.content : "",
       parent_id: product ? product.parentId : [],
       image: product ? product.image : null,
+      images: product ? product.images : [],
     })
   );
 
@@ -108,6 +110,14 @@ const ProductsForm = ({ onSubmit, product }) => {
         <FormFile
           name="image"
           label={t("image_label")}
+          inputs={inputs}
+          errors={errors}
+        />
+      </Grid2>
+      <Grid2 size={12}>
+        <FormMultiFile
+          name="images"
+          label={t("images_label")}
           inputs={inputs}
           errors={errors}
         />
