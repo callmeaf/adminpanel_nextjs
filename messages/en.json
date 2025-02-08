@@ -56,7 +56,8 @@
     "Components": {
       "loading_label": "Loading ...",
       "submit_label": "Submit",
-      "file_delete_tooltip": "Delete File"
+      "file_delete_tooltip": "Delete File",
+      "no_options": "No Options."
     },
     "Login": {
       "mobile_label": "Mobile",
@@ -105,6 +106,10 @@
       "image_label": "Image",
       "images_label": "Images",
       "cats_label": "Product Categories"
+    },
+    "Variations": {
+      "status_label": "Variation Status",
+      "variation_type_label": "Variation Type"
     }
   },
   "Tables": {

@@ -15,6 +15,7 @@ import { getUsers } from "@/thunks/user-thunks";
 import { Grid2 } from "@mui/material";
 import React, { useActionState, useState } from "react";
 import { useTranslations } from "use-intl";
+import VariationsWrapper from "../Variations/VariationsWrapper";
 
 const ProductsForm = ({ onSubmit, product }) => {
   const t = useTranslations("Forms.Products");
@@ -215,6 +216,7 @@ const ProductsForm = ({ onSubmit, product }) => {
           defaultValue={product?.content}
         />
       </Grid2>
+      <VariationsWrapper />
     </Form>
   );
 };

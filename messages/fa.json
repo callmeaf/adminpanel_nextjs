@@ -56,7 +56,8 @@
     "Form": {
       "loading_label": "در حال بارگذاری ...",
       "submit_label": "ثبت",
-      "file_delete_tooltip": "حذف فایل"
+      "file_delete_tooltip": "حذف فایل",
+      "no_options": "انتخابی وجود ندارد."
     },
     "Login": {
       "mobile_label": "موبایل",
@@ -105,6 +106,10 @@
       "image_label": "عکس",
       "images_label": "عکس های بیشتر",
       "cats_label": "دسته بندی های محصول"
+    },
+    "Variations": {
+      "status_label": "وضعیت متغیر",
+      "variation_type_label": "نوع متغیر"
     }
   },
   "Tables": {

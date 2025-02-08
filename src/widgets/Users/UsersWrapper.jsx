@@ -10,10 +10,31 @@ import {
 } from "@/thunks/user-thunks";
 import Show from "@/components/Show";
 import { LinearProgress } from "@mui/material";
-import { typeOf } from "@/helpers";
+import { jsonArtisan, typeOf } from "@/helpers";
+import dataHandler from "@/utils/data-handler";
 
 const UsersWrapper = ({ userId }) => {
   const { handle, loading } = useApi();
+
+  const [user, setUser] = useState(null);
+  const getUserByIdHandler = async () => {
+    if (!userId) {
+      return;
+    }
+    const data = await handle(
+      getUserById,
+      {
+        payload: {
+          user_id: userId,
+        },
+      },
+      {
+        showSuccessAlert: false,
+      }
+    );
+
+    setUser(data.user);
+  };
 
   const createUserHandler = async (prevState, formData) => {
     const data = await handle(createUser, { payload: formData });
@@ -45,6 +66,17 @@ const UsersWrapper = ({ userId }) => {
   };
 
   const assignRolesToUserHandler = async (userId, formData) => {
+    if (user) {
+      const userRoles = user.roles.map((role) => role.id);
+      const { getAll } = dataHandler(formData);
+      const formRoles = getAll("roles[]", []);
+
+      const { toJson } = jsonArtisan();
+      if (toJson(userRoles.sort()) === toJson(formRoles.sort())) {
+        return;
+      }
+    }
+
     return await handle(
       assignRolesToUser,
       {
@@ -61,41 +93,23 @@ const UsersWrapper = ({ userId }) => {
 
   const updateProfileImageUserHandler = async (userId, formData) => {
     const { isUploadedFile } = typeOf(formData.get("image"));
-    if (isUploadedFile) {
-      return await handle(
-        updateProfileImageUser,
-        {
-          payload: formData,
-          extra: {
-            user_id: userId,
-          },
-        },
-        {
-          showSuccessAlert: false,
-          hasFile: true,
-        }
-      );
-    }
-  };
-
-  const [user, setUser] = useState(null);
-  const getUserByIdHandler = async () => {
-    if (!userId) {
+    if (!isUploadedFile) {
       return;
     }
-    const data = await handle(
-      getUserById,
+
+    return await handle(
+      updateProfileImageUser,
       {
-        payload: {
+        payload: formData,
+        extra: {
           user_id: userId,
         },
       },
       {
         showSuccessAlert: false,
+        hasFile: true,
       }
     );
-
-    setUser(data.user);
   };
 
   useEffect(() => {

@@ -2,21 +2,12 @@ import React, { useState } from "react";
 import FormFile from "./FormFile";
 import { Box, IconButton } from "@mui/material";
 import { AddToPhotos as AddToPhotosIcon } from "@mui/icons-material";
+import { arrayArtisan } from "@/helpers";
 
-const numbersArray = (numbers) => {
-  const numsArray = [];
-
-  for (let i = 1; i <= numbers; i++) {
-    numsArray.push({
-      id: i,
-    });
-  }
-
-  return numsArray;
-};
+const { makeFromNumbers } = arrayArtisan();
 
 const FormMultiFile = ({ name, label, inputs = {}, errors = {} }) => {
-  const [numbers, setNumbers] = useState(numbersArray(3));
+  const [numbers, setNumbers] = useState(makeFromNumbers(3));
 
   const getImage = (index) => {
     if (!(inputs[name] && inputs[name][index])) {

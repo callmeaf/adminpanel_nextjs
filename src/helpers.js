@@ -125,7 +125,20 @@ export function arrayArtisan() {
     }
   };
 
+  const makeFromNumbers = (numbers, key = "id") => {
+    const numsArray = [];
+
+    for (let i = 1; i <= numbers; i++) {
+      numsArray.push({
+        [key]: i,
+      });
+    }
+
+    return numsArray;
+  };
+
   return {
     unique,
+    makeFromNumbers,
   };
 }

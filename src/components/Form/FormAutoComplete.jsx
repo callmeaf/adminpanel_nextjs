@@ -132,6 +132,7 @@ const FormAutoComplete = ({
       defaultValue={inputDefaultValue()}
       loading={loading}
       loadingText={t("loading_label")}
+      noOptionsText={t("no_options")}
       multiple={multiple}
       disableCloseOnSelect={multiple}
       onChange={(e, value, reason) => setChangeReason(reason)}
