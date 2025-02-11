@@ -69,6 +69,13 @@ const TableExporter = ({ queryParamsLocalStorageKey, onExcelExport }) => {
     exportHandler();
   };
 
+  const excelExportButtonClickHandler = () => {
+    modalOpenHandler({
+      perPage: get(queryParamsLocalStorageKey, {})["per_page"],
+      exportType: "excel",
+    });
+  };
+
   return (
     <>
       <Box component={"div"}>
@@ -117,15 +124,7 @@ const TableExporter = ({ queryParamsLocalStorageKey, onExcelExport }) => {
         >
           {onExcelExport && (
             <MenuItem sx={{ padding: 0 }}>
-              <Button
-                onClick={() =>
-                  modalOpenHandler({
-                    perPage: get(queryParamsLocalStorageKey, {})["per_page"],
-                    exportType: "excel",
-                  })
-                }
-                fullWidth
-              >
+              <Button onClick={excelExportButtonClickHandler} fullWidth>
                 {t("export_excel_label")}
               </Button>
             </MenuItem>

@@ -17,6 +17,26 @@ const ProductCategoriesItemTable = ({
 }) => {
   const { getMenu } = useDashboardMenus();
 
+  const productCategoryMenuEditUrl = getMenu("product_categories_edit", {
+    replaces: {
+      product_category_id: productCategory?.parent?.id,
+    },
+  })?.href;
+
+  const editHandler = () => {
+    onEdit({
+      replaces: {
+        product_category_id: productCategory.id,
+      },
+    });
+  };
+
+  const deleteHandler = () => {
+    onDelete({
+      product_category_id: productCategory.id,
+    });
+  };
+
   return (
     <TableRow>
       <TableCell>{startFrom + index}</TableCell>
@@ -30,15 +50,7 @@ const ProductCategoriesItemTable = ({
       </TableCell>
       <TableCell>
         {productCategory.parent && (
-          <Link
-            href={
-              getMenu("product_categories_edit", {
-                replaces: {
-                  product_category_id: productCategory.parent.id,
-                },
-              }).href
-            }
-          >
+          <Link href={productCategoryMenuEditUrl}>
             {productCategory.parent.title}
           </Link>
         )}
@@ -56,20 +68,7 @@ const ProductCategoriesItemTable = ({
       </TableCell>
       <TableCell>{productCategory.createdAtText}</TableCell>
       <TableCell>
-        <TableActions
-          onEdit={() => {
-            onEdit({
-              replaces: {
-                product_category_id: productCategory.id,
-              },
-            });
-          }}
-          onDelete={() =>
-            onDelete({
-              product_category_id: productCategory.id,
-            })
-          }
-        />
+        <TableActions onEdit={editHandler} onDelete={deleteHandler} />
       </TableCell>
     </TableRow>
   );

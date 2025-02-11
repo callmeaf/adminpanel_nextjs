@@ -13,6 +13,19 @@ const UsersItemTable = ({
   onStatusUpdate,
   onDelete,
 }) => {
+  const editHandler = () => {
+    onEdit({
+      replaces: {
+        user_id: user.id,
+      },
+    });
+  };
+
+  const deleteHandler = () => {
+    onDelete({
+      user_id: user.id,
+    });
+  };
   return (
     <TableRow>
       <TableCell>{startFrom + index}</TableCell>
@@ -40,20 +53,7 @@ const UsersItemTable = ({
       </TableCell>
       <TableCell>{user.createdAtText}</TableCell>
       <TableCell>
-        <TableActions
-          onEdit={() => {
-            onEdit({
-              replaces: {
-                user_id: user.id,
-              },
-            });
-          }}
-          onDelete={() =>
-            onDelete({
-              user_id: user.id,
-            })
-          }
-        />
+        <TableActions onEdit={editHandler} onDelete={deleteHandler} />
       </TableCell>
     </TableRow>
   );

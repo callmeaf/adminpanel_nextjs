@@ -17,6 +17,26 @@ const ProductsItemTable = ({
 }) => {
   const { getMenu } = useDashboardMenus();
 
+  const editUrl = getMenu("products_edit", {
+    replaces: {
+      product_id: product?.parent?.id,
+    },
+  })?.href;
+
+  const editHandler = () => {
+    onEdit({
+      replaces: {
+        product_id: product.id,
+      },
+    });
+  };
+
+  const deleteHandler = () => {
+    onDelete({
+      product_id: product.id,
+    });
+  };
+
   return (
     <TableRow>
       <TableCell>{startFrom + index}</TableCell>
@@ -29,19 +49,7 @@ const ProductsItemTable = ({
         />
       </TableCell>
       <TableCell>
-        {product.parent && (
-          <Link
-            href={
-              getMenu("products_edit", {
-                replaces: {
-                  product_id: product.parent.id,
-                },
-              }).href
-            }
-          >
-            {product.parent.title}
-          </Link>
-        )}
+        {product.parent && <Link href={editUrl}>{product.parent.title}</Link>}
       </TableCell>
       <TableCell>
         <TableItemStatus
@@ -56,20 +64,7 @@ const ProductsItemTable = ({
       </TableCell>
       <TableCell>{product.createdAtText}</TableCell>
       <TableCell>
-        <TableActions
-          onEdit={() => {
-            onEdit({
-              replaces: {
-                product_id: product.id,
-              },
-            });
-          }}
-          onDelete={() =>
-            onDelete({
-              product_id: product.id,
-            })
-          }
-        />
+        <TableActions onEdit={editHandler} onDelete={deleteHandler} />
       </TableCell>
     </TableRow>
   );

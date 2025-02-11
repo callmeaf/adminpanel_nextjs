@@ -52,6 +52,11 @@ const TableSearch = ({
     }
   };
 
+  const removeSearchInputHandler = () => {
+    searchInputRef.current.value = "";
+    searchHandler();
+  };
+
   useEffect(() => {
     if (searchInputRef) {
       searchInputRef.current.value = storedSearchInputValue;
@@ -80,10 +85,7 @@ const TableSearch = ({
           endAdornment: !!storedSearchInputValue && (
             <InputAdornment
               position="end"
-              onClick={() => {
-                searchInputRef.current.value = "";
-                searchHandler();
-              }}
+              onClick={removeSearchInputHandler}
               className="cursor-pointer"
             >
               <CloseIcon />

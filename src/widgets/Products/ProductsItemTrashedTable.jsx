@@ -12,6 +12,17 @@ const ProductsItemTrashedTable = ({
   onRestore,
   onForceDelete,
 }) => {
+  const restoreHandler = () => {
+    onRestore({
+      product_id: product.id,
+    });
+  };
+
+  const forceDeleteHandler = () => {
+    onForceDelete({
+      product_id: product.id,
+    });
+  };
   return (
     <TableRow>
       <TableCell>{startFrom + index}</TableCell>
@@ -29,16 +40,8 @@ const ProductsItemTrashedTable = ({
       <TableCell>{product.deletedAtText}</TableCell>
       <TableCell>
         <TableActions
-          onRestore={() => {
-            onRestore({
-              product_id: product.id,
-            });
-          }}
-          onForceDelete={() =>
-            onForceDelete({
-              product_id: product.id,
-            })
-          }
+          onRestore={restoreHandler}
+          onForceDelete={forceDeleteHandler}
         />
       </TableCell>
     </TableRow>

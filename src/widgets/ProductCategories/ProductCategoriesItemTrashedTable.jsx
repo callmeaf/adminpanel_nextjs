@@ -16,6 +16,18 @@ const ProductCategoriesItemTrashedTable = ({
 }) => {
   const { getMenu } = useDashboardMenus();
 
+  const restoreHanlder = () => {
+    onRestore({
+      product_category_id: productCategory.id,
+    });
+  };
+
+  const forceDeleteHandler = () => {
+    onForceDelete({
+      product_category_id: productCategory.id,
+    });
+  };
+
   return (
     <TableRow>
       <TableCell>{startFrom + index}</TableCell>
@@ -51,16 +63,8 @@ const ProductCategoriesItemTrashedTable = ({
       <TableCell>{productCategory.deletedAtText}</TableCell>
       <TableCell>
         <TableActions
-          onRestore={() => {
-            onRestore({
-              product_category_id: productCategory.id,
-            });
-          }}
-          onForceDelete={() =>
-            onForceDelete({
-              product_category_id: productCategory.id,
-            })
-          }
+          onRestore={restoreHanlder}
+          onForceDelete={forceDeleteHandler}
         />
       </TableCell>
     </TableRow>

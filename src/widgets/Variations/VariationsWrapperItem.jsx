@@ -21,16 +21,14 @@ const VariationsWrapperItem = ({
   variation,
   onRemoveVariation,
 }) => {
+  const removeVariationHandler = () => {
+    onRemoveVariation(number, variation);
+  };
   return (
     <Box sx={{ boxShadow: 3, p: 3 }}>
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
         <Typography variant="h6">{title}</Typography>
-        <IconButton
-          color="error"
-          onClick={() => {
-            onRemoveVariation(number, variation);
-          }}
-        >
+        <IconButton color="error" onClick={removeVariationHandler}>
           <CloseIcon />
         </IconButton>
       </Box>
