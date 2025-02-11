@@ -1,17 +1,28 @@
 import { arrayArtisan } from "@/helpers";
-import { Grid2 } from "@mui/material";
-import React, { useState } from "react";
+import { Grid2, IconButton } from "@mui/material";
+import React, { useMemo, useState } from "react";
 import { useTranslations } from "use-intl";
 import VariationsWrapperItem from "./VariationsWrapperItem";
 import { getVariationEnums } from "@/thunks/variation-thunks";
 import useApi from "@/hooks/use-api";
 import { getVariationTypes } from "@/thunks/variation-type-thunks";
 import useAutoCompleteOptions from "@/hooks/use-auto-complete-options";
+import { AddCircle as AddCircleIcon } from "@mui/icons-material";
 
 const { makeFromNumbers } = arrayArtisan();
 
 const VariationsWrapper = ({ name, errors }) => {
   const [numbers, setNumbers] = useState(makeFromNumbers(3));
+
+  const moreVariationsHandler = () => {
+    setNumbers([
+      ...numbers,
+      {
+        id: numbers.length + 1,
+      },
+    ]);
+  };
+
   const t = useTranslations("Forms.Variations");
 
   const [statuses, setStatuses] = useState([]);
@@ -19,7 +30,7 @@ const VariationsWrapper = ({ name, errors }) => {
   const { handle: handleEnums, loading: loadingEnums } = useApi();
 
   const getVariationEnumsHandler = async () => {
-    if (statuses.length !== 0 && types.length !== 0) {
+    if (statuses.length !== 0) {
       return;
     }
     const data = await handleEnums(
@@ -37,7 +48,7 @@ const VariationsWrapper = ({ name, errors }) => {
     useApi();
 
   const getVariationTypesHandler = async () => {
-    if (statuses.length !== 0 && types.length !== 0) {
+    if (types.length !== 0) {
       return;
     }
     const data = await handleVariationTypes(
@@ -60,12 +71,28 @@ const VariationsWrapper = ({ name, errors }) => {
     searchParams: ["title"],
   });
 
-  console.log({ variaitonTypesOptions });
+  const variationRemoveHandler = (number, variation) => {
+    setNumbers(
+      numbers.filter((item) => item.id.toString() !== number.id.toString())
+    );
+  };
+
+  const variaitonTypesOptionsTransformed = useMemo(
+    () =>
+      variaitonTypesOptions.data?.map((variationType) => ({
+        label: variationType.title,
+        value: variationType.id,
+      })),
+    [variaitonTypesOptions.data?.length]
+  );
+
   return (
     <Grid2 container spacing={3}>
-      {numbers.map((number) => (
+      {numbers.map((number, index) => (
         <Grid2 size={12} key={number.id}>
           <VariationsWrapperItem
+            title={`# ${index + 1}`}
+            number={number}
             name={name}
             t={t}
             onOpenEnum={getVariationEnumsHandler}
@@ -75,16 +102,15 @@ const VariationsWrapper = ({ name, errors }) => {
             onOpenVariationTypes={variaitonTypesOnOpen}
             onScrollVariationTypes={variaitonTypesOnScroll}
             onSearchVariationTypes={variaitonTypesOnSearch}
-            variationTypes={variaitonTypesOptions.data?.map(
-              (variationType) => ({
-                label: variationType.title,
-                value: variationType.id,
-              })
-            )}
+            variationTypes={variaitonTypesOptionsTransformed}
             loadingVariationTypes={loadingVariationTypes}
+            onRemoveVariation={variationRemoveHandler}
           />
         </Grid2>
       ))}
+      <IconButton onClick={moreVariationsHandler}>
+        <AddCircleIcon />
+      </IconButton>
     </Grid2>
   );
 };

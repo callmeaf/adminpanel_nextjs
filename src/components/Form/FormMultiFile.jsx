@@ -36,12 +36,13 @@ const FormMultiFile = ({ name, label, inputs = {}, errors = {} }) => {
       {numbers.map((number, index) => (
         <FormFile
           key={number.id}
+          number={number}
           name={`${name}[]`}
           label={`${label} ( ${index + 1} )`}
           inputs={{
             name: getImage(index),
           }}
-          onContextMenu={() => removeImageHandler(number)}
+          onContextMenu={removeImageHandler}
         />
       ))}
       <IconButton onClick={moreImageHandler}>

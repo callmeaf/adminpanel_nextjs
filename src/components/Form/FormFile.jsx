@@ -11,6 +11,7 @@ import { deleteMedia } from "@/thunks/media-thunks";
 import { useTranslations } from "use-intl";
 
 export default function FormFile({
+  number,
   name,
   label,
   inputs = {},
@@ -44,7 +45,7 @@ export default function FormFile({
     <Box
       component={"div"}
       sx={{ display: "flex", gap: 3 }}
-      onContextMenu={onContextMenu}
+      onContextMenu={() => onContextMenu(number)}
     >
       <Button
         component="label"

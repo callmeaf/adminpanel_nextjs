@@ -109,7 +109,12 @@
     },
     "Variations": {
       "status_label": "وضعیت متغیر",
-      "variation_type_label": "نوع متغیر"
+      "variation_type_label": "نوع متغیر",
+      "title_label": "عنوان متغیر",
+      "stock_label": "موجودی انبار متغیر",
+      "price_label": "قیمت متغیر",
+      "discount_price_label": "قیمت با تخفیف متغیر",
+      "content_label": "محتوای متغیر"
     }
   },
   "Tables": {

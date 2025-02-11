@@ -216,7 +216,9 @@ const ProductsForm = ({ onSubmit, product }) => {
           defaultValue={product?.content}
         />
       </Grid2>
-      <VariationsWrapper />
+      <Grid2 size={12}>
+        <VariationsWrapper />
+      </Grid2>
     </Form>
   );
 };

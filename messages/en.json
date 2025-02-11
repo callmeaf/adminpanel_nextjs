@@ -109,7 +109,12 @@
     },
     "Variations": {
       "status_label": "Variation Status",
-      "variation_type_label": "Variation Type"
+      "variation_type_label": "Variation Type",
+      "title_label": "Variation Title",
+      "stock_label": "Variation Stock",
+      "price_label": "Variation Price",
+      "discount_price_label": "Variation Discount Price",
+      "content_label": "Variation Content"
     }
   },
   "Tables": {
