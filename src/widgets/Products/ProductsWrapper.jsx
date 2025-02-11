@@ -10,16 +10,24 @@ import Show from "@/components/Show";
 import { LinearProgress } from "@mui/material";
 import { typeOf } from "@/helpers";
 import ProductsForm from "./ProductsForm";
+import { createVariation } from "@/thunks/variation-thunks";
+import dataHandler from "@/utils/data-handler";
 
 const ProductsWrapper = ({ productId }) => {
   const { handle, loading } = useApi();
 
   const createProductHandler = async (prevState, formData) => {
+    const { getAll } = dataHandler(formData);
+    console.log("variations is ", getAll("variations[]"));
+
     const data = await handle(createProduct, { payload: formData });
     const { product: productData } = data;
 
     if (productData) {
-      await Promise.all([updateImageProductHandler(productData.id, formData)]);
+      await Promise.all([
+        updateImageProductHandler(productData.id, formData),
+        createVariationHandler(productData.id, formData),
+      ]);
     }
 
     return data;
@@ -54,6 +62,21 @@ const ProductsWrapper = ({ productId }) => {
         }
       );
     }
+  };
+
+  const createVariationHandler = async (productId, formData) => {
+    const { getAll } = dataHandler(formData);
+
+    console.log("variations is ", getAll("variations"));
+    return await handle(
+      createVariation,
+      {
+        payload: formData,
+      },
+      {
+        showSuccessAlert: false,
+      }
+    );
   };
 
   const [product, setProduct] = useState(null);

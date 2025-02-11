@@ -217,7 +217,7 @@ const ProductsForm = ({ onSubmit, product }) => {
         />
       </Grid2>
       <Grid2 size={12}>
-        <VariationsWrapper />
+        <VariationsWrapper name={"variations"} errors={errors} />
       </Grid2>
     </Form>
   );
