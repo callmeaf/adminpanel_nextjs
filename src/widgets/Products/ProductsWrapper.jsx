@@ -17,9 +17,6 @@ const ProductsWrapper = ({ productId }) => {
   const { handle, loading } = useApi();
 
   const createProductHandler = async (prevState, formData) => {
-    const { getAll } = dataHandler(formData);
-    console.log("variations is ", getAll("variations[]"));
-
     const data = await handle(createProduct, { payload: formData });
     const { product: productData } = data;
 
@@ -66,17 +63,48 @@ const ProductsWrapper = ({ productId }) => {
 
   const createVariationHandler = async (productId, formData) => {
     const { getAll } = dataHandler(formData);
+    const variations = [];
 
-    console.log("variations is ", getAll("variations"));
-    return await handle(
-      createVariation,
-      {
-        payload: formData,
-      },
-      {
-        showSuccessAlert: false,
-      }
-    );
+    const formDataVariationKey = "variations[]";
+    const variationsFormDataKeys = [
+      "status",
+      "variation_type",
+      "title",
+      "stock",
+      "price",
+      "discount_price",
+      "content",
+    ];
+
+    variationsFormDataKeys.forEach((formDataKey) => {
+      console.log(`${formDataVariationKey}${formDataKey}`);
+      variations.push({
+        [formDataKey]: getAll(`${formDataVariationKey}${formDataKey}`),
+      });
+    });
+
+    const responses = [];
+    const variationsLength = variations[0].length;
+    for (let i = 0; i < variationsLength; i++) {
+      const variationFormData = new FormData();
+
+      variationFormData.append("product_id", productId);
+      variations.forEach((key, data) => {
+        variationFormData.append(key, data[i]);
+      });
+      const response = await handle(
+        createVariation,
+        {
+          payload: variationFormData,
+        },
+        {
+          showSuccessAlert: false,
+        }
+      );
+      responses.push(response);
+    }
+
+    return responses;
   };
 
   const [product, setProduct] = useState(null);

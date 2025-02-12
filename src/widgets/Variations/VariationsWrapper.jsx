@@ -26,7 +26,6 @@ const VariationsWrapper = ({ name, errors }) => {
   const t = useTranslations("Forms.Variations");
 
   const [statuses, setStatuses] = useState([]);
-  const [types, setTypes] = useState([]);
   const { handle: handleEnums, loading: loadingEnums } = useApi();
 
   const getVariationEnumsHandler = async () => {
@@ -41,16 +40,12 @@ const VariationsWrapper = ({ name, errors }) => {
       }
     );
     setStatuses(data.enums.variation.statuses);
-    setTypes(data.enums.variation.types);
   };
 
   const { handle: handleVariationTypes, loading: loadingVariationTypes } =
     useApi();
 
   const getVariationTypesHandler = async () => {
-    if (types.length !== 0) {
-      return;
-    }
     const data = await handleVariationTypes(
       getVariationTypes,
       {},
@@ -77,6 +72,7 @@ const VariationsWrapper = ({ name, errors }) => {
     );
   };
 
+  console.log({ variaitonTypesOptions });
   const variaitonTypesOptionsTransformed = useMemo(
     () =>
       variaitonTypesOptions.data?.map((variationType) => ({

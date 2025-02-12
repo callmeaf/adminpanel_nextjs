@@ -165,6 +165,7 @@ const ProductsForm = ({ onSubmit, product }) => {
               "summary",
               "content",
               "image",
+              "images",
             ].includes(name)
         )
         .map((name) => (
