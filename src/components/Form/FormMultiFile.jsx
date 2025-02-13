@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import FormFile from "./FormFile";
-import { Box, IconButton } from "@mui/material";
+import { Box, IconButton, Tooltip } from "@mui/material";
 import { AddToPhotos as AddToPhotosIcon } from "@mui/icons-material";
 import { arrayArtisan } from "@/helpers";
 
@@ -42,7 +42,7 @@ const FormMultiFile = ({ name, label, inputs = {}, errors = {} }) => {
           inputs={{
             name: getImage(index),
           }}
-          onContextMenu={removeImageHandler}
+          onRemoveImageButton={removeImageHandler}
         />
       ))}
       <IconButton onClick={moreImageHandler}>

@@ -1,4 +1,6 @@
+import dataHandler from "@/utils/data-handler";
 import { getEnums } from "./base-thunks";
+import VariationModel from "@/models/VariationModel";
 
 const PREFIX_URL = "/variations";
 
@@ -26,8 +28,7 @@ export const createVariation = (api, payload = {}) => {
       return await api.post(`${PREFIX_URL}`, formData);
     },
     onSuccess: ({ result, finalData, router }) => {
-      finalData.variation = VariationMode(result.variation);
-      router.push(`${PREFIX_URL}`);
+      finalData.variation = VariationModel(result.variation);
     },
   };
 };

@@ -22,9 +22,11 @@ const ProductsWrapper = ({ productId }) => {
     const { product: productData } = data;
 
     if (productData) {
+      const { id } = productData;
       await Promise.all([
-        updateImageProductHandler(productData.id, formData),
-        createVariationHandler(productData.id, formData),
+        assignCatsToProductHandler(id, formData),
+        updateImageProductHandler(id, formData),
+        createVariationHandler(id, formData),
       ]);
     }
 
@@ -103,31 +105,33 @@ const ProductsWrapper = ({ productId }) => {
       "content",
     ];
 
-    variationsFormDataKeys.forEach((formDataKey) => {
-      console.log(`${formDataVariationKey}${formDataKey}`);
+    const variationsLength = getAll(
+      `${formDataVariationKey}${variationsFormDataKeys[0]}`
+    ).length;
+
+    for (let i = 0; i < variationsLength; i++) {
+      const variation = {};
+      for (const key of variationsFormDataKeys) {
+        variation[key] = getAll(`${formDataVariationKey}${key}`)[i];
+      }
       variations.push({
-        [formDataKey]: getAll(`${formDataVariationKey}${formDataKey}`),
+        ...variation,
+        product_id: productId,
       });
-    });
+    }
 
     const responses = [];
-    const variationsLength = variations[0].length;
-    for (let i = 0; i < variationsLength; i++) {
-      const variationFormData = new FormData();
-
-      variationFormData.append("product_id", productId);
-      variations.forEach((key, data) => {
-        variationFormData.append(key, data[i]);
-      });
+    for (const variation of variations) {
       const response = await handle(
         createVariation,
         {
-          payload: variationFormData,
+          payload: variation,
         },
         {
           showSuccessAlert: false,
         }
       );
+
       responses.push(response);
     }
 

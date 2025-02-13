@@ -52,6 +52,9 @@ const ProductsItemTable = ({
         {product.parent && <Link href={editUrl}>{product.parent.title}</Link>}
       </TableCell>
       <TableCell>
+        {product.parent && <Link href={editUrl}>{product.parent.title}</Link>}
+      </TableCell>
+      <TableCell>
         <TableItemStatus
           itemId={product.id}
           status={product.status}

@@ -3,7 +3,10 @@ import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { Alert, Avatar, Box, IconButton, Tooltip } from "@mui/material";
 import { typeOf } from "@/helpers";
-import { Close as CloseIcon } from "@mui/icons-material";
+import {
+  Close as CloseIcon,
+  RemoveCircle as RemoveCircleIcon,
+} from "@mui/icons-material";
 import useModal from "@/hooks/use-modal";
 import ConfirmModal from "../Modals/ConfirmModal";
 import useApi from "@/hooks/use-api";
@@ -16,7 +19,7 @@ export default function FormFile({
   label,
   inputs = {},
   errors = {},
-  onContextMenu,
+  onRemoveImageButton,
 }) {
   const t = useTranslations("Forms.Form");
 
@@ -41,18 +44,29 @@ export default function FormFile({
     setImage(null);
   };
 
+  const removeImageButtonHandler = (e) => {
+    e.preventDefault();
+    onRemoveImageButton(number);
+  };
+
   return (
-    <Box
-      component={"div"}
-      sx={{ display: "flex", gap: 3 }}
-      onContextMenu={() => onContextMenu(number)}
-    >
+    <Box component={"div"} sx={{ display: "flex", gap: 3 }}>
       <Button
         component="label"
         role={undefined}
         variant="contained"
         tabIndex={-1}
         startIcon={<CloudUploadIcon />}
+        endIcon={
+          onRemoveImageButton && (
+            <Tooltip title={t("file_delete_tooltip")}>
+              <RemoveCircleIcon
+                color="action"
+                onClick={removeImageButtonHandler}
+              />
+            </Tooltip>
+          )
+        }
       >
         {label}
         <input
