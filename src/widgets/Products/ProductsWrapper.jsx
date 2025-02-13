@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useApi from "@/hooks/use-api";
 import {
+  assignCatsToProduct,
   createProduct,
   getProductById,
   updateImageProduct,
@@ -40,6 +41,32 @@ const ProductsWrapper = ({ productId }) => {
     await Promise.all([updateImageProductHandler(productId, formData)]);
 
     return data;
+  };
+
+  const assignCatsToProductHandler = async (productId, formData) => {
+    if (product) {
+      const productCats = product.cats.map((cat) => cat.id);
+      const { getAll } = dataHandler(formData);
+      const formCats = getAll("cats[]", []);
+
+      const { toJson } = jsonArtisan();
+      if (toJson(productCats.sort()) === toJson(formCats.sort())) {
+        return;
+      }
+    }
+
+    return await handle(
+      assignCatsToProduct,
+      {
+        payload: formData,
+        extra: {
+          product_id: productId,
+        },
+      },
+      {
+        showSuccessAlert: false,
+      }
+    );
   };
 
   const updateImageProductHandler = async (productId, formData) => {

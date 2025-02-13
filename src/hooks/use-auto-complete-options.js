@@ -1,5 +1,5 @@
 import { callIfFunction } from "@/helpers";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 const useAutoCompleteOptions = (
   fetchHandler,
@@ -8,6 +8,7 @@ const useAutoCompleteOptions = (
     preventFetchOnScroll = null,
     preventFetchOnSearch = null,
     searchParams = [],
+    optionsTransformer = null,
   } = {}
 ) => {
   const [options, setOptions] = useState({});
@@ -75,8 +76,16 @@ const useAutoCompleteOptions = (
     }
   };
 
+  const optionsData = useMemo(() => {
+    if (optionsTransformer) {
+      return options.data?.map(optionsTransformer);
+    }
+
+    return options.data;
+  }, [options.data?.length]);
+
   return {
-    options,
+    options: optionsData,
     onOpen,
     onScroll,
     onSearch,

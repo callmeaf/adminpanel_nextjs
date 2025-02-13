@@ -99,7 +99,15 @@ const UsersForm = ({ onSubmit, user }) => {
       />
 
       {Object.keys(inputs)
-        .filter((name) => !["status", "type", "roles", "image"].includes(name))
+        .filter((name) =>
+          [
+            "first_name",
+            "last_name",
+            "mobile",
+            "national_code",
+            "email",
+          ].includes(name)
+        )
         .map((name) => (
           <FormInput
             key={name}

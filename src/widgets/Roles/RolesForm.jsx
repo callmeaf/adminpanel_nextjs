@@ -49,7 +49,7 @@ const RolesForm = ({ onSubmit, role }) => {
   return (
     <Form action={submitAction} loading={isPending}>
       {Object.keys(inputs)
-        .filter((name) => !["permissions"].includes(name))
+        .filter((name) => ["name", "name_fa"].includes(name))
         .map((name) => (
           <FormInput
             key={name}

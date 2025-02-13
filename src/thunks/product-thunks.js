@@ -44,7 +44,8 @@ export const createProduct = (api, payload = {}) => {
     onSend: async () => {
       const { get } = dataHandler(payload);
       const formData = new FormData();
-      formData.append("parent_id", get("parent_id"));
+      formData.append("province_id", get("province_id"));
+      formData.append("author_id", get("author_id"));
       formData.append("status", get("status"));
       formData.append("type", get("type"));
       formData.append("title", get("title"));
@@ -57,6 +58,21 @@ export const createProduct = (api, payload = {}) => {
     onSuccess: ({ result, finalData, router }) => {
       finalData.product = ProductModel(result.product);
       router.push(`${PREFIX_URL}`);
+    },
+  };
+};
+
+export const assignCatsToProduct = (api, payload = {}, extra = {}) => {
+  return {
+    onSend: async () => {
+      const { getAll } = dataHandler(payload);
+
+      const formData = new FormData();
+      formData.append("_method", "PATCH");
+      getAll("cats[]", []).forEach((cat) => {
+        formData.append("cats_ids[]", cat);
+      });
+      return await api.post(`${PREFIX_URL}/${extra.product_id}/cats`, formData);
     },
   };
 };

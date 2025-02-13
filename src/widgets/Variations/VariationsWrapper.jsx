@@ -64,6 +64,10 @@ const VariationsWrapper = ({ name, errors }) => {
     onSearch: variaitonTypesOnSearch,
   } = useAutoCompleteOptions(getVariationTypesHandler, {
     searchParams: ["title"],
+    optionsTransformer: (variationType) => ({
+      label: variationType.title,
+      value: variationType.id,
+    }),
   });
 
   const variationRemoveHandler = (number, variation) => {
@@ -71,16 +75,6 @@ const VariationsWrapper = ({ name, errors }) => {
       numbers.filter((item) => item.id.toString() !== number.id.toString())
     );
   };
-
-  console.log({ variaitonTypesOptions });
-  const variaitonTypesOptionsTransformed = useMemo(
-    () =>
-      variaitonTypesOptions.data?.map((variationType) => ({
-        label: variationType.title,
-        value: variationType.id,
-      })),
-    [variaitonTypesOptions.data?.length]
-  );
 
   return (
     <Grid2 container spacing={3}>
@@ -98,7 +92,7 @@ const VariationsWrapper = ({ name, errors }) => {
             onOpenVariationTypes={variaitonTypesOnOpen}
             onScrollVariationTypes={variaitonTypesOnScroll}
             onSearchVariationTypes={variaitonTypesOnSearch}
-            variationTypes={variaitonTypesOptionsTransformed}
+            variationTypes={variaitonTypesOptions}
             loadingVariationTypes={loadingVariationTypes}
             onRemoveVariation={variationRemoveHandler}
           />

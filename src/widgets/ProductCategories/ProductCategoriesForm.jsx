@@ -128,17 +128,7 @@ const ProductCategoriesForm = ({ onSubmit, productCategory }) => {
         defaultValue={productCategory?.parentValue()}
       />
       {Object.keys(inputs)
-        .filter(
-          (name) =>
-            ![
-              "parent_id",
-              "status",
-              "type",
-              "summary",
-              "content",
-              "image",
-            ].includes(name)
-        )
+        .filter((name) => ["title", "slug"].includes(name))
         .map((name) => (
           <FormInput
             key={name}

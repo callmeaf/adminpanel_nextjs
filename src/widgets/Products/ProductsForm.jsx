@@ -9,7 +9,7 @@ import useApi from "@/hooks/use-api";
 import useAutoCompleteOptions from "@/hooks/use-auto-complete-options";
 import useSlug from "@/hooks/use-slug";
 import { getProductCategories } from "@/thunks/product-category-thunks";
-import { getProducts, getProductEnums } from "@/thunks/product-thunks";
+import { getProductEnums } from "@/thunks/product-thunks";
 import { getProvinces } from "@/thunks/province-thunks";
 import { getUsers } from "@/thunks/user-thunks";
 import { Grid2 } from "@mui/material";
@@ -74,6 +74,10 @@ const ProductsForm = ({ onSubmit, product }) => {
     onSearch: productCategoriesOnSearch,
   } = useAutoCompleteOptions(getProductCategoriesHandler, {
     searchParams: ["title", "slug"],
+    optionsTransformer: (productCategory) => ({
+      label: productCategory.title,
+      value: productCategory.id,
+    }),
   });
 
   const { handle: handleProvinces, loading: loadingProvinces } = useApi();
@@ -95,6 +99,35 @@ const ProductsForm = ({ onSubmit, product }) => {
     onSearch: provincesOnSearch,
   } = useAutoCompleteOptions(getProvincesHandler, {
     searchParams: ["name", "code"],
+    optionsTransformer: (province) => ({
+      label: province.name,
+      value: province.id,
+    }),
+  });
+
+  const { handle: handleAuthors, loading: loadingAuthors } = useApi();
+  const getAuthorsHandler = async (payload) => {
+    const data = await handleAuthors(
+      getUsers,
+      {
+        payload,
+      },
+      { showSuccessAlert: false }
+    );
+
+    return data.users;
+  };
+  const {
+    options: authorsOptions,
+    onOpen: authorsOnOpen,
+    onScroll: authorsOnScroll,
+    onSearch: authorsOnSearch,
+  } = useAutoCompleteOptions(getAuthorsHandler, {
+    searchParams: ["first_name", "last_name"],
+    optionsTransformer: (author) => ({
+      label: author.fullName,
+      value: author.id,
+    }),
   });
 
   const {
@@ -145,10 +178,7 @@ const ProductsForm = ({ onSubmit, product }) => {
         name="province_id"
         label={t("province_label")}
         onOpen={provincesOnOpen}
-        options={provincesOptions.data?.map((province) => ({
-          label: province.name,
-          value: province.id,
-        }))}
+        options={provincesOptions}
         errors={errors}
         loading={loadingProvinces}
         onScroll={provincesOnScroll}
@@ -156,18 +186,7 @@ const ProductsForm = ({ onSubmit, product }) => {
         defaultValue={product?.provinceValue()}
       />
       {Object.keys(inputs)
-        .filter(
-          (name) =>
-            ![
-              "parent_id",
-              "status",
-              "type",
-              "summary",
-              "content",
-              "image",
-              "images",
-            ].includes(name)
-        )
+        .filter((name) => ["title", "slug"].includes(name))
         .map((name) => (
           <FormInput
             key={name}
@@ -182,15 +201,23 @@ const ProductsForm = ({ onSubmit, product }) => {
             loading={name === "slug" ? slugLoading : undefined}
           />
         ))}
+      <FormAutoComplete
+        name="author_id"
+        label={t("author_label")}
+        onOpen={authorsOnOpen}
+        options={authorsOptions}
+        errors={errors}
+        loading={loadingAuthors}
+        onScroll={authorsOnScroll}
+        onSearch={authorsOnSearch}
+        defaultValue={product?.authorValue()}
+      />
       <Grid2 size={12}>
         <FormAutoComplete
           name="cats"
           label={t("cats_label")}
           onOpen={productCategoriesOnOpen}
-          options={productCategoriesOptions.data?.map((productCategory) => ({
-            label: productCategory.title,
-            value: productCategory.id,
-          }))}
+          options={productCategoriesOptions}
           errors={errors}
           loading={loadingProductCategories}
           multiple
