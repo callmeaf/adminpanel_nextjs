@@ -5,7 +5,6 @@ export default ({
   name,
   name_fa,
   full_name,
-  permissions_ids,
   permissions,
   created_at_text,
   deleted_at_text,
@@ -14,10 +13,12 @@ export default ({
   name: name,
   nameFa: name_fa,
   fullName: full_name,
-  permissionsIds: permissions_ids ?? [],
   permissions: permissions
     ? permissions.data.map((permission) => PermissionModel(permission))
     : [],
+  permissionsIds: (function () {
+    return this.permissions.map((permission) => permission.id);
+  })(),
   permissionsValues: function () {
     return this.permissions.map((permission) => ({
       label: permission.nameText,

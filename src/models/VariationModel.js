@@ -40,6 +40,12 @@ export default function VariationModel({
     createdAtText: created_at_text,
     deletedAtText: deleted_at_text,
     type: type ? VariationTypeModel(type) : null,
+    typeValue: function () {
+      return {
+        label: this.type?.title,
+        value: this.type?.id,
+      };
+    },
     product: product ? ProductModel(product) : null,
     image: image ? MediaModel(image) : null,
   };

@@ -29,7 +29,7 @@ const ProductsForm = ({ onSubmit, product }) => {
       slug: product ? product.slug : "",
       summary: product ? product.summary : "",
       content: product ? product.content : "",
-      parent_id: product ? product.parentId : [],
+      province_id: product ? product.provinceId : [],
       image: product ? product.image : null,
       images: product ? product.images : [],
     })
@@ -245,7 +245,11 @@ const ProductsForm = ({ onSubmit, product }) => {
         />
       </Grid2>
       <Grid2 size={12}>
-        <VariationsWrapper name={"variations"} errors={errors} />
+        <VariationsWrapper
+          name={"variations"}
+          errors={errors}
+          variations={product?.variations}
+        />
       </Grid2>
     </Form>
   );

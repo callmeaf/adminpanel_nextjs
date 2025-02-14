@@ -11,8 +11,9 @@ import { AddCircle as AddCircleIcon } from "@mui/icons-material";
 
 const { makeFromNumbers } = arrayArtisan();
 
-const VariationsWrapper = ({ name, errors }) => {
-  const [numbers, setNumbers] = useState(makeFromNumbers(3));
+const VariationsWrapper = ({ name, errors, variations = [] }) => {
+  console.log({ variations });
+  const [numbers, setNumbers] = useState(makeFromNumbers(variations.length));
 
   const moreVariationsHandler = () => {
     setNumbers([
@@ -95,6 +96,7 @@ const VariationsWrapper = ({ name, errors }) => {
             variationTypes={variaitonTypesOptions}
             loadingVariationTypes={loadingVariationTypes}
             onRemoveVariation={variationRemoveHandler}
+            variation={variations.at(index)}
           />
         </Grid2>
       ))}

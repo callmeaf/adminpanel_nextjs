@@ -55,7 +55,7 @@ const VariationsWrapperItem = ({
             options={variationTypes}
             errors={errors}
             loading={loadingVariationTypes}
-            defaultValue={variation?.statusValue}
+            defaultValue={variation?.typeValue()}
           />
         </Grid2>
         <Grid2 size={{ xs: 12, md: 6, lg: 4 }}>
@@ -63,6 +63,7 @@ const VariationsWrapperItem = ({
             name={`${name}[]title`}
             label={t(`title_label`)}
             errors={errors}
+            defaultValue={variation?.title}
           />
         </Grid2>
         <Grid2 size={{ xs: 12, md: 4, lg: 2 }}>
@@ -71,6 +72,7 @@ const VariationsWrapperItem = ({
             label={t(`stock_label`)}
             errors={errors}
             type={"number"}
+            defaultValue={variation?.stock}
           />
         </Grid2>
         <Grid2 size={{ xs: 12, md: 6, lg: 5 }}>
@@ -78,6 +80,7 @@ const VariationsWrapperItem = ({
             name={`${name}[]price`}
             label={t(`price_label`)}
             errors={errors}
+            defaultValue={variation?.price}
           />
         </Grid2>
         <Grid2 size={{ xs: 12, md: 6, lg: 5 }}>
@@ -85,6 +88,7 @@ const VariationsWrapperItem = ({
             name={`${name}[]discount_price`}
             label={t(`discount_price_label`)}
             errors={errors}
+            defaultValue={variation?.discountPrice}
           />
         </Grid2>
         <Grid2 size={12}>
@@ -93,6 +97,7 @@ const VariationsWrapperItem = ({
             label={t(`content_label`)}
             errors={errors}
             multiline
+            defaultValue={variation?.content}
           />
         </Grid2>
       </Grid2>

@@ -2,6 +2,7 @@ import MediaModel from "./MediaModel";
 import ProductCategoryModel from "./ProductCategoryModel";
 import ProvinceModel from "./ProvinceModel";
 import UserModel from "./UserModel";
+import VariationModel from "./VariationModel";
 
 export default function ProductModel({
   id,
@@ -19,9 +20,9 @@ export default function ProductModel({
   created_at_text,
   deleted_at_text,
   author,
-  cats_ids,
   cats,
   province,
+  variations,
 }) {
   return {
     id: id,
@@ -60,11 +61,10 @@ export default function ProductModel({
     province: province ? ProvinceModel(province) : null,
     provinceValue: function () {
       return {
-        label: this.province.name,
-        value: this.province.id,
+        label: this.province?.name,
+        value: this.province?.id,
       };
     },
-    catsIds: cats_ids,
     cats: cats ? cats.data.map((cat) => ProductCategoryModel(cat)) : [],
     catsValues: function () {
       return this.cats.map((cat) => ({
@@ -72,5 +72,8 @@ export default function ProductModel({
         value: cat.id,
       }));
     },
+    variations: variations
+      ? variations.data.map((variation) => VariationModel(variation))
+      : [],
   };
 }
