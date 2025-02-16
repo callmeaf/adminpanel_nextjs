@@ -28,6 +28,7 @@ export default function VariationTypeModel({
       2: "error",
     },
     title,
+    labelText: `${title}`,
     content,
     createdAtText: created_at_text,
     deletedAtText: deleted_at_text,

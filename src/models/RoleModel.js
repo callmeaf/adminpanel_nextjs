@@ -13,15 +13,13 @@ export default ({
   name: name,
   nameFa: name_fa,
   fullName: full_name,
+  labelText: `${full_name}`,
   permissions: permissions
     ? permissions.data.map((permission) => PermissionModel(permission))
     : [],
-  permissionsIds: (function () {
-    return this.permissions.map((permission) => permission.id);
-  })(),
   permissionsValues: function () {
     return this.permissions.map((permission) => ({
-      label: permission.nameText,
+      label: permission.labelText,
       value: permission.id,
     }));
   },

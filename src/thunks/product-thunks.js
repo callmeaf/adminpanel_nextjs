@@ -83,7 +83,8 @@ export const updateProductById = (api, payload = {}, extra = {}) => {
       const { get } = dataHandler(payload);
       const formData = new FormData();
       formData.append("_method", "PATCH");
-      formData.append("parent_id", get("parent_id"));
+      formData.append("province_id", get("province_id"));
+      formData.append("author_id", get("author_id"));
       formData.append("status", get("status"));
       formData.append("type", get("type"));
       formData.append("title", get("title"));

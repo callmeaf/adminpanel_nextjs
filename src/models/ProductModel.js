@@ -46,6 +46,7 @@ export default function ProductModel({
     },
     title: title,
     slug: slug,
+    labelText: `${title} ( ${slug} )`,
     summary: summary,
     content: content,
     image: image ? MediaModel(image) : null,
@@ -54,21 +55,21 @@ export default function ProductModel({
     author: author ? UserModel(author) : null,
     authorValue: function () {
       return {
-        label: this.author?.fullName,
+        label: this.author?.labelText,
         value: this.author?.id,
       };
     },
     province: province ? ProvinceModel(province) : null,
     provinceValue: function () {
       return {
-        label: this.province?.name,
+        label: this.province?.labelText,
         value: this.province?.id,
       };
     },
     cats: cats ? cats.data.map((cat) => ProductCategoryModel(cat)) : [],
     catsValues: function () {
       return this.cats.map((cat) => ({
-        label: cat.title,
+        label: cat.labelText,
         value: cat.id,
       }));
     },

@@ -71,7 +71,15 @@ const ProductCategoriesForm = ({ onSubmit, productCategory }) => {
     onSearch: productCategoriesOnSearch,
   } = useAutoCompleteOptions(getProductCategoriesHandler, {
     searchParams: ["title", "slug"],
+    optionsTransformer: (productCategory) => ({
+      label: productCategory.labelText,
+      value: productCategory.id,
+    }),
   });
+
+  const productCategoriesOptionsFiltered = productCategoriesOptions?.filter(
+    (item) => item.value?.toString() !== productCategory?.id?.toString()
+  );
 
   const {
     loading: slugLoading,
@@ -113,14 +121,7 @@ const ProductCategoriesForm = ({ onSubmit, productCategory }) => {
         name="parent_id"
         label={t("parent_label")}
         onOpen={productCategoriesOnOpen}
-        options={productCategoriesOptions.data
-          ?.map((productCategory) => ({
-            label: productCategory.title,
-            value: productCategory.id,
-          }))
-          ?.filter(
-            (item) => item.value?.toString() !== productCategory?.id?.toString()
-          )}
+        options={productCategoriesOptionsFiltered}
         errors={errors}
         loading={loadingProductCategories}
         onScroll={productCategoriesOnScroll}

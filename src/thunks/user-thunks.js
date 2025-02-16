@@ -34,6 +34,8 @@ export const getUserById = (api, payload) => {
       return await api.get(`${PREFIX_URL}/${payload.user_id}`);
     },
     onSuccess: async ({ result, finalData }) => {
+      console.log("yes");
+
       finalData.user = UserModel(result.user);
     },
   };

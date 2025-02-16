@@ -27,11 +27,11 @@ const inputHiddenDefaultValue = ({
     if (defaultValue && defaultValue.length) {
       selectedOptions = [...selectedOptions, ...defaultValue];
     }
+
     selectedOptions = selectedOptions.filter((selectedOption) =>
       selectedLabels.includes(selectedOption.label)
     );
     selectedOptions = unique(selectedOptions, "value");
-
     return selectedOptions;
   } else {
     if (options.length) {

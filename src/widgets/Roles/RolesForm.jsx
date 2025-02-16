@@ -6,7 +6,7 @@ import useApi from "@/hooks/use-api";
 import useAutoCompleteOptions from "@/hooks/use-auto-complete-options";
 import { getPermissions } from "@/thunks/permission-thunks";
 import { Grid2 } from "@mui/material";
-import React, { useActionState } from "react";
+import React, { useActionState, useMemo } from "react";
 import { useTranslations } from "use-intl";
 
 const RolesForm = ({ onSubmit, role }) => {
@@ -17,7 +17,6 @@ const RolesForm = ({ onSubmit, role }) => {
     actionState({
       name: role ? role.name : "",
       name_fa: role ? role.nameFa : "",
-      permissions: role ? role.permissionsIds : [],
     })
   );
 
@@ -44,6 +43,10 @@ const RolesForm = ({ onSubmit, role }) => {
     onScroll: permissionsOnScroll,
   } = useAutoCompleteOptions(getPermissionsHandler, {
     searchParams: ["name"],
+    optionsTransformer: (permission) => ({
+      label: permission.labelText,
+      value: permission.id,
+    }),
   });
 
   return (
@@ -65,10 +68,7 @@ const RolesForm = ({ onSubmit, role }) => {
           name="permissions"
           label={t("permissions_label")}
           onOpen={permissionsOnOpen}
-          options={permissionsOptions.data?.map((permission) => ({
-            label: permission.nameText,
-            value: permission.id,
-          }))}
+          options={permissionsOptions}
           errors={errors}
           loading={loadingPermissions}
           multiple

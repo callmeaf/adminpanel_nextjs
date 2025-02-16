@@ -39,6 +39,7 @@ export default ({
   firstName: first_name,
   lastName: last_name,
   fullName: full_name,
+  labelText: `${full_name} ( ${mobile} )`,
   email: email,
   mobile: mobile,
   nationalCode: national_code,
@@ -47,7 +48,7 @@ export default ({
   roles: roles ? roles.data.map((role) => RoleModel(role)) : [],
   rolesValues: function () {
     return this.roles.map((role) => ({
-      label: role.fullName,
+      label: role.labelText,
       value: role.id,
     }));
   },

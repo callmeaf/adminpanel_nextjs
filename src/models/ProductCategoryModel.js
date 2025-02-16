@@ -37,6 +37,7 @@ export default function ProductCategoryModel({
     },
     title: title,
     slug: slug,
+    labelText: `${title} ( ${slug} )`,
     summary: summary,
     content: content,
     image: image ? MediaModel(image) : null,
@@ -45,7 +46,7 @@ export default function ProductCategoryModel({
     parent: parent ? ProductCategoryModel(parent) : null,
     parentValue: function () {
       return {
-        label: this.parent?.title,
+        label: this.parent?.labelText,
         value: this.parent?.id,
       };
     },

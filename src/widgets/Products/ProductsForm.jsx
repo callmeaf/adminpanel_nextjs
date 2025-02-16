@@ -29,7 +29,8 @@ const ProductsForm = ({ onSubmit, product }) => {
       slug: product ? product.slug : "",
       summary: product ? product.summary : "",
       content: product ? product.content : "",
-      province_id: product ? product.provinceId : [],
+      province_id: product ? product.provinceId : null,
+      author_id: product ? product.authorId : null,
       image: product ? product.image : null,
       images: product ? product.images : [],
     })
@@ -75,7 +76,7 @@ const ProductsForm = ({ onSubmit, product }) => {
   } = useAutoCompleteOptions(getProductCategoriesHandler, {
     searchParams: ["title", "slug"],
     optionsTransformer: (productCategory) => ({
-      label: productCategory.title,
+      label: productCategory.labelText,
       value: productCategory.id,
     }),
   });
@@ -100,7 +101,7 @@ const ProductsForm = ({ onSubmit, product }) => {
   } = useAutoCompleteOptions(getProvincesHandler, {
     searchParams: ["name", "code"],
     optionsTransformer: (province) => ({
-      label: province.name,
+      label: province.labelText,
       value: province.id,
     }),
   });
@@ -125,7 +126,7 @@ const ProductsForm = ({ onSubmit, product }) => {
   } = useAutoCompleteOptions(getAuthorsHandler, {
     searchParams: ["first_name", "last_name"],
     optionsTransformer: (author) => ({
-      label: author.fullName,
+      label: author.labelText,
       value: author.id,
     }),
   });

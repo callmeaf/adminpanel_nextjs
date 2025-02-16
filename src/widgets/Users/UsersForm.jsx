@@ -67,6 +67,10 @@ const UsersForm = ({ onSubmit, user }) => {
     onSearch: rolesOnSearch,
   } = useAutoCompleteOptions(getRolesHandler, {
     searchParams: ["name", "name_fa"],
+    optionsTransformer: (role) => ({
+      label: role.labelText,
+      value: role.id,
+    }),
   });
 
   return (
@@ -123,10 +127,7 @@ const UsersForm = ({ onSubmit, user }) => {
           name="roles"
           label={t("roles_label")}
           onOpen={rolesOnOpen}
-          options={rolesOptions.data?.map((role) => ({
-            label: role.fullName,
-            value: role.id,
-          }))}
+          options={rolesOptions}
           errors={errors}
           loading={loadingRoles}
           multiple

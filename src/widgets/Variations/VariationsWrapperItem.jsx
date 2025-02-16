@@ -33,6 +33,10 @@ const VariationsWrapperItem = ({
         </IconButton>
       </Box>
       <Grid2 container spacing={3}>
+        {variation && (
+          <input type="hidden" name={`${name}[]id`} value={variation.id} />
+        )}
+
         <Grid2 size={{ xs: 12, md: 6, lg: 4 }}>
           <FormAutoComplete
             name={`${name}[]status`}

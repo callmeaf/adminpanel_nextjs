@@ -34,10 +34,11 @@ export default function ProvinceModel({
     name,
     parentId: parent_id,
     slug,
+    labelText: `${name} ( ${slug} )`,
     parent: parent ? ProvinceModel(parent) : null,
     parentValue: function () {
       return {
-        label: this.parent?.name,
+        label: this.parent?.labelText,
         value: this.parent?.id,
       };
     },

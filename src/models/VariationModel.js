@@ -42,7 +42,7 @@ export default function VariationModel({
     type: type ? VariationTypeModel(type) : null,
     typeValue: function () {
       return {
-        label: this.type?.title,
+        label: this.type?.labelText,
         value: this.type?.id,
       };
     },

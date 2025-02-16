@@ -9,9 +9,12 @@ import {
 } from "@/thunks/product-thunks";
 import Show from "@/components/Show";
 import { LinearProgress } from "@mui/material";
-import { typeOf } from "@/helpers";
+import { jsonArtisan, typeOf } from "@/helpers";
 import ProductsForm from "./ProductsForm";
-import { createVariation } from "@/thunks/variation-thunks";
+import {
+  createVariation,
+  updateVariationById,
+} from "@/thunks/variation-thunks";
 import dataHandler from "@/utils/data-handler";
 
 const ProductsWrapper = ({ productId }) => {
@@ -26,7 +29,7 @@ const ProductsWrapper = ({ productId }) => {
       await Promise.all([
         assignCatsToProductHandler(id, formData),
         updateImageProductHandler(id, formData),
-        createVariationHandler(id, formData),
+        updateOrCreateVariationsHandler(id, formData),
       ]);
     }
 
@@ -40,7 +43,13 @@ const ProductsWrapper = ({ productId }) => {
         product_id: productId,
       },
     });
-    await Promise.all([updateImageProductHandler(productId, formData)]);
+    await Promise.all(
+      [
+        assignCatsToProductHandler(productId, formData),
+        updateImageProductHandler(productId, formData),
+      ],
+      updateOrCreateVariationsHandler(productId, formData)
+    );
 
     return data;
   };
@@ -90,12 +99,13 @@ const ProductsWrapper = ({ productId }) => {
     }
   };
 
-  const createVariationHandler = async (productId, formData) => {
+  const updateOrCreateVariationsHandler = async (productId, formData) => {
     const { getAll } = dataHandler(formData);
     const variations = [];
 
     const formDataVariationKey = "variations[]";
     const variationsFormDataKeys = [
+      "id",
       "status",
       "variation_type",
       "title",
@@ -121,11 +131,15 @@ const ProductsWrapper = ({ productId }) => {
     }
 
     const responses = [];
+    console.log({ variations });
     for (const variation of variations) {
       const response = await handle(
-        createVariation,
+        variation.id ? updateVariationById : createVariation,
         {
           payload: variation,
+          extra: {
+            variation_id: variation?.id,
+          },
         },
         {
           showSuccessAlert: false,
