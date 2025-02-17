@@ -3,11 +3,13 @@ import { Grid2, IconButton, Tooltip } from "@mui/material";
 import React, { useState } from "react";
 import { useTranslations } from "use-intl";
 import VariationsWrapperItem from "./VariationsWrapperItem";
-import { getVariationEnums } from "@/thunks/variation-thunks";
+import { deleteVariation, getVariationEnums } from "@/thunks/variation-thunks";
 import useApi from "@/hooks/use-api";
 import { getVariationTypes } from "@/thunks/variation-type-thunks";
 import useAutoCompleteOptions from "@/hooks/use-auto-complete-options";
 import { AddCircle as AddCircleIcon } from "@mui/icons-material";
+import useModal from "@/hooks/use-modal";
+import ConfirmModal from "@/components/Modals/ConfirmModal";
 
 const { makeFromNumbers } = arrayArtisan();
 
@@ -70,10 +72,26 @@ const VariationsWrapper = ({ name, errors, variations = [] }) => {
     }),
   });
 
-  const variationRemoveHandler = (number, variation) => {
+  const { open, closeHandler, openHandler, state } = useModal({
+    number: null,
+    variation: null,
+  });
+
+  const { handle } = useApi();
+  const variationRemoveHandler = async () => {
+    if (state.variation) {
+      await handle(deleteVariation, {
+        payload: {
+          variation_id: state.variation.id,
+        },
+      });
+    }
     setNumbers(
-      numbers.filter((item) => item.id.toString() !== number.id.toString())
+      numbers.filter(
+        (item) => item.id.toString() !== state.number.id.toString()
+      )
     );
+    closeHandler();
   };
 
   return (
@@ -94,7 +112,7 @@ const VariationsWrapper = ({ name, errors, variations = [] }) => {
             onSearchVariationTypes={variaitonTypesOnSearch}
             variationTypes={variaitonTypesOptions}
             loadingVariationTypes={loadingVariationTypes}
-            onRemoveVariation={variationRemoveHandler}
+            onRemoveVariation={openHandler}
             variation={variations.at(index)}
           />
         </Grid2>
@@ -104,6 +122,13 @@ const VariationsWrapper = ({ name, errors, variations = [] }) => {
           <AddCircleIcon />
         </IconButton>
       </Tooltip>
+
+      <ConfirmModal
+        open={open}
+        onClose={closeHandler}
+        onCancel={closeHandler}
+        onConfirm={variationRemoveHandler}
+      />
     </Grid2>
   );
 };

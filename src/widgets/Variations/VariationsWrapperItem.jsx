@@ -23,7 +23,10 @@ const VariationsWrapperItem = ({
   onRemoveVariation,
 }) => {
   const removeVariationHandler = () => {
-    onRemoveVariation(number, variation);
+    onRemoveVariation({
+      number,
+      variation,
+    });
   };
 
   const inputName = (str) => `${name}[]${str}`;

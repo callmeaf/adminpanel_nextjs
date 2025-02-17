@@ -36,7 +36,6 @@ export const createVariation = (api, payload = {}) => {
 export const updateVariationById = (api, payload = {}, extra = {}) => {
   return {
     onSend: async () => {
-      console.log({ extra });
       const { get } = dataHandler(payload);
       const formData = new FormData();
       formData.append("_method", "PATCH");
@@ -71,6 +70,14 @@ export const updateImageVariation = (api, payload = {}, extra = {}) => {
         `${PREFIX_URL}/${extra.variation_id}/image`,
         formData
       );
+    },
+  };
+};
+
+export const deleteVariation = (api, payload = {}) => {
+  return {
+    onSend: async () => {
+      return await api.delete(`${PREFIX_URL}/${payload.variation_id}`);
     },
   };
 };

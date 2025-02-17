@@ -8,7 +8,6 @@ import { useTranslations } from "next-intl";
 const { makeFromNumbers } = arrayArtisan();
 
 const FormMultiFile = ({ name, label, inputs = {}, errors = {} }) => {
-  console.log({ name, inputs });
   const t = useTranslations("Forms.Form");
 
   const [numbers, setNumbers] = useState(

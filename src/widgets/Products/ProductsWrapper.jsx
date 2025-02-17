@@ -23,7 +23,6 @@ const ProductsWrapper = ({ productId }) => {
   const { handle, loading } = useApi();
 
   const createProductHandler = async (prevState, formData) => {
-    console.log(formData.getAll("images[]"));
     const data = await handle(createProduct, { payload: formData });
     const { product: productData } = data;
 
@@ -148,10 +147,7 @@ const ProductsWrapper = ({ productId }) => {
     const variationsLength = getAll(
       `${formDataVariationKey}${variationsFormDataKeys[0]}`
     ).length;
-    console.log(
-      { variationsLength },
-      getAll(`${formDataVariationKey}${variationsFormDataKeys[0]}`)
-    );
+
     for (let i = 0; i < variationsLength; i++) {
       const variation = {};
       for (const key of variationsFormDataKeys) {
