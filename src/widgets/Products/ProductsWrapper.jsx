@@ -5,6 +5,7 @@ import {
   createProduct,
   getProductById,
   updateImageProduct,
+  updateImagesProduct,
   updateProductById,
 } from "@/thunks/product-thunks";
 import Show from "@/components/Show";
@@ -13,6 +14,7 @@ import { jsonArtisan, typeOf } from "@/helpers";
 import ProductsForm from "./ProductsForm";
 import {
   createVariation,
+  updateImageVariation,
   updateVariationById,
 } from "@/thunks/variation-thunks";
 import dataHandler from "@/utils/data-handler";
@@ -21,6 +23,7 @@ const ProductsWrapper = ({ productId }) => {
   const { handle, loading } = useApi();
 
   const createProductHandler = async (prevState, formData) => {
+    console.log(formData.getAll("images[]"));
     const data = await handle(createProduct, { payload: formData });
     const { product: productData } = data;
 
@@ -29,6 +32,7 @@ const ProductsWrapper = ({ productId }) => {
       await Promise.all([
         assignCatsToProductHandler(id, formData),
         updateImageProductHandler(id, formData),
+        updateImagesProductHandler(id, formData),
         updateOrCreateVariationsHandler(id, formData),
       ]);
     }
@@ -43,13 +47,12 @@ const ProductsWrapper = ({ productId }) => {
         product_id: productId,
       },
     });
-    await Promise.all(
-      [
-        assignCatsToProductHandler(productId, formData),
-        updateImageProductHandler(productId, formData),
-      ],
-      updateOrCreateVariationsHandler(productId, formData)
-    );
+    await Promise.all([
+      assignCatsToProductHandler(productId, formData),
+      updateImageProductHandler(productId, formData),
+      updateImagesProductHandler(productId, formData),
+      updateOrCreateVariationsHandler(productId, formData),
+    ]);
 
     return data;
   };
@@ -99,13 +102,38 @@ const ProductsWrapper = ({ productId }) => {
     }
   };
 
+  const updateImagesProductHandler = async (productId, formData) => {
+    const images = formData.getAll("images[]").filter((image) => {
+      const { isUploadedFile } = typeOf(image);
+
+      return isUploadedFile;
+    });
+
+    if (images.length) {
+      return await handle(
+        updateImagesProduct,
+        {
+          payload: {
+            "images[]": images,
+          },
+          extra: {
+            product_id: productId,
+          },
+        },
+        {
+          showSuccessAlert: false,
+          hasFile: true,
+        }
+      );
+    }
+  };
+
   const updateOrCreateVariationsHandler = async (productId, formData) => {
     const { getAll } = dataHandler(formData);
     const variations = [];
 
     const formDataVariationKey = "variations[]";
     const variationsFormDataKeys = [
-      "id",
       "status",
       "variation_type",
       "title",
@@ -113,12 +141,17 @@ const ProductsWrapper = ({ productId }) => {
       "price",
       "discount_price",
       "content",
+      "image",
+      "id",
     ];
 
     const variationsLength = getAll(
       `${formDataVariationKey}${variationsFormDataKeys[0]}`
     ).length;
-
+    console.log(
+      { variationsLength },
+      getAll(`${formDataVariationKey}${variationsFormDataKeys[0]}`)
+    );
     for (let i = 0; i < variationsLength; i++) {
       const variation = {};
       for (const key of variationsFormDataKeys) {
@@ -131,7 +164,6 @@ const ProductsWrapper = ({ productId }) => {
     }
 
     const responses = [];
-    console.log({ variations });
     for (const variation of variations) {
       const response = await handle(
         variation.id ? updateVariationById : createVariation,
@@ -145,6 +177,23 @@ const ProductsWrapper = ({ productId }) => {
           showSuccessAlert: false,
         }
       );
+
+      const { isUploadedFile } = typeOf(variation.image);
+      if (isUploadedFile) {
+        await handle(
+          updateImageVariation,
+          {
+            payload: variation,
+            extra: {
+              variation_id: response.variation.id,
+            },
+          },
+          {
+            hasFile: true,
+            showSuccessAlert: false,
+          }
+        );
+      }
 
       responses.push(response);
     }

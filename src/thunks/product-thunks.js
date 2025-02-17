@@ -170,3 +170,23 @@ export const updateImageProduct = (api, payload = {}, extra = {}) => {
     },
   };
 };
+
+export const updateImagesProduct = (api, payload = {}, extra = {}) => {
+  return {
+    onSend: async () => {
+      const { getAll } = dataHandler(payload);
+
+      const formData = new FormData();
+      formData.append("_method", "PATCH");
+
+      getAll("images[]").forEach((image) => {
+        formData.append("images[]", image, image.name);
+      });
+
+      return await api.post(
+        `${PREFIX_URL}/${extra.product_id}/images`,
+        formData
+      );
+    },
+  };
+};

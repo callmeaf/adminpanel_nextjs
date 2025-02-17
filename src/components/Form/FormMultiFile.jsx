@@ -3,11 +3,20 @@ import FormFile from "./FormFile";
 import { Box, IconButton, Tooltip } from "@mui/material";
 import { AddToPhotos as AddToPhotosIcon } from "@mui/icons-material";
 import { arrayArtisan } from "@/helpers";
+import { useTranslations } from "next-intl";
 
 const { makeFromNumbers } = arrayArtisan();
 
-const FormMultiFile = ({ name, label, inputs = {}, errors = {} }) => {
-  const [numbers, setNumbers] = useState(makeFromNumbers(3));
+const FormMultiFile = ({
+  name,
+  label,
+  inputs = {},
+  errors = {},
+  inputsLength = 1,
+}) => {
+  const t = useTranslations("Forms.Form");
+
+  const [numbers, setNumbers] = useState(makeFromNumbers(inputsLength));
 
   const getImage = (index) => {
     if (!(inputs[name] && inputs[name][index])) {
@@ -45,9 +54,11 @@ const FormMultiFile = ({ name, label, inputs = {}, errors = {} }) => {
           onRemoveImageButton={removeImageHandler}
         />
       ))}
-      <IconButton onClick={moreImageHandler}>
-        <AddToPhotosIcon />
-      </IconButton>
+      <Tooltip title={t("more_files_tooltip")}>
+        <IconButton onClick={moreImageHandler}>
+          <AddToPhotosIcon />
+        </IconButton>
+      </Tooltip>
     </Box>
   );
 };

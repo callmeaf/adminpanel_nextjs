@@ -53,11 +53,12 @@
     }
   },
   "Forms": {
-    "Components": {
+    "Form": {
       "loading_label": "Loading ...",
       "submit_label": "Submit",
       "file_delete_tooltip": "Delete File",
-      "no_options": "No Options."
+      "no_options": "No Options.",
+      "more_files_tooltip": "More Files"
     },
     "Login": {
       "mobile_label": "Mobile",
@@ -104,7 +105,7 @@
       "province_label": "Parent",
       "submit_label": "Add Product",
       "image_label": "Image",
-      "images_label": "Images",
+      "images_label": "Image Number",
       "cats_label": "Product Categories"
     },
     "Variations": {
@@ -114,7 +115,8 @@
       "stock_label": "Variation Stock",
       "price_label": "Variation Price",
       "discount_price_label": "Variation Discount Price",
-      "content_label": "Variation Content"
+      "content_label": "Variation Content",
+      "image_label": "Variation Image"
     }
   },
   "Tables": {

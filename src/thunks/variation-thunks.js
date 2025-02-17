@@ -56,3 +56,21 @@ export const updateVariationById = (api, payload = {}, extra = {}) => {
     },
   };
 };
+
+export const updateImageVariation = (api, payload = {}, extra = {}) => {
+  return {
+    onSend: async () => {
+      const { get } = dataHandler(payload);
+
+      const formData = new FormData();
+      formData.append("_method", "PATCH");
+      const image = get("image");
+      formData.append("image", image, image.name);
+
+      return await api.post(
+        `${PREFIX_URL}/${extra.variation_id}/image`,
+        formData
+      );
+    },
+  };
+};

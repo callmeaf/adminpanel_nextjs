@@ -1,4 +1,5 @@
 import FormAutoComplete from "@/components/Form/FormAutoComplete";
+import FormFile from "@/components/Form/FormFile";
 import FormInput from "@/components/Form/FormInput";
 import { Close as CloseIcon } from "@mui/icons-material";
 import { Box, Grid2, IconButton, Typography } from "@mui/material";
@@ -24,6 +25,9 @@ const VariationsWrapperItem = ({
   const removeVariationHandler = () => {
     onRemoveVariation(number, variation);
   };
+
+  const inputName = (str) => `${name}[]${str}`;
+
   return (
     <Box sx={{ boxShadow: 3, p: 3 }}>
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -34,12 +38,22 @@ const VariationsWrapperItem = ({
       </Box>
       <Grid2 container spacing={3}>
         {variation && (
-          <input type="hidden" name={`${name}[]id`} value={variation.id} />
+          <input type="hidden" name={inputName("id")} value={variation.id} />
         )}
 
+        <Grid2 size={12}>
+          <FormFile
+            name={inputName("image")}
+            label={t("image_label")}
+            errors={errors}
+            inputs={{
+              [inputName("image")]: variation?.image,
+            }}
+          />
+        </Grid2>
         <Grid2 size={{ xs: 12, md: 6, lg: 4 }}>
           <FormAutoComplete
-            name={`${name}[]status`}
+            name={inputName("status")}
             label={t("status_label")}
             onOpen={onOpenEnum}
             options={statuses}
@@ -51,7 +65,7 @@ const VariationsWrapperItem = ({
 
         <Grid2 size={{ xs: 12, md: 6, lg: 4 }}>
           <FormAutoComplete
-            name={`${name}[]variation_type`}
+            name={inputName("variation_type")}
             label={t("variation_type_label")}
             onOpen={onOpenVariationTypes}
             onScroll={onScrollVariationTypes}
@@ -64,7 +78,7 @@ const VariationsWrapperItem = ({
         </Grid2>
         <Grid2 size={{ xs: 12, md: 6, lg: 4 }}>
           <FormInput
-            name={`${name}[]title`}
+            name={inputName("title")}
             label={t(`title_label`)}
             errors={errors}
             defaultValue={variation?.title}
@@ -72,7 +86,7 @@ const VariationsWrapperItem = ({
         </Grid2>
         <Grid2 size={{ xs: 12, md: 4, lg: 2 }}>
           <FormInput
-            name={`${name}[]stock`}
+            name={inputName("stock")}
             label={t(`stock_label`)}
             errors={errors}
             type={"number"}
@@ -81,7 +95,7 @@ const VariationsWrapperItem = ({
         </Grid2>
         <Grid2 size={{ xs: 12, md: 6, lg: 5 }}>
           <FormInput
-            name={`${name}[]price`}
+            name={inputName("price")}
             label={t(`price_label`)}
             errors={errors}
             defaultValue={variation?.price}
@@ -89,7 +103,7 @@ const VariationsWrapperItem = ({
         </Grid2>
         <Grid2 size={{ xs: 12, md: 6, lg: 5 }}>
           <FormInput
-            name={`${name}[]discount_price`}
+            name={inputName("discount_price")}
             label={t(`discount_price_label`)}
             errors={errors}
             defaultValue={variation?.discountPrice}
@@ -97,7 +111,7 @@ const VariationsWrapperItem = ({
         </Grid2>
         <Grid2 size={12}>
           <FormInput
-            name={`${name}[]content`}
+            name={inputName("content")}
             label={t(`content_label`)}
             errors={errors}
             multiline

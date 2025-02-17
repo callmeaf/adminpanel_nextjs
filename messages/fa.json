@@ -57,7 +57,8 @@
       "loading_label": "در حال بارگذاری ...",
       "submit_label": "ثبت",
       "file_delete_tooltip": "حذف فایل",
-      "no_options": "انتخابی وجود ندارد."
+      "no_options": "انتخابی وجود ندارد.",
+      "more_files_tooltip": "فایل های بیشتر"
     },
     "Login": {
       "mobile_label": "موبایل",
@@ -104,7 +105,7 @@
       "province_label": "استان / شهر",
       "submit_label": "ایجاد محصول",
       "image_label": "عکس",
-      "images_label": "عکس های بیشتر",
+      "images_label": "عکس شماره",
       "cats_label": "دسته بندی های محصول"
     },
     "Variations": {
@@ -114,7 +115,8 @@
       "stock_label": "موجودی انبار متغیر",
       "price_label": "قیمت متغیر",
       "discount_price_label": "قیمت با تخفیف متغیر",
-      "content_label": "محتوای متغیر"
+      "content_label": "محتوای متغیر",
+      "image_label": "عکس متغیر"
     }
   },
   "Tables": {

@@ -1,6 +1,6 @@
 import { arrayArtisan } from "@/helpers";
 import { Grid2, IconButton } from "@mui/material";
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { useTranslations } from "use-intl";
 import VariationsWrapperItem from "./VariationsWrapperItem";
 import { getVariationEnums } from "@/thunks/variation-thunks";
@@ -12,7 +12,6 @@ import { AddCircle as AddCircleIcon } from "@mui/icons-material";
 const { makeFromNumbers } = arrayArtisan();
 
 const VariationsWrapper = ({ name, errors, variations = [] }) => {
-  console.log({ variations });
   const [numbers, setNumbers] = useState(makeFromNumbers(variations.length));
 
   const moreVariationsHandler = () => {

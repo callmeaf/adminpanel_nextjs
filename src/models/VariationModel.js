@@ -1,3 +1,4 @@
+import MediaModel from "./MediaModel";
 import ProductModel from "./ProductModel";
 import VariationTypeModel from "./VariationTypeModel";
 
