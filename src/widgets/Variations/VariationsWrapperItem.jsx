@@ -2,7 +2,7 @@ import FormAutoComplete from "@/components/Form/FormAutoComplete";
 import FormFile from "@/components/Form/FormFile";
 import FormInput from "@/components/Form/FormInput";
 import { Close as CloseIcon } from "@mui/icons-material";
-import { Box, Grid2, IconButton, Typography } from "@mui/material";
+import { Box, Grid2, IconButton, Tooltip, Typography } from "@mui/material";
 import React from "react";
 
 const VariationsWrapperItem = ({
@@ -32,9 +32,11 @@ const VariationsWrapperItem = ({
     <Box sx={{ boxShadow: 3, p: 3 }}>
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
         <Typography variant="h6">{title}</Typography>
-        <IconButton color="error" onClick={removeVariationHandler}>
-          <CloseIcon />
-        </IconButton>
+        <Tooltip title={t("variation_delete_tooltip")}>
+          <IconButton color="error" onClick={removeVariationHandler}>
+            <CloseIcon />
+          </IconButton>
+        </Tooltip>
       </Box>
       <Grid2 container spacing={3}>
         {variation && (

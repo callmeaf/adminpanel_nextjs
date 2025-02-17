@@ -116,7 +116,9 @@
       "price_label": "قیمت متغیر",
       "discount_price_label": "قیمت با تخفیف متغیر",
       "content_label": "محتوای متغیر",
-      "image_label": "عکس متغیر"
+      "image_label": "عکس متغیر",
+      "more_variations_tooltip": "متغیر های بیشتر",
+      "variation_delete_tooltip": "حذف متغیر"
     }
   },
   "Tables": {

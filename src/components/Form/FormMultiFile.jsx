@@ -7,16 +7,13 @@ import { useTranslations } from "next-intl";
 
 const { makeFromNumbers } = arrayArtisan();
 
-const FormMultiFile = ({
-  name,
-  label,
-  inputs = {},
-  errors = {},
-  inputsLength = 1,
-}) => {
+const FormMultiFile = ({ name, label, inputs = {}, errors = {} }) => {
+  console.log({ name, inputs });
   const t = useTranslations("Forms.Form");
 
-  const [numbers, setNumbers] = useState(makeFromNumbers(inputsLength));
+  const [numbers, setNumbers] = useState(
+    makeFromNumbers(inputs[name] ? inputs[name].length : 1)
+  );
 
   const getImage = (index) => {
     if (!(inputs[name] && inputs[name][index])) {
@@ -49,7 +46,7 @@ const FormMultiFile = ({
           name={`${name}[]`}
           label={`${label} ( ${index + 1} )`}
           inputs={{
-            name: getImage(index),
+            [`${name}[]`]: getImage(index),
           }}
           onRemoveImageButton={removeImageHandler}
         />

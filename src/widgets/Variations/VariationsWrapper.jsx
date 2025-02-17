@@ -1,5 +1,5 @@
 import { arrayArtisan } from "@/helpers";
-import { Grid2, IconButton } from "@mui/material";
+import { Grid2, IconButton, Tooltip } from "@mui/material";
 import React, { useState } from "react";
 import { useTranslations } from "use-intl";
 import VariationsWrapperItem from "./VariationsWrapperItem";
@@ -99,9 +99,11 @@ const VariationsWrapper = ({ name, errors, variations = [] }) => {
           />
         </Grid2>
       ))}
-      <IconButton onClick={moreVariationsHandler}>
-        <AddCircleIcon />
-      </IconButton>
+      <Tooltip title={t("more_variations_tooltip")}>
+        <IconButton onClick={moreVariationsHandler}>
+          <AddCircleIcon />
+        </IconButton>
+      </Tooltip>
     </Grid2>
   );
 };

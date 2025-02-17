@@ -21,6 +21,7 @@ export default function FormFile({
   errors = {},
   onRemoveImageButton,
 }) {
+  console.log({ name, inputs });
   const t = useTranslations("Forms.Form");
 
   const [image, setImage] = React.useState(inputs[name]);

@@ -116,7 +116,9 @@
       "price_label": "Variation Price",
       "discount_price_label": "Variation Discount Price",
       "content_label": "Variation Content",
-      "image_label": "Variation Image"
+      "image_label": "Variation Image",
+      "more_variations_tooltip": "More Variations",
+      "variation_delete_tooltip": "Delete Variation"
     }
   },
   "Tables": {
